@@ -1,4 +1,6 @@
-
+#include "main.hpp"
 int main() {
-  return 1;
+  Proxy * proxy = new Proxy();
+  proxy->start();
+  return 0;
 }

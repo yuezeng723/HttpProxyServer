@@ -1,0 +1,2 @@
+#define DEFAULTPORT 8080
+#define BACKLOG 20
