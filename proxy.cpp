@@ -1,3 +1,4 @@
+<<<<<<< proxy.cpp
 #include "proxy.hpp"
 
 int Proxy::initializeServerSocket() {
@@ -50,3 +51,4 @@ void Proxy::start() {
     int server_socket = initializeServerSocket();
     serverListen(server_socket);
 }
+
