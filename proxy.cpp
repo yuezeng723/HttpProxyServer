@@ -1,4 +1,3 @@
-<<<<<<< proxy.cpp
 #include "proxy.hpp"
 
 int Proxy::initializeServerSocket() {
@@ -18,7 +17,10 @@ int Proxy::initializeServerSocket() {
     return server_socket;
 }
 
-/*This function referred my last year 650 homework hotpotato*/
+/**
+ * Parse client's ip address
+ * @return client's ip address stored in string format
+*/
 string Proxy::parseClientIp(int client_socket) {
     socklen_t len;
     struct sockaddr_storage addr;
@@ -41,9 +43,10 @@ void Proxy::serverListen(int server_socket) {
             exit(EXIT_FAILURE); 
         }
         string clientIp = parseClientIp(client_socket);
-        Client * client = new Client(clientIp, clientId);
+        Client * client = new Client(clientIp, clientId, client_socket);
         clientId++;
-        client->connectLog();
+        thread clientHandleThread(&handler, client);
+        clientHandleThread.join();//TODO: search 
     }
 }
 
@@ -52,3 +55,25 @@ void Proxy::start() {
     serverListen(server_socket);
 }
 
+void Proxy::handler(void* argument) {
+    Client * client = (Client *) argument;
+    client->logConnectMessage();
+    //vector<char> buffer()
+    //recv()
+    //parse http
+    //1. 收到browser request： connect
+        // 1.1 收到browser request： get
+            // 1.2 我们在cache里找有没有对应的资源，如果有
+                //1.2.1 查看cache里面的资源有没有过期
+                    //1.2.1.1 如果过期了，我们和目标server 建立socket，转发request索要资源，
+                    //然后再把拿到的资源存进cache里面，然后再发给browser
+                    //1.2.1.2 如果没有过期， 我们就把cache里的资源用response的形势发给browser
+            // 1.3 我们在cache里没有找到对应的资源
+                // 1.3.1 proxy和目标server 建立socket，转发request索要资源，然后再把拿到的资源存进cache里面，然后再发给browser
+
+        // 收到browser request： post
+            // 直接转发给目标server
+            // 然后我们收到目标server发来的response，直接转发response给browser
+
+        //  /var/log/erss/proxy.log
+}
