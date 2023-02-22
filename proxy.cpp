@@ -1,19 +1,28 @@
 #include "proxy.hpp"
 
 int Proxy::initializeServerSocket() {
-    int server_socket = socket(AF_INET, SOCK_STREAM, 0);
+    int server_socket = socket(host_info_list->ai_family,
+                            host_info_list->ai_socktype,
+                            host_info_list->ai_protocol);
     if (server_socket < 0) {
-        perror("Server Initialization Failure: cannot create socket");
+        cerr << "Server Initialization Failure: cannot create socket" << endl;
         exit(EXIT_FAILURE); 
     }
-    if (bind(server_socket,(struct sockaddr *)&server_address,sizeof(server_address)) < 0) { 
-        perror("Server Initialization Failure: cannot bind socket"); 
+
+    int yes = 1;
+    if (setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1) {
+        cerr << "Server Initialization Failure: cannot set socket option" << endl;
         exit(EXIT_FAILURE); 
     }
-    if (listen(server_socket, BACKLOG) < 0) { 
-        perror("Server Initialization Failure: cannot listen socket"); 
+    if (bind(server_socket, host_info_list->ai_addr, host_info_list->ai_addrlen) == -1) { 
+        cerr << "Server Initialization Failure: cannot bind socket" << endl; 
+        exit(EXIT_FAILURE); 
+    }   
+    if (listen(server_socket, BACKLOG) == -1) { 
+        cerr << "Server Initialization Failure: cannot listen socket" << endl; 
         exit(EXIT_FAILURE); 
     }
+    freeaddrinfo(host_info_list);
     return server_socket;
 }
 
