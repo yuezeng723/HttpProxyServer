@@ -22,23 +22,35 @@ using namespace std;
 
 class Proxy {
 private:
-   int portnumber;
-   struct sockaddr_in server_address;
+   struct addrinfo host_info;
+   struct addrinfo *host_info_list;
+   const char * hostname = NULL;
+   const char * portnumber;
    int clientId;
    mutex logMutexLock;
 public:
     Proxy(){
-        memset(server_address.sin_zero, '\0', sizeof server_address.sin_zero); 
-        server_address.sin_family = AF_INET; 
-        server_address.sin_addr.s_addr = htonl(INADDR_ANY); 
-        server_address.sin_port = htons(DEFAULTPORT);
+        memset(&host_info, 0, sizeof(host_info));
+        host_info.ai_family = AF_UNSPEC;
+        host_info.ai_socktype = SOCK_STREAM;
+        host_info.ai_flags = AI_PASSIVE;
+        portnumber = DEFAULTPORT;
+        if (getaddrinfo(hostname, portnumber, &host_info, &host_info_list) != 0) {
+            cerr << "Error: cannot get address info for the host" << endl;
+            cerr << " (" << hostname << "," << portnumber << ")" << endl;
+        }
         clientId = 1;
     }
-    Proxy(int port): portnumber(port) {
-        memset(server_address.sin_zero, '\0', sizeof server_address.sin_zero); 
-        server_address.sin_family = AF_INET; 
-        server_address.sin_addr.s_addr = htonl(INADDR_ANY); 
-        server_address.sin_port = htons(port);
+    Proxy(string port): portnumber(port.c_str()) {
+        memset(&host_info, 0, sizeof(host_info));
+        host_info.ai_family = AF_UNSPEC;
+        host_info.ai_socktype = SOCK_STREAM;
+        host_info.ai_flags = AI_PASSIVE;
+        portnumber = DEFAULTPORT;
+        if (getaddrinfo(hostname, portnumber, &host_info, &host_info_list) != 0) {
+            cerr << "Error: cannot get address info for the host" << endl;
+            cerr << " (" << hostname << "," << portnumber << ")" << endl;
+        }
         clientId = 1;
     }
 private:
