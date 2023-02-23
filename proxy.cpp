@@ -1,5 +1,7 @@
 #include "proxy.hpp"
+#include <vector>
 
+using namespace std;
 int Proxy::initializeServerSocket() {
     int server_socket = socket(host_info_list->ai_family,
                             host_info_list->ai_socktype,
@@ -8,7 +10,6 @@ int Proxy::initializeServerSocket() {
         cerr << "Server Initialization Failure: cannot create socket" << endl;
         exit(EXIT_FAILURE); 
     }
-
     int yes = 1;
     if (setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1) {
         cerr << "Server Initialization Failure: cannot set socket option" << endl;
@@ -52,10 +53,18 @@ void Proxy::serverListen(int server_socket) {
             exit(EXIT_FAILURE); 
         }
         string clientIp = parseClientIp(client_socket);
-        Client * client = new Client(clientIp, clientId, client_socket);
-        clientId++;
-        thread clientHandleThread(&handler, client);
-        clientHandleThread.join();//TODO: search 
+        int newClientId = clientId;
+        if (ipToIdMap.find(clientIp) != ipToIdMap.end()) {
+            newClientId = ipToIdMap[clientIp];
+        } else {
+            ipToIdMap[clientIp] = newClientId;
+            clientId++;
+        }
+        Client * client = new Client(clientIp, newClientId, client_socket);
+        thread clientHandleThread([this, client](){
+            Proxy::handler(client);
+        });
+        clientHandleThread.join();//TODO: search what the join used for
     }
 }
 
@@ -64,25 +73,70 @@ void Proxy::start() {
     serverListen(server_socket);
 }
 
-void Proxy::handler(void* argument) {
-    Client * client = (Client *) argument;
+void Proxy::readRequest(boost::asio::ip::tcp::socket clientSocket) {
+
+}
+
+void handlerRequestHeader(const boost::system::error_code& error){
+
+}
+
+void handleRequestBody(const boost::system::error_code& error){
+
+}
+
+void Proxy::handler(Client* client) {
     client->logConnectMessage();
+
+    //pesudo code
+    int server_socket = initializeClientSocket();
+    if (requestMethod == 'CONNECT'){
+        handleCONNECT(client,server_socket);
+    }
+    else if(requestMethod == 'GET'){
+
+    }
+    else if(requestMethod == 'POST'){
+
+    }
     //vector<char> buffer()
     //recv()
-    //parse http
-    //1. 收到browser request： connect
-        // 1.1 收到browser request： get
-            // 1.2 我们在cache里找有没有对应的资源，如果有
-                //1.2.1 查看cache里面的资源有没有过期
-                    //1.2.1.1 如果过期了，我们和目标server 建立socket，转发request索要资源，
-                    //然后再把拿到的资源存进cache里面，然后再发给browser
-                    //1.2.1.2 如果没有过期， 我们就把cache里的资源用response的形势发给browser
-            // 1.3 我们在cache里没有找到对应的资源
-                // 1.3.1 proxy和目标server 建立socket，转发request索要资源，然后再把拿到的资源存进cache里面，然后再发给browser
+        //from chatgpt
 
-        // 收到browser request： post
-            // 直接转发给目标server
-            // 然后我们收到目标server发来的response，直接转发response给browser
-
-        //  /var/log/erss/proxy.log
+    // vector<char> buffer(1024);
+    // string request;
+    // while (true) {
+    //         int bytesReceived = recv(client->getClientSocket(), buffer.data(), buffer.size(), 0);
+    //         if (bytesReceived == 0) {
+    //             break;
+    //         } else if (bytesReceived <= 0) {
+    //             perror("Wong! recv");
+    //             exit(EXIT_FAILURE);
+    //         } else {
+    //             request.append(buffer.data(), bytesReceived);
+    //             if (request.find("\r\n\r\n") != std::string::npos) {
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // cout << request;
+    close(client->getClientSocket());
+    close(server_socket);
 }
+
+void handleCONNECT(Client * client, int server_socket){
+    send(client->getClientSocket(), "HTTP/1.1 200 OK\r\n\r\n", 19, 0);
+    //select
+}
+
+void handlePOST(Client * client, int server_socket){
+    //send request
+    //send response
+}
+
+void handle
+
+
+
+
+
