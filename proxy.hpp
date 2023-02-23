@@ -31,11 +31,11 @@ private:
    struct addrinfo *host_info_list;
    const char * hostname = NULL;
    const char * portnumber;
-   int server_socket;
+   int server_socket;//the file descriptor of server listen socket
    int clientId;
-   unordered_map<string, int> ipToIdMap;
-   
-   mutex logMutexLock;
+   unordered_map<string, int> ipToIdMap;//key: client's ip ; value: client's id
+
+   mutex logMutexLock;//a read-write lock to protect proxy.log file.
 public:
     Proxy(){
         memset(&host_info, 0, sizeof(host_info));
@@ -75,7 +75,7 @@ private:
     void readRequest(Client * client);
     void handlerRequestHeader(const boost::system::error_code& error);
     void handleRequestBody(const boost::system::error_code& error);
-
+    void logRequestStartline(string startline);
 public:
     void start();
 };

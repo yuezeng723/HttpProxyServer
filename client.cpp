@@ -19,6 +19,6 @@ void Client::logConnectMessage() {
  * Getter for clientSocket
  * @return 
 */
-const boost::asio::ip::tcp::socket& Client::getClientSocket() {
+boost::asio::ip::tcp::socket& Client::getClientSocket() {
     return clientSocket;
 }

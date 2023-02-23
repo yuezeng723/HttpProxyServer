@@ -24,5 +24,6 @@ public:
         clientSocket.assign(boost::asio::ip::tcp::v4(), client_socket);
     }
     void logConnectMessage();
-    const boost::asio::ip::tcp::socket& getClientSocket();
+    boost::asio::ip::tcp::socket& getClientSocket();
+
 };

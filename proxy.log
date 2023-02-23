@@ -1,0 +1,12 @@
+Client connect to the server. Client ID: 0 Client IP: 174.109.109.181
+GET http://suconfig.apple.com/resource/registration/v1/config.plist HTTP/1.1
+Client connect to the server. Client ID: 0 Client IP: 174.109.109.181
+GET http://suconfig.apple.com/resource/registration/v1/config.plist HTTP/1.1
+Client connect to the server. Client ID: 0 Client IP: 174.109.109.181
+GET http://suconfig.apple.com/resource/registration/v1/config.plist HTTP/1.1
+Client connect to the server. Client ID: 0 Client IP: 174.109.109.181
+GET http://suconfig.apple.com/resource/registration/v1/denylist.plist HTTP/1.1
+Client connect to the server. Client ID: 0 Client IP: 174.109.109.181
+GET http://suconfig.apple.com/resource/registration/v1/denylist.plist HTTP/1.1
+Client connect to the server. Client ID: 0 Client IP: 174.109.109.181
+GET http://suconfig.apple.com/resource/registration/v1/denylist.plist HTTP/1.1
