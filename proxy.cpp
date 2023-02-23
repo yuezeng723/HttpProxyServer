@@ -1,7 +1,7 @@
 #include "proxy.hpp"
 
-int Proxy::initializeServerSocket() {
-    int server_socket = socket(host_info_list->ai_family,
+void Proxy::initializeServerSocket() {
+    server_socket = socket(host_info_list->ai_family,
                             host_info_list->ai_socktype,
                             host_info_list->ai_protocol);
     if (server_socket < 0) {
@@ -22,7 +22,6 @@ int Proxy::initializeServerSocket() {
         exit(EXIT_FAILURE); 
     }
     freeaddrinfo(host_info_list);
-    return server_socket;
 }
 
 /**
@@ -41,7 +40,7 @@ string Proxy::parseClientIp(int client_socket) {
     return ip;
 }
 
-void Proxy::serverListen(int server_socket) {
+void Proxy::serverListen() {
     struct sockaddr_in client_address;
     unsigned int client_address_len = sizeof(client_address);
     while (1) {
@@ -67,12 +66,11 @@ void Proxy::serverListen(int server_socket) {
 }
 
 void Proxy::start() {
-    int server_socket = initializeServerSocket();
-    serverListen(server_socket);
+    serverListen();
 }
 
-void Proxy::readRequest(boost::asio::ip::tcp::socket clientSocket) {
-
+void Proxy::readRequest(Client * client) {
+    
 }
 
 void handlerRequestHeader(const boost::system::error_code& error){
@@ -85,6 +83,7 @@ void handleRequestBody(const boost::system::error_code& error){
 
 void Proxy::handler(Client* client) {
     client->logConnectMessage();
+
 }
 
 
