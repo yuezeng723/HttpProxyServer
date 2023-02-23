@@ -1,4 +1,6 @@
 #include <arpa/inet.h>
+#include <boost/asio.hpp>
+#include <boost/algorithm/string.hpp>
 #include <cstring>
 #include <fstream>
 #include <iostream>
@@ -16,9 +18,12 @@
 #include <thread>
 #include <unistd.h>
 #include <unordered_map>
+
 #include "constant.hpp"
 #include "client.hpp"
+
 using namespace std;
+using boost::asio::ip::tcp;
 
 class Proxy {
 private:
@@ -26,7 +31,10 @@ private:
    struct addrinfo *host_info_list;
    const char * hostname = NULL;
    const char * portnumber;
+
    int clientId;
+   unordered_map<string, int> ipToIdMap;
+   
    mutex logMutexLock;
 public:
     Proxy(){
@@ -39,7 +47,7 @@ public:
             cerr << "Error: cannot get address info for the host" << endl;
             cerr << " (" << hostname << "," << portnumber << ")" << endl;
         }
-        clientId = 1;
+        clientId = 0;
     }
     Proxy(string port): portnumber(port.c_str()) {
         memset(&host_info, 0, sizeof(host_info));
@@ -51,13 +59,16 @@ public:
             cerr << "Error: cannot get address info for the host" << endl;
             cerr << " (" << hostname << "," << portnumber << ")" << endl;
         }
-        clientId = 1;
+        clientId = 0;
     }
 private:
     int initializeServerSocket();
     void serverListen(int server_socket);
     string parseClientIp(int server_socket);
-    static void handler(void * argument);
+    void handler(Client* client);
+    void readRequest(boost::asio::ip::tcp::socket clientSocket);
+    void handlerRequestHeader(const boost::system::error_code& error);
+    void handleRequestBody(const boost::system::error_code& error);
 
 public:
     void start();

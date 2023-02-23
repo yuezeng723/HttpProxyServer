@@ -8,7 +8,6 @@ int Proxy::initializeServerSocket() {
         cerr << "Server Initialization Failure: cannot create socket" << endl;
         exit(EXIT_FAILURE); 
     }
-
     int yes = 1;
     if (setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1) {
         cerr << "Server Initialization Failure: cannot set socket option" << endl;
@@ -52,10 +51,18 @@ void Proxy::serverListen(int server_socket) {
             exit(EXIT_FAILURE); 
         }
         string clientIp = parseClientIp(client_socket);
-        Client * client = new Client(clientIp, clientId, client_socket);
-        clientId++;
-        thread clientHandleThread(&handler, client);
-        clientHandleThread.join();//TODO: search 
+        int newClientId = clientId;
+        if (ipToIdMap.find(clientIp) != ipToIdMap.end()) {
+            newClientId = ipToIdMap[clientIp];
+        } else {
+            ipToIdMap[clientIp] = newClientId;
+            clientId++;
+        }
+        Client * client = new Client(clientIp, newClientId, client_socket);
+        thread clientHandleThread([this, client](){
+            Proxy::handler(client);
+        });
+        clientHandleThread.join();//TODO: search what the join used for
     }
 }
 
@@ -64,10 +71,20 @@ void Proxy::start() {
     serverListen(server_socket);
 }
 
-void Proxy::handler(void* argument) {
-    Client * client = (Client *) argument;
-    client->logConnectMessage();
-    //vector<char> buffer()
-    //recv()
-    
+void Proxy::readRequest(boost::asio::ip::tcp::socket clientSocket) {
+
 }
+
+void handlerRequestHeader(const boost::system::error_code& error){
+
+}
+
+void handleRequestBody(const boost::system::error_code& error){
+
+}
+
+void Proxy::handler(Client* client) {
+    client->logConnectMessage();
+}
+
+
