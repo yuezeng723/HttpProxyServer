@@ -31,7 +31,7 @@ private:
    struct addrinfo *host_info_list;
    const char * hostname = NULL;
    const char * portnumber;
-
+   int server_socket;
    int clientId;
    unordered_map<string, int> ipToIdMap;
    
@@ -48,6 +48,7 @@ public:
             cerr << " (" << hostname << "," << portnumber << ")" << endl;
         }
         clientId = 0;
+        initializeServerSocket();
     }
     Proxy(string port): portnumber(port.c_str()) {
         memset(&host_info, 0, sizeof(host_info));
@@ -60,13 +61,18 @@ public:
             cerr << " (" << hostname << "," << portnumber << ")" << endl;
         }
         clientId = 0;
+        initializeServerSocket();
     }
+    ~Proxy() {
+        close(server_socket);
+    }
+
 private:
-    int initializeServerSocket();
-    void serverListen(int server_socket);
-    string parseClientIp(int server_socket);
+    void initializeServerSocket();
+    void serverListen();
+    string parseClientIp(int client_socket);
     void handler(Client* client);
-    void readRequest(boost::asio::ip::tcp::socket clientSocket);
+    void readRequest(Client * client);
     void handlerRequestHeader(const boost::system::error_code& error);
     void handleRequestBody(const boost::system::error_code& error);
 
