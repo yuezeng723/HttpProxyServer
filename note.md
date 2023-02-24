@@ -4,6 +4,11 @@ unordered_map<string, targetServerResponse> validationMap
 class TargetServerResponse {
     time when I receive
     time max-age
+    
+    date
+    lastmodify && expiretime
+    先后顺序
+    lastmodify date算默认max-age时间 /10 
 }
 把client request全部读进buffer里，判断method，hostname， port
 判断method：
@@ -23,7 +28,7 @@ class TargetServerResponse {
 3. post
     直接转发
 
-Q&A
-1. cerr的前后需要包裹mutex lock吗
-2.关于connect建立过socket之后get/post还要建立吗
-    如果需要，如何判断是否建立过？
+yichen:
+1. parse host name, parse port : string getter
+2. time validation;
+3. deamon 
