@@ -25,5 +25,6 @@ public:
     }
     void logConnectMessage();
     boost::asio::ip::tcp::socket& getClientSocket();
-
+    const string getIp() {return ip;}
+    const string getId() {return to_string(clientId);}
 };

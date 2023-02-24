@@ -22,3 +22,8 @@ class TargetServerResponse {
                     从server里读新的response，更新cache和validationMap
 3. post
     直接转发
+
+Q&A
+1. cerr的前后需要包裹mutex lock吗
+2.关于connect建立过socket之后get/post还要建立吗
+    如果需要，如何判断是否建立过？
