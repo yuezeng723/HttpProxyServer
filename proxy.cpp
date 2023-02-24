@@ -1,7 +1,10 @@
 #include "proxy.hpp"
 #include <vector>
-
 using namespace std;
+
+/**
+ * create and setup a server listen socket
+*/
 void Proxy::initializeServerSocket() {
     server_socket = socket(host_info_list->ai_family,
                             host_info_list->ai_socktype,
@@ -42,6 +45,10 @@ string Proxy::parseClientIp(int client_socket) {
     return ip;
 }
 
+/**
+ * listen to incomming connect client
+ * update the ipToId map and start multi-threading
+*/
 void Proxy::serverListen() {
     struct sockaddr_in client_address;
     unsigned int client_address_len = sizeof(client_address);
@@ -61,44 +68,85 @@ void Proxy::serverListen() {
         }
         Client * client = new Client(clientIp, newClientId, client_socket);
         thread clientHandleThread([this, client](){
-            Proxy::handler(client);
+            Proxy::handler(client);// multi-threading starts
         });
-        clientHandleThread.join();//TODO: search what the join used for
+        clientHandleThread.join();//TODO: replace by thread(whaterver).detach();
     }
 }
 
+/**
+ * only public method for starting proxy service
+*/
 void Proxy::start() {
     serverListen();
 }
 
+//feel free to modify this function
+Request Proxy::readRequest(Client * client) {
+    Request request;
+    boost::asio::streambuf requestBuffer;
+    //the method below read the **request header** into the requestBuffer
+    boost::asio::read_until(client->getClientSocket(), requestBuffer, "\r\n\r\n");
+    istream requestSteam(&requestBuffer);
+    string requestStartLine;
+    getline(requestSteam, requestStartLine);
+    logRequestStartline(requestStartLine);
+    request.requestStartLine = requestStartLine;
+    //NOTICE: For the POST request, I haven't read the request body yet.
+    //please implement it in whatever way you want :)
 
-void Proxy::readRequest(boost::asio::ip::tcp::socket clientSocket) {
+    //parse method from requestStartLine
+    int pos_space1 = requestStartLine.find(" ");
+    string method = requestStartLine.substr(0,pos_space1);
+    //cout << "method: " << method;//???
+    request.method = method;
+    logRequestStartline(method);
+    
+
+    //parse hostname
+    if(method == "CONNECT"){
+    // int pos_colon1 = requestStartLine.find(":");
+    // string method = requestStartLine.substr(pos_space1+1,);
+    }
+    //parse
+    
+
+    return request;
+}
+
+//feel free to modify this funtion or delete it ;)
+void Proxy::handlerRequestHeader(const boost::system::error_code& error){
 
 }
 
-void handlerRequestHeader(const boost::system::error_code& error){
-
-}
-
-void handleRequestBody(const boost::system::error_code& error){
+//feel free to modify this funtion or delete it ;)
+void Proxy::handleRequestBody(const boost::system::error_code& error){
 
 
 }
 
+/**
+ * A handler for multi-threading. New thread does the thing in handler
+*/
 void Proxy::handler(Client* client) {
     client->logConnectMessage();
 
+    Request request = readRequest(client);
+    //cout <<"Get Method" << request.method;//???
+    if(request.method == "CONNECT"){
+
+    }
+    else if(request.method == "GET"){
+
+    }
+    else if(request.method == "POST"){
+
+    }
+    delete client;
+}
+/*
     //pesudo code
-    int server_socket = initializeClientSocket();
-    if (requestMethod == 'CONNECT'){
-        handleCONNECT(client,server_socket);
-    }
-    else if(requestMethod == 'GET'){
 
-    }
-    else if(requestMethod == 'POST'){
-
-    }
     //vector<char> buffer()
     //recv()
         //from chatgpt
@@ -122,10 +170,13 @@ void Proxy::handler(Client* client) {
     // cout << request;
     close(client->getClientSocket());
     close(server_socket);
+    
 }
-
+*/
 void handleCONNECT(Client * client, int server_socket){
-    send(client->getClientSocket(), "HTTP/1.1 200 OK\r\n\r\n", 19, 0);
+    //send response
+    boost::asio::write(client->getClientSocket(), "HTTP/1.1 200 OK\r\n\r\n");
+    send(client->getClientSocket(), "HTTP/1.1 200 OK\r\n\r\n", 19, 0);//???
     //select
 }
 
@@ -134,7 +185,22 @@ void handlePOST(Client * client, int server_socket){
     //send response
 }
 
-void handle
+void handleGET(Client * client, int server_socket){
 
-git 
+}
+
+
+   
+//print the first line of a request. Feel free to modify this function
+void Proxy::logRequestStartline(string startline) {
+    lock_guard<mutex> lock(logMutexLock);
+    ofstream logfile(LOG_FILE, ios::app); // LOG_FILE is defined in constant.hpp
+    if (logfile.is_open()) {
+        logfile << startline << endl;
+        logfile.close();
+    } else {
+        cerr << "Error: Could not open log file for writing." << endl;
+        exit(EXIT_FAILURE);
+    }
+}
 
