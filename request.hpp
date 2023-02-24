@@ -1,19 +1,13 @@
+#include <cstdlib>
 #include <iostream>
 #include <string>
-
 using namespace std;
-
 class Request {
-public:
-    string requestStartLine;
+private:
     string method;
-    string hostname;
-    string port;
-Request(){};
-    //Request(string line, string m, string h, string p):requestStartLine(line),method(m),hostname(h),port(p){}
-    string getMethod();
-    string getHostname();
-    string getPort();
-    ~Request(){};
+    string url;
+public:
+    Request(string method, string url): method(method), url(url) {}
+    string getMethod() {return method;}
+    string getUrl() {return url; }
 };
-    

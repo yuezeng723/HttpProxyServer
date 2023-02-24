@@ -5,7 +5,7 @@
 */
 void Client::logConnectMessage() {
     lock_guard<mutex> lock(logMutexLock);
-    ofstream logfile(LOG_FILE, ios::app); // LOG_FILE is defined in constant.hpp
+    ofstream logfile("./proxy.log", ios::app); // LOG_FILE is defined in constant.hpp
     if (logfile.is_open()) {
         logfile << "Client connect to the server. Client ID: " << clientId << " Client IP: " << ip  << endl;
         logfile.close();
@@ -22,3 +22,4 @@ void Client::logConnectMessage() {
 boost::asio::ip::tcp::socket& Client::getClientSocket() {
     return clientSocket;
 }
+

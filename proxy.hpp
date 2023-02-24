@@ -20,7 +20,12 @@
 #include <unordered_map>
 
 #include "constant.hpp"
+<<<<<<< HEAD
 #include "client.hpp"
+=======
+// #include "client.hpp"
+#include "filelogger.hpp"
+>>>>>>> origin/main
 #include "request.hpp"
 
 using namespace std;
@@ -35,10 +40,11 @@ private:
    int server_socket;//the file descriptor of server listen socket
    int clientId;
    unordered_map<string, int> ipToIdMap;//key: client's ip ; value: client's id
+   Filelogger logger;
 
    mutex logMutexLock;//a read-write lock to protect proxy.log file.
 public:
-    Proxy(){
+    Proxy():logger("./proxy.log"){
         memset(&host_info, 0, sizeof(host_info));
         host_info.ai_family = AF_UNSPEC;
         host_info.ai_socktype = SOCK_STREAM;
@@ -51,7 +57,7 @@ public:
         clientId = 0;
         initializeServerSocket();
     }
-    Proxy(string port): portnumber(port.c_str()) {
+    Proxy(string port): portnumber(port.c_str()), logger("./proxy.log"){
         memset(&host_info, 0, sizeof(host_info));
         host_info.ai_family = AF_UNSPEC;
         host_info.ai_socktype = SOCK_STREAM;
@@ -73,9 +79,14 @@ private:
     void serverListen();
     string parseClientIp(int client_socket);
     void handler(Client* client);
+<<<<<<< HEAD
     Request readRequest(Client * client);
     void handlerRequestHeader(const boost::system::error_code& error);
     void handleRequestBody(const boost::system::error_code& error);
+=======
+    void readRequest(Client * client);
+    Request parseRequestHeader(string requestStartLine);
+>>>>>>> origin/main
     void logRequestStartline(string startline);
 public:
     void start();
