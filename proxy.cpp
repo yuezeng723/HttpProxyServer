@@ -65,6 +65,7 @@ void Proxy::serverListen() {
             clientId++;
         }
         Client * client = new Client(clientIp, newClientId, client_socket);
+        logger.logClientConnection(client);
         thread clientHandleThread([this, client](){
             Proxy::handler(client);// multi-threading starts
         });
@@ -90,7 +91,7 @@ void Proxy::readRequest(Client * client) {
     Request request = parseRequestHeader(requestStartLine);
     string method = request.getMethod();
     if (method == "CONNECT") {
-        lock_guard<mutex> lock(logMutexLock);
+        
         
     }
     if (method == "GET") {
@@ -121,8 +122,11 @@ Request Proxy::parseRequestHeader(string requestStartLine){
  * A handler for multi-threading. New thread does the thing in handler
 */
 void Proxy::handler(Client* client) {
-    logger.logClientConnection(client);
+    // logger.logClientConnection(client);
     readRequest(client);
     delete client;
 }
 
+void Proxy::handleConnect() {
+    
+}
