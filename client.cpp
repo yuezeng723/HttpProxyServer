@@ -16,9 +16,9 @@ void Client::logConnectMessage() {
 }
 
 /**
- * Getter for client_socket
- * @return client_socket is the file descriptor that you can read / write messages in it.
+ * Getter for clientSocket
+ * @return 
 */
-int Client::getClientSocket() {
-    return client_socket;
+const boost::asio::ip::tcp::socket& Client::getClientSocket() {
+    return clientSocket;
 }
