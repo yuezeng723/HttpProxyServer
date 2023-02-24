@@ -53,7 +53,7 @@ void Proxy::serverListen() {
     while (1) {
         int client_socket = accept(server_socket, (struct sockaddr *)&client_address, &client_address_len);
         if (client_socket < 0) {
-            perror("Server Initialization Failure: cannot accept socket"); 
+            cerr << "Server Initialization Failure: cannot accept socket" << endl; 
             exit(EXIT_FAILURE); 
         }
         string clientIp = parseClientIp(client_socket);
@@ -87,41 +87,42 @@ void Proxy::readRequest(Client * client) {
     istream requestSteam(&requestBuffer);
     string requestStartLine;
     getline(requestSteam, requestStartLine);
-    logRequestStartline(requestStartLine);
-    //NOTICE: For the POST request, I haven't read the request body yet.
-    //please implement it in whatever way you want :)
+    Request request = parseRequestHeader(requestStartLine);
+    string method = request.getMethod();
+    if (method == "CONNECT") {
+        lock_guard<mutex> lock(logMutexLock);
+        
+    }
+    if (method == "GET") {
 
+    }
+    if (method == "POST") {
+
+    }
 }
 
 //feel free to modify this funtion or delete it ;)
-void Proxy::handlerRequestHeader(const boost::system::error_code& error){
-
+Request Proxy::parseRequestHeader(string requestStartLine){
+    vector<string> requestParts;
+    boost::split(requestParts, requestStartLine, boost::is_any_of(" "));
+    if (requestParts.size() != 3) {
+        cerr << "HTTP format error: invalid request start line: " << requestStartLine << endl;
+        exit(EXIT_FAILURE);//TODO: error handling
+    }
+    string method = requestParts[0];
+    string url = requestParts[1];
+    string httpVersion = requestParts[2];//TODO: error checking for method, http version..
+    Request request(method, url);
+    return request;
 }
 
-//feel free to modify this funtion or delete it ;)
-void Proxy::handleRequestBody(const boost::system::error_code& error){
-
-}
 
 /**
  * A handler for multi-threading. New thread does the thing in handler
 */
 void Proxy::handler(Client* client) {
-    client->logConnectMessage();
+    logger.logClientConnection(client);
     readRequest(client);
     delete client;
-}
-
-//print the first line of a request. Feel free to modify this function
-void Proxy::logRequestStartline(string startline) {
-    lock_guard<mutex> lock(logMutexLock);
-    ofstream logfile(LOG_FILE, ios::app); // LOG_FILE is defined in constant.hpp
-    if (logfile.is_open()) {
-        logfile << startline << endl;
-        logfile.close();
-    } else {
-        cerr << "Error: Could not open log file for writing." << endl;
-        exit(EXIT_FAILURE);
-    }
 }
 
