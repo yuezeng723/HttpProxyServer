@@ -1,6 +1,7 @@
 #include <arpa/inet.h>
 #include <boost/asio.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/beast.hpp>
 #include <cstring>
 #include <fstream>
 #include <iostream>
@@ -26,6 +27,7 @@
 #include "request.hpp"
 
 using namespace std;
+namespace http = boost::beast::http;
 using boost::asio::ip::tcp;
 
 class Proxy {
@@ -76,9 +78,12 @@ private:
     void serverListen();
     string parseClientIp(int client_socket);
     void handler(Client* client);
-    void readRequest(Client * client);
+    void handleRequest(Client * client);
+    void handleConnect(Client * client, boost::beast::flat_buffer& clientBuffer, string requestTarget);
     Request parseRequestHeader(string requestStartLine);
-    //void logRequestStartline(string startline);
+    void logRequestStartline(string startline);
+    void parseHostnameAndPort(const std::string& requestTarget, string &hostname, string &port);
+
 public:
     void start();
 };
