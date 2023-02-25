@@ -112,6 +112,10 @@ Request Proxy::parseRequestHeader(string requestStartLine){
     string method = requestParts[0];
     string url = requestParts[1];
     string httpVersion = requestParts[2];//TODO: error checking for method, http version..
+    
+    //parse hostname and port from url
+    
+    
     Request request(method, url);
     return request;
 }

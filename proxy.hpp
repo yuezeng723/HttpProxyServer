@@ -20,12 +20,9 @@
 #include <unordered_map>
 
 #include "constant.hpp"
-<<<<<<< HEAD
 #include "client.hpp"
-=======
 // #include "client.hpp"
 #include "filelogger.hpp"
->>>>>>> origin/main
 #include "request.hpp"
 
 using namespace std;
@@ -79,15 +76,9 @@ private:
     void serverListen();
     string parseClientIp(int client_socket);
     void handler(Client* client);
-<<<<<<< HEAD
-    Request readRequest(Client * client);
-    void handlerRequestHeader(const boost::system::error_code& error);
-    void handleRequestBody(const boost::system::error_code& error);
-=======
     void readRequest(Client * client);
     Request parseRequestHeader(string requestStartLine);
->>>>>>> origin/main
-    void logRequestStartline(string startline);
+    //void logRequestStartline(string startline);
 public:
     void start();
 };

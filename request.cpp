@@ -1,13 +1,12 @@
 #include "request.hpp"
 
-string Request::getMethod(){
-    return method;
-}
+using namespace std;
 
-string Request::getHostname(){
-    return hostname;
-}
-    
-string Request::getPort(){
-    return port;
+void Request::sepHostPort(){
+    int posColon = url.find(":");
+
+    if(posColon != string::npos){
+    hostname = url.substr(0,posColon-1);
+    port = url.substr(posColon+1,url.length());
+    }
 }
