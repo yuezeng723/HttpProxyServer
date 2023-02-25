@@ -1,11 +1,20 @@
+#include <boost/asio.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/beast.hpp>
 #include <cstdlib>
 #include <cstring>
+#include <chrono>
+#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <mutex>
 
 #include "client.hpp"
+
 using namespace std;
+namespace http = boost::beast::http;
+using boost::asio::ip::tcp;
 
 class Filelogger {
 private:
@@ -34,5 +43,7 @@ public:
     }
     
     void logClientConnection(Client * client);
-
+    void logClientRequest(Client * client, http::request<http::string_body> &request);
+    void test(Client * client, http::request<http::empty_body> &request);
+    void logTunnelClose(Client * client);
 };
