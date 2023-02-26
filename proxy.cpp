@@ -125,15 +125,57 @@ void Proxy::handler(Client* client) {
 }
 
 void Proxy::handleGet(Client * client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> request) {
-    
+    // Parse the hostname and port from the GET request target
+    string hostname;
+    string port;
+    string requestTarget = request.find(http::field::host)->value().to_string();
+    parseHostnameAndPort(requestTarget, hostname, port, "get");
+    cout << requestTarget << endl;
+
+    // Resolve the hostname to an endpoint
+    tcp::resolver resolver(client->getClientSocket().get_executor());
+    tcp::resolver::query query(hostname, port);
+    tcp::resolver::results_type endpoints = resolver.resolve(query);
+
+    // Build a socket to the target server and connect to the target server
+    tcp::socket remoteSocket(client->getClientSocket().get_executor());
+    boost::asio::connect(remoteSocket, endpoints);
+
+    //search in cache and find whether there is matched request
+    if(cache.get(requestTarget)!=nullptr){//find in cache
+        std::shared_ptr<pair<string, http::response<http::dynamic_body>>> target = cache.get(requestTarget);
+
+        if(target->first.find("no-cache")!=string::npos){//旧response有no-cache(必须revalidate)
+            http::write(remoteSocket, request);//send request to target server
+            //待写：收取新response
+            //待写：判断是否有no-store, 若没有则存入cache
+            //待写：将新response发送给client
+        }
+        else{//旧response没有no-cache
+            //待写：收到旧response的时间+max-age+max-stale < 当前时间，则判断为过期，需要revalidate
+            //待写：根据last modify和etag判断是否仍需revalidate
+                //待写：
+                //假如需要revalidate
+                    //发送request,获取新response
+                    //看是否有no-store, 若没有则存入cache
+                    //将新response发送给client
+                //不需要revalidate
+                    //从cache将reponse发给client
+        }
+    }
+    else{//do not find in cache
+        http::write(remoteSocket, request);//send request to target server
+        //待写：收取response，分析后存入cache并转发, chunk???
+    }
 }
 
 void Proxy::handleConnect(Client * client, boost::beast::flat_buffer& clientBuffer, string requestTarget) {
     // Parse the hostname and port from the CONNECT request target
     string hostname;
     string port;
+    cout << requestTarget << endl;
     
-    parseHostnameAndPort(requestTarget, hostname, port);
+    parseHostnameAndPort(requestTarget, hostname, port, "connect");
     // cout << "hostname: " << hostname << " port: " << port << endl;
     // Resolve the hostname to an endpoint
     tcp::resolver resolver(client->getClientSocket().get_executor());
@@ -204,13 +246,18 @@ void Proxy::handleConnect(Client * client, boost::beast::flat_buffer& clientBuff
     }
 }
 
-void Proxy::parseHostnameAndPort(const std::string& requestTarget, string &hostname, string &port) {
+void Proxy::parseHostnameAndPort(const std::string& requestTarget, string &hostname, string &port, string method) {
     string::size_type pos = requestTarget.find(':');
     if (pos != string::npos) {
         hostname = requestTarget.substr(0, pos);
         port = requestTarget.substr(pos + 1);
     } else {
         hostname = requestTarget;
-        port = "443";
+        if(method == "connect"){
+            port = "443";
+        }
+        else if(method == "get"){
+            port = "80";
+        }
     }
 }

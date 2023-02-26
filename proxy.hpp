@@ -21,7 +21,7 @@
 #include <unordered_map>
 
 #include "constant.hpp"
-#include "client.hpp"
+//#include "client.hpp"
 // #include "client.hpp"
 #include "filelogger.hpp"
 #include "cache.hpp"
@@ -84,7 +84,7 @@ private:
     void handleGet(Client * client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> request);
 
     
-    void parseHostnameAndPort(const std::string& requestTarget, string &hostname, string &port);
+    void parseHostnameAndPort(const std::string& requestTarget, string &hostname, string &port, string method);
 
 public:
     void start();
