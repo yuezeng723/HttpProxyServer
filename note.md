@@ -20,10 +20,10 @@ class TargetServerResponse {
 2. get
     2.1 在 cache 里去查找是否存了get request对应的response
         2.1.1 如果有，检查validationMap里面time有没有过期
-            2.1.1.1 如果过期了，（？与server建立新的socket/用connect时建好的）
+            2.1.1.1 如果过期了
                     从server里读新的response，更新cache和validationMap
             2.1.1.2 如果没过期，直接从cache里发给client
-        2.1.2 如果没有，（？与server建立新的socket/用connect时建好的）
+        2.1.2 如果没有
                     从server里读新的response，更新cache和validationMap
 3. post
     直接转发

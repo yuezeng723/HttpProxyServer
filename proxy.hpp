@@ -24,7 +24,7 @@
 #include "client.hpp"
 // #include "client.hpp"
 #include "filelogger.hpp"
-#include "request.hpp"
+#include "cache.hpp"
 
 using namespace std;
 namespace http = boost::beast::http;
@@ -40,10 +40,11 @@ private:
    int clientId;
    unordered_map<string, int> ipToIdMap;//key: client's ip ; value: client's id
    Filelogger logger;
+   LRUCache<string, pair<string, http::response<http::dynamic_body>>> cache;
 
    mutex logMutexLock;//a read-write lock to protect proxy.log file.
 public:
-    Proxy():logger("./proxy.log"){
+    Proxy():logger("./proxy.log"), cache(10){
         memset(&host_info, 0, sizeof(host_info));
         host_info.ai_family = AF_UNSPEC;
         host_info.ai_socktype = SOCK_STREAM;
@@ -56,7 +57,7 @@ public:
         clientId = 0;
         initializeServerSocket();
     }
-    Proxy(string port): portnumber(port.c_str()), logger("./proxy.log"){
+    Proxy(string port, size_t cacheSize): portnumber(port.c_str()), logger("./proxy.log"), cache(cacheSize){
         memset(&host_info, 0, sizeof(host_info));
         host_info.ai_family = AF_UNSPEC;
         host_info.ai_socktype = SOCK_STREAM;
@@ -80,8 +81,9 @@ private:
     void handler(Client* client);
     void handleRequest(Client * client);
     void handleConnect(Client * client, boost::beast::flat_buffer& clientBuffer, string requestTarget);
-    Request parseRequestHeader(string requestStartLine);
-    void logRequestStartline(string startline);
+    void handleGet(Client * client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> request);
+
+    
     void parseHostnameAndPort(const std::string& requestTarget, string &hostname, string &port);
 
 public:
