@@ -145,19 +145,18 @@ void Proxy::handleGet(Client * client, boost::beast::flat_buffer& clientBuffer, 
     if(cache.get(requestTarget)!=nullptr){//find in cache
         std::shared_ptr<pair<string, http::response<http::dynamic_body>>> target = cache.get(requestTarget);
 
-        if(target->first.find("no-cache")!=string::npos){//旧response有no-cache(必须revalidate)
-            http::write(remoteSocket, request);//send request to target server
+        if(){//旧response有no-cache和must revalidate(必须revalidate)
+            http::write(remoteSocket, request);//revalidate, last-modified, etag
             //待写：收取新response
-            //待写：判断是否有no-store, 若没有则存入cache
+            //待写：判断是否有no-store/private, 若没有则存入cache
             //待写：将新response发送给client
         }
         else{//旧response没有no-cache
             //待写：收到旧response的时间+max-age+max-stale < 当前时间，则判断为过期，需要revalidate
-            //待写：根据last modify和etag判断是否仍需revalidate
                 //待写：
                 //假如需要revalidate
-                    //发送request,获取新response
-                    //看是否有no-store, 若没有则存入cache
+                    //发送request,获取新response, last-modified, etag
+                    //看是否有no-store/private, 若没有则存入cache
                     //将新response发送给client
                 //不需要revalidate
                     //从cache将reponse发给client
