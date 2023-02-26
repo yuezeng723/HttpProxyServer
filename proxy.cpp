@@ -65,11 +65,10 @@ void Proxy::serverListen() {
             clientId++;
         }
         Client * client = new Client(clientIp, newClientId, client_socket);
-        // logger.logClientConnection(client);
         thread clientHandleThread([this, client](){
-            Proxy::handler(client);// multi-threading starts
+            Proxy::handler(client);
         });
-        clientHandleThread.detach();//TODO: replace by thread(whaterver).detach();
+        clientHandleThread.detach();
     }
 }
 
@@ -95,7 +94,8 @@ void Proxy::handleRequest(Client * client) {
             handleConnect(client, clientBuffer, requestTarget);
         }
         else if (method == "GET") {
-
+            logger.logClientRequest(client, request);
+            handleGet(client, clientBuffer, request);
         }
         else if (method == "POST") {
 
@@ -115,31 +115,16 @@ void Proxy::handleRequest(Client * client) {
     }
 }
 
-//feel free to modify this funtion or delete it ;)
-Request Proxy::parseRequestHeader(string requestStartLine){
-    vector<string> requestParts;
-    boost::split(requestParts, requestStartLine, boost::is_any_of(" "));
-    if (requestParts.size() != 3) {
-        cerr << "HTTP format error: invalid request start line: " << requestStartLine << endl;
-        exit(EXIT_FAILURE);//TODO: error handling
-    }
-    string method = requestParts[0];
-    string url = requestParts[1];
-    string httpVersion = requestParts[2];//TODO: error checking for method, http version..
-    Request request(method, url);
-    return request;
-}
-
-
 /**
  * A handler for multi-threading. New thread does the thing in handler
 */
 void Proxy::handler(Client* client) {
-    
     // logger.logClientConnection(client);
     handleRequest(client);
-    delete client;
-    
+    delete client;  
+}
+
+void Proxy::handleGet(Client * client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> request) {
     
 }
 

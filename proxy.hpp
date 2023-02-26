@@ -23,7 +23,6 @@
 #include "constant.hpp"
 // #include "client.hpp"
 #include "filelogger.hpp"
-#include "request.hpp"
 #include "cache.hpp"
 
 using namespace std;
@@ -81,8 +80,9 @@ private:
     void handler(Client* client);
     void handleRequest(Client * client);
     void handleConnect(Client * client, boost::beast::flat_buffer& clientBuffer, string requestTarget);
-    Request parseRequestHeader(string requestStartLine);
-    void logRequestStartline(string startline);
+    void handleGet(Client * client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> request);
+
+    
     void parseHostnameAndPort(const std::string& requestTarget, string &hostname, string &port);
 
 public:

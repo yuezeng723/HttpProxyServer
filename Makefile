@@ -9,7 +9,7 @@ main: main.o proxy.o client.o filelogger.o cache.o
 main.o: main.cpp main.hpp proxy.hpp
 	$(CXX) $(CXXFLAGS) -c main.cpp
 
-proxy.o: proxy.cpp proxy.hpp constant.hpp client.hpp filelogger.hpp request.hpp cache.hpp
+proxy.o: proxy.cpp proxy.hpp constant.hpp client.hpp filelogger.hpp cache.hpp
 	$(CXX) $(CXXFLAGS) -c proxy.cpp -lpthread
 
 client.o: client.cpp client.hpp constant.hpp
