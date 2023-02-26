@@ -144,8 +144,8 @@ void Proxy::handleGet(Client * client, boost::beast::flat_buffer& clientBuffer, 
     //search in cache and find whether there is matched request
     if(cache.get(requestTarget)!=nullptr){//find in cache
         std::shared_ptr<pair<string, http::response<http::dynamic_body>>> target = cache.get(requestTarget);
-
-        if(){//旧response有no-cache和must revalidate(必须revalidate)
+        Response response(target->second);
+        if(response.noCache || response.mustRevalidate){//旧response有no-cache和must revalidate(必须revalidate)
             http::write(remoteSocket, request);//revalidate, last-modified, etag
             //待写：收取新response
             //待写：判断是否有no-store/private, 若没有则存入cache
