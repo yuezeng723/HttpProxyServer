@@ -132,8 +132,10 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
         string requestTarget = string(request.target().data(),request.target().length());
         //string requestTarget = request.find(http::field::host)->value().to_string();
         parseHostnameAndPort(requestTarget, hostname, port, "get");
-        cout << requestTarget << endl;
         string key = requestTarget + " " + hostname;
+        cout << "key: " << key << endl;
+        cout << "hostname: " << hostname << endl;
+        cout << "port: " << port << endl;
 
         // Resolve the hostname to an endpoint
         tcp::resolver resolver(client->getClientSocket().get_executor());
@@ -370,6 +372,9 @@ void Proxy::parseHostnameAndPort(const std::string &requestTarget, string &hostn
             port = "443";
         } else if (method == "get") {
             port = "80";
+        }
+        else if (method == "get") {
+            port = "8080";
         }
     }
 }
