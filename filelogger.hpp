@@ -46,4 +46,9 @@ public:
     void logClientRequest(Client * client, http::request<http::string_body> &request);
     void test(Client * client, http::request<http::empty_body> &request);
     void logTunnelClose(Client * client);
+
+    void logProxyRequestToRemote(http::request<http::string_body> &request, string &host);
+    void logRemoteResponseToProxy(http::response<boost::beast::http::dynamic_body> &response, string &host);
+
+    void logProxyResponseToClient(http::response<boost::beast::http::dynamic_body> &response);
 };
