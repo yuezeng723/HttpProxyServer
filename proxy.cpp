@@ -128,14 +128,15 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
     try {
         // Parse the hostname and port from the GET request target
         string hostname;
-        string port;
+        string port = "80";
         string requestTarget = string(request.target().data(),request.target().length());
-        //string requestTarget = request.find(http::field::host)->value().to_string();
-        parseHostnameAndPort(requestTarget, hostname, port, "get");
+        auto host = request[http::field::host];
+        hostname = host.to_string();
+        //cout <<request<<endl;
         string key = requestTarget + " " + hostname;
-        cout << "key: " << key << endl;
-        cout << "hostname: " << hostname << endl;
-        cout << "port: " << port << endl;
+        // cout << "key: " << key << endl;
+        // cout << "hostname: " << hostname << endl;
+        // cout << "port: " << port << endl;
 
         // Resolve the hostname to an endpoint
         tcp::resolver resolver(client->getClientSocket().get_executor());
