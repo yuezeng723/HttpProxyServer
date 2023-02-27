@@ -126,6 +126,7 @@ void Proxy::handler(Client *client) {
 
 void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, http::request<http::string_body> &request) {  // 存取cache的key需要修改？
     try {
+        
         // Parse the hostname and port from the GET request target
         string hostname;
         string port;
@@ -150,6 +151,7 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
             if (response.noCache) {  // old response has no-cache, revalidate anyway
                 // revalidation(response, request, remoteSocket, client, target->second, requestTarget)
                 //！！！！！revalidation可以封装！！！！！！但remotesocket会报错，如何解决？
+                //***********revalidation***********************
                 http::request<http::string_body> newReq = revalidateReq(response, request);
                 http::write(remoteSocket, newReq);               // send request to target server
                 http::response<http::dynamic_body> newResponse;  // receive new response
@@ -168,6 +170,7 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                         http::write(client->getClientSocket(), newResponse);
                     }
                 }
+                //**********************end of revalidation*****************
 
             } else {  // 旧response没有no-cache
                 time_t t0 = validTime.find(requestTarget)->second;
@@ -178,6 +181,7 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                     http::write(client->getClientSocket(), target->second);
                 } else if (currTime >= expireTime && currTime <= maxstaleTime) {  // 不fresh,看是否有must-revalidate
                     if (response.mustRevalidate == 1) {
+                        //***********revalidation***********************
                         http::request<http::string_body> newReq = revalidateReq(response, request);
                         http::write(remoteSocket, newReq);               // send request to target server
                         http::response<http::dynamic_body> newResponse;  // receive new response
@@ -196,11 +200,12 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                                 http::write(client->getClientSocket(), newResponse);
                             }
                         }
+                         //**********************end of revalidation*****************
                     } else {
                         http::write(client->getClientSocket(), target->second);  // 当成valid的
                     }
                 } else if (currTime > maxstaleTime) {
-                    // revalidate
+                    //***********revalidation***********************
                     http::request<http::string_body> newReq = revalidateReq(response, request);
                     http::write(remoteSocket, newReq);               // send request to target server
                     http::response<http::dynamic_body> newResponse;  // receive new response
@@ -219,6 +224,7 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                             http::write(client->getClientSocket(), newResponse);
                         }
                     }
+                     //**********************end of revalidation*****************
                 }
             }
         } else {                                          // do not find in cache
