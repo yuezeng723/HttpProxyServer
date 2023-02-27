@@ -1,9 +1,8 @@
-GET http://vweixinf.tc.qq.com/110/20403/stodownload?m=047a59b141691cb2b12399787ab82ffc&filekey=3043020101042f302d02016e0402535a0420303437613539623134313639316362326231323339393738376162383266666302020e10040d00000004627466730000000132&hy=SZ&storeid=26231f4b60003fd0e6ec06dca0000006e03004fb3535a2d936880976287dd7&ef=3&bizid=1022 HTTP/1.1
-Host: vweixinf.tc.qq.com
-Content-Type: image/pjpeg, image/jpeg, image/jpg, image/png, image/x-png, image/webp, image/tiff, image/ico, image/x-icon, image/bmp, image/x-bmp, image/x-xbitmap, image/x-win-bitmap, image/gif
-Proxy-Connection: keep-alive
-Accept: */*
-User-Agent: WeChat/23491 CFNetwork/1335.0.3 Darwin/21.6.0
-Accept-Language: en-US,en;q=0.9
+GET http://www.man7.org/linux/man-pages/man2/recv.2.html HTTP/1.1
+Host: www.man7.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:58.0) Gecko/20100101 Firefox/58.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate
 Connection: keep-alive
+Upgrade-Insecure-Requests: 1
