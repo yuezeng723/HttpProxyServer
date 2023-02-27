@@ -126,13 +126,14 @@ void Proxy::handler(Client *client) {
 
 void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, http::request<http::string_body> &request) {  // 存取cache的key需要修改？
     try {
-        
         // Parse the hostname and port from the GET request target
         string hostname;
         string port;
-        string requestTarget = request.find(http::field::host)->value().to_string();
+        string requestTarget = string(request.target().data(),request.target().length());
+        //string requestTarget = request.find(http::field::host)->value().to_string();
         parseHostnameAndPort(requestTarget, hostname, port, "get");
         cout << requestTarget << endl;
+        string key = requestTarget + " " + hostname;
 
         // Resolve the hostname to an endpoint
         tcp::resolver resolver(client->getClientSocket().get_executor());
@@ -145,11 +146,11 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
 
         // http::request<http::string_body> newReq;  // request with "If-None-Match" and "If-Modified-Since" for revalidation
         //  search in cache and find whether there is matched request
-        if (cache.get(requestTarget) != nullptr) {  // find in cache
-            std::shared_ptr<pair<string, http::response<http::dynamic_body>>> target = cache.get(requestTarget);
+        if (cache.get(key) != nullptr) {  // find in cache
+            std::shared_ptr<pair<string, http::response<http::dynamic_body>>> target = cache.get(key);
             Response response(target->second);
             if (response.noCache) {  // old response has no-cache, revalidate anyway
-                // revalidation(response, request, remoteSocket, client, target->second, requestTarget)
+                // revalidation(response, request, remoteSocket, client, target->second, key)
                 //！！！！！revalidation可以封装！！！！！！但remotesocket会报错，如何解决？
                 //***********revalidation***********************
                 http::request<http::string_body> newReq = revalidateReq(response, request);
@@ -165,15 +166,15 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                         http::write(client->getClientSocket(), newResponse);
                     } else {  // if no-store/private, store in cache and send to browser
                         pair<string, http::response<http::dynamic_body>> newRsc = make_pair(requestTarget, newResponse);
-                        cache.put(requestTarget, newRsc);
-                        storeTime(requestTarget);
+                        cache.put(key, newRsc);
+                        storeTime(key);
                         http::write(client->getClientSocket(), newResponse);
                     }
                 }
                 //**********************end of revalidation*****************
 
             } else {  // 旧response没有no-cache
-                time_t t0 = validTime.find(requestTarget)->second;
+                time_t t0 = validTime.find(key)->second;
                 time_t expireTime = t0 + response.max_age;
                 time_t maxstaleTime = expireTime + response.max_stale;
                 time_t currTime = time(0);
@@ -194,9 +195,9 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                             if (newRes.noStore || newRes.pri) {                      // if response has no-store/private, send to browser directly without storing in cache
                                 http::write(client->getClientSocket(), newResponse);
                             } else {  // if no-store/private, store in cache and send to browser
-                                pair<string, http::response<http::dynamic_body>> newRsc = make_pair(requestTarget, newResponse);
-                                cache.put(requestTarget, newRsc);
-                                storeTime(requestTarget);
+                                pair<string, http::response<http::dynamic_body>> newRsc = make_pair(key, newResponse);
+                                cache.put(key, newRsc);
+                                storeTime(key);
                                 http::write(client->getClientSocket(), newResponse);
                             }
                         }
@@ -218,9 +219,9 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                         if (newRes.noStore || newRes.pri) {                      // if response has no-store/private, send to browser directly without storing in cache
                             http::write(client->getClientSocket(), newResponse);
                         } else {  // if no-store/private, store in cache and send to browser
-                            pair<string, http::response<http::dynamic_body>> newRsc = make_pair(requestTarget, newResponse);
-                            cache.put(requestTarget, newRsc);
-                            storeTime(requestTarget);
+                            pair<string, http::response<http::dynamic_body>> newRsc = make_pair(key, newResponse);
+                            cache.put(key, newRsc);
+                            storeTime(key);
                             http::write(client->getClientSocket(), newResponse);
                         }
                     }
@@ -236,9 +237,9 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
             if (res.noStore || res.pri) {  // if response has no-store/private, send to browser directly without storing in cache
                 http::write(client->getClientSocket(), response);
             } else {  // if no-store/private, store in cache and send to browser
-                pair<string, http::response<http::dynamic_body>> newRsc = make_pair(requestTarget, response);
-                cache.put(requestTarget, newRsc);
-                storeTime(requestTarget);
+                pair<string, http::response<http::dynamic_body>> newRsc = make_pair(key, response);
+                cache.put(key, newRsc);
+                storeTime(key);
                 http::write(client->getClientSocket(), response);
             }
             // chunk???
