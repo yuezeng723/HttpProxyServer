@@ -51,4 +51,5 @@ public:
     void logRemoteResponseToProxy(http::response<boost::beast::http::dynamic_body> &response, string &host);
 
     void logProxyResponseToClient(http::response<boost::beast::http::dynamic_body> &response);
+    void logGETCondition(Client * client, string message);
 };

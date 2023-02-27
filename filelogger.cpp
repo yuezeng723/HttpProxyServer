@@ -23,7 +23,7 @@ void Filelogger::logTunnelClose(Client * client) {
     file << client->getId() << ": " << "Tunnel closed" << endl;
 }
 
-void Filelogger::logProxyRequestToRemote(http::request<http::string_body> &request, string &host) {
+void Filelogger::logProxyRequestToRemote( http::request<http::string_body> &request, string &host) {
     lock_guard<mutex> lock(logLock);
     boost::beast::string_view firstLine = request.target();
     file << "Requesting " << "\"" << request.method() << " "<< firstLine <<  "\"" << " from " << host << endl;
@@ -47,4 +47,9 @@ void Filelogger::logProxyResponseToClient(http::response<boost::beast::http::dyn
     ss << major << "." << minor;
     boost::beast::string_view firstLine = ss.str() + " " + std::to_string(response.result_int()) + " " + response.reason().to_string();
     file << "Responding " << "\"" <<  "HTTP/" << firstLine << "\"" << endl;
+}
+
+void Filelogger::logGETCondition(Client * client, string message) {
+    lock_guard<mutex> lock(logLock);
+    file << client->getId() << ": " << message << endl;
 }
