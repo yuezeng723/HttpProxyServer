@@ -32,3 +32,9 @@ yichen:
 1. parse host name, parse port : string getter
 2. time validation;
 3. deamon 
+
+//request, {t0+max-age: Feb 27 12:00:02; t0+max-stale: Feb 28 14:00:20; must-revalidate: true}
+unordered_map<string, map> validationMap;
+
+
+
