@@ -1,37 +1,56 @@
 #include "response.hpp"
 
 void Response::parseHeader() {
-    for (auto& r : response.base()) {
-        // std::cout << "Field: " << r.name() << "/text: " << r.name_string() << ", Value: " << r.value() << "\n";
-        // Print like：
-        // Field: Cache-Control/text: Cache-Control, Value: max-age=604800
-        // Field: Date/text: Date, Value: Tue, 23 Jun 2020 16:43:43 GMT
-        // Field: ETag/text: Etag, Value: "3147526947+ident"
-        // Field: Expires/text: Expires, Value: Tue, 30 Jun 2020 16:43:43 GMT
-        // Field: Last-Modified/text: Last-Modified, Value: Thu, 17 Oct 2019 07:18:26 GMT
-        boost::beast::string_view name = r.name_string();
-        boost::beast::string_view value = r.value();
-        headers.push_back(std::make_pair(name, value));
-    }
+    auto cache_control = response[http::field::cache_control];
+    cache_control_string = cache_control.to_string();
+    searchCacheControl();
+    auto etag = response[http::field::etag];
+    etag_string = etag.to_string();
+    auto last_modify = response[http::field::last_modified];
+    last_modify_string = last_modify.to_string();
 }
 
-void Response::searchCacheControl() {//If there is no-cache, return true
-    std::string targetName = "Cache-Control";
-    auto result = std::find_if(headers.begin(), headers.end(), [targetName](const std::pair<std::string, std::string>& p) {
-        return p.first == targetName;
-    });
+void Response::searchCacheControl() {  // If there is no-cache, return true
+    noCache = cache_control_string.find("no-cache") != std::string::npos;
+    noStore = cache_control_string.find("no-store") != std::string::npos;
+    pri = cache_control_string.find("private") != std::string::npos;
+    mustRevalidate = cache_control_string.find("must-revalidate") != std::string::npos;
 
-    if (result != headers.end()) {//find targetName
-        //std::cout << "Match found: " << result->second << std::endl;
-        noCache = result->second.find("no-cache")!=std::string::npos;
-        noStore = result->second.find("no-store")!=std::string::npos;
-        pri = result->second.find("private")!=std::string::npos;
-        mustRevalidate = result->second.find("must-revalidate")!=std::string::npos;
-    } else {
-        //std::cout << "No match found." << std::endl;
-        noCache = 0;
-        noStore = 0;
-        pri = 0;
-        mustRevalidate = 0;
+    // Find the position of the '=' and ',' characters for max-age and max-stale
+    std::size_t maxAge_pos = cache_control_string.find("max-age=");
+    std::size_t maxStale_pos = cache_control_string.find("max-stale=");
+
+    // Extract the value of max-age
+    if (maxAge_pos != std::string::npos)
+    {
+        std::size_t comma_pos = cache_control_string.find(',', maxAge_pos);
+        if (comma_pos != std::string::npos)
+        {
+            std::string maxAge_str = cache_control_string.substr(maxAge_pos + 8, comma_pos - maxAge_pos - 8);
+            max_age = std::stoi(maxAge_str);
+            //std::cout << "max-age value: " << max_age_value << std::endl;
+        }
+        else{
+            std::string maxAge_str = cache_control_string.substr(maxAge_pos + 8, cache_control_string.length() - maxAge_pos - 8);
+            max_age = std::stoi(maxAge_str);
+            //std::cout << "max-age value: " << max_age_value << std::endl;
+        }
+    }
+
+    // Extract the value of max-stale
+    if (maxStale_pos != std::string::npos)
+    {
+        std::size_t comma_pos = cache_control_string.find(',', maxStale_pos);
+        if (comma_pos != std::string::npos)
+        {
+            std::string maxStale_str = cache_control_string.substr(maxStale_pos + 10, comma_pos - maxStale_pos - 10);
+            max_stale = std::stoi(maxStale_str);
+            //std::cout << "max-stale value: " << max_stale_value << std::endl;
+        }
+        else{
+            std::string maxStale_str = cache_control_string.substr(maxStale_pos + 10, cache_control_string.length() - maxStale_pos - 10);
+            max_stale = std::stoi(maxStale_str);
+            //std::cout << "max-stale value: " << max_stale_value << std::endl;
+        }
     }
 }

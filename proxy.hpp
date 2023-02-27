@@ -42,6 +42,7 @@ private:
    Filelogger logger;
    LRUCache<string, pair<string, http::response<http::dynamic_body>>> cache;
 
+   unordered_map<string, time_t> validTime;
    mutex logMutexLock;//a read-write lock to protect proxy.log file.
 public:
     Proxy():logger("./proxy.log"), cache(10){
@@ -85,7 +86,9 @@ private:
 
     
     void parseHostnameAndPort(const std::string& requestTarget, string &hostname, string &port, string method);
-
+    void storeTime(string request);
+    http::request<http::string_body> revalidateReq(Response resInfo, http::request<http::string_body> request);
+    //void Proxy::revalidation(Response oldResInfo,http::request<http::string_body> request, tcp::socket remoteSocket, Client *client,http::response<http::dynamic_body> oldResponse, string requestTarget);
 public:
     void start();
 };
