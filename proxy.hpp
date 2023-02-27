@@ -82,8 +82,8 @@ private:
     void handler(Client* client);
     void handleRequest(Client * client);
     void handleConnect(Client * client, boost::beast::flat_buffer& clientBuffer, string requestTarget);
-    void handleGet(Client * client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> request);
-
+    void handleGet(Client * client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> &request);
+    void handlePost(Client * client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> &request);
     
     void parseHostnameAndPort(const std::string& requestTarget, string &hostname, string &port, string method);
     void storeTime(string request);

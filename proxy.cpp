@@ -95,8 +95,12 @@ void Proxy::handleRequest(Client *client) {
         } else if (method == "GET") {
             logger.logClientRequest(client, request);
             handleGet(client, clientBuffer, request);
-        } else if (method == "POST") {
-        } else {
+        }
+        else if (method == "POST") {
+            logger.logClientRequest(client, request);
+            handlePost(client, clientBuffer, request);
+        }
+        else {
             http::response<http::string_body> response{
                 http::status::bad_request, request.version()};
             response.set(http::field::server, BOOST_BEAST_VERSION_STRING);
@@ -119,7 +123,8 @@ void Proxy::handler(Client *client) {
     delete client;
 }
 
-void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, http::request<http::string_body> request) {  // 存取cache的key需要修改？
+
+void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, http::request<http::string_body> &request) {  // 存取cache的key需要修改？
     try {
         // Parse the hostname and port from the GET request target
         string hostname;
@@ -237,14 +242,51 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
     }
 }
 
-void Proxy::handleConnect(Client *client, boost::beast::flat_buffer &clientBuffer, string requestTarget) {
+void Proxy::handlePost(Client * client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> &request) {
+    try {
+        string hostname;
+        string port;
+        string requestTarget = string(request.target().data(),request.target().length());
+        parseHostnameAndPort(requestTarget, hostname, port, "Post");
+        tcp::resolver resolver(client->getClientSocket().get_executor());
+        tcp::resolver::query query(hostname, port);
+        tcp::resolver::results_type endpoints = resolver.resolve(query);
+        // Connect to the destination server
+        tcp::socket remoteSocket(client->getClientSocket().get_executor());
+        boost::asio::connect(remoteSocket, endpoints);
+
+        //Send the new request to the destination server
+        http::write(remoteSocket, request);
+        logger.logProxyRequestToRemote(request, hostname);
+
+        // Read the response from the destination server
+        boost::beast::flat_buffer remoteBuffer;
+        http::response<boost::beast::http::dynamic_body> response;
+        http::read(remoteSocket, remoteBuffer, response);
+        logger.logRemoteResponseToProxy(response, hostname);
+
+        // Send the response back to the client
+        http::write(client->getClientSocket(), response);
+        logger.logProxyResponseToClient(response);
+
+        //close both sockets
+        boost::system::error_code error;
+        remoteSocket.shutdown(tcp::socket::shutdown_both, error);
+        remoteSocket.close();
+        logger.logTunnelClose(client);
+    }
+    catch (std::exception const& e) {
+        std::cerr << "Error in handlePost: " << e.what() << std::endl;
+    }
+}
+
+void Proxy::handleConnect(Client * client, boost::beast::flat_buffer& clientBuffer, string requestTarget) {
     // Parse the hostname and port from the CONNECT request target
     string hostname;
     string port;
-    cout << requestTarget << endl;
+    parseHostnameAndPort(requestTarget, hostname, port,"Connect");
 
-    parseHostnameAndPort(requestTarget, hostname, port, "connect");
-    // cout << "hostname: " << hostname << " port: " << port << endl;
+
     // Resolve the hostname to an endpoint
     tcp::resolver resolver(client->getClientSocket().get_executor());
     tcp::resolver::query query(hostname, port);
@@ -255,11 +297,9 @@ void Proxy::handleConnect(Client *client, boost::beast::flat_buffer &clientBuffe
     boost::asio::connect(remoteSocket, endpoints);
 
     // Send 200 OK response to the client
-    http::response<http::empty_body> response{boost::beast::http::status::ok, 11};
-    // response.set(http::field::server, BOOST_BEAST_VERSION_STRING);
-    // response.set(http::field::connection, "close");//let the client close the tunnel
-    // response.keep_alive(false);
+    http::response<http::dynamic_body> response{boost::beast::http::status::ok, 11};
     http::write(client->getClientSocket(), response);
+    logger.logProxyResponseToClient(response);
 
     // Forward data between the client and the remote server
     try {
@@ -275,7 +315,7 @@ void Proxy::handleConnect(Client *client, boost::beast::flat_buffer &clientBuffe
                 // An error occurred
                 throw boost::system::system_error(error);
             }
-
+            
             // Forward the client data to the remote server
             boost::asio::write(remoteSocket, clientBuffer.data(), error);
 
