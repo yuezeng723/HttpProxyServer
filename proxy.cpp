@@ -128,15 +128,12 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
     try {
         // Parse the hostname and port from the GET request target
         string hostname;
-        string port;
+        string port = "80";
         string requestTarget = string(request.target().data(),request.target().length());
-        //string requestTarget = request.find(http::field::host)->value().to_string();
-        parseHostnameAndPort(requestTarget, hostname, port, "get");
+        auto host = request[http::field::host];
+        hostname = host.to_string();
         string key = requestTarget + " " + hostname;
-        cout << "key: " << key << endl;
-        cout << "hostname: " << hostname << endl;
-        cout << "port: " << port << endl;
-
+        
         // Resolve the hostname to an endpoint
         tcp::resolver resolver(client->getClientSocket().get_executor());
         tcp::resolver::query query(hostname, port);
@@ -157,9 +154,39 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                 //***********revalidation***********************
                 http::request<http::string_body> newReq = revalidateReq(response, request);
                 http::write(remoteSocket, newReq);               // send request to target server
+
+                //recerive response from remote server
                 http::response<http::dynamic_body> newResponse;  // receive new response
                 boost::beast::flat_buffer serverBuffer;
                 http::read(remoteSocket, serverBuffer, newResponse);
+                //************* 拼接chunked response *************
+                http::response_parser<boost::beast::http::dynamic_body> parser(newResponse);
+                cout << "chunked data" << endl;
+                if (newResponse.chunked()) {
+                    cout << "chunked data" << endl;
+                    while (true) {
+                    // Check if we have reached the end of the message
+                        auto transfer_encoding = newResponse.find(boost::beast::http::field::transfer_encoding);
+                        auto content_length = newResponse.find(boost::beast::http::field::content_length);
+                        if (transfer_encoding != newResponse.end() && transfer_encoding->value() == "chunked") {
+                            if (content_length == newResponse.end() || boost::lexical_cast<std::size_t>(content_length->value()) == serverBuffer.size()) {
+                                break;
+                            }
+                        }
+                        http::read(remoteSocket, serverBuffer, parser);
+                    }
+                    http::response_parser<http::dynamic_body> parsedParser;
+                    http::response<http::dynamic_body> parsedResponse;
+                    parsedParser.skip(true);
+                    boost::beast::error_code error;
+                    http::read(remoteSocket, serverBuffer, parsedParser, error);
+                    if (!error) {
+                        parsedResponse = std::move(parsedParser.get());
+                    }
+                    newResponse = std::move(parsedResponse);
+                }
+                //************* 拼接chunked response *************
+
                 Response newRes(newResponse);
                 if (newRes.getStatusCode() == 304) {                         // not modified
                     http::write(client->getClientSocket(), target->second);  // 直接转发旧response
@@ -190,6 +217,33 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                         http::response<http::dynamic_body> newResponse;  // receive new response
                         boost::beast::flat_buffer serverBuffer;
                         http::read(remoteSocket, serverBuffer, newResponse);
+                        //************* 拼接chunked response *************
+                        http::response_parser<boost::beast::http::dynamic_body> parser(newResponse);
+                        cout << "chunked data" << endl;
+                        if (newResponse.chunked()) {
+                        cout << "chunked data" << endl;
+                        while (true) {
+                            // Check if we have reached the end of the message
+                                auto transfer_encoding = newResponse.find(boost::beast::http::field::transfer_encoding);
+                                auto content_length = newResponse.find(boost::beast::http::field::content_length);
+                                if (transfer_encoding != newResponse.end() && transfer_encoding->value() == "chunked") {
+                                    if (content_length == newResponse.end() || boost::lexical_cast<std::size_t>(content_length->value()) == serverBuffer.size()) {
+                                        break;
+                                    }
+                                }
+                                http::read(remoteSocket, serverBuffer, parser);
+                            }
+                            http::response_parser<http::dynamic_body> parsedParser;
+                            http::response<http::dynamic_body> parsedResponse;
+                            parsedParser.skip(true);
+                            boost::beast::error_code error;
+                            http::read(remoteSocket, serverBuffer, parsedParser, error);
+                            if (!error) {
+                                parsedResponse = std::move(parsedParser.get());
+                            }
+                            newResponse = std::move(parsedResponse);
+                        }
+                        //************* 拼接chunked response *************
                         Response newRes(newResponse);
                         if (newRes.getStatusCode() == 304) {                         // not modified
                             http::write(client->getClientSocket(), target->second);  // 直接转发旧response
@@ -254,9 +308,10 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
 void Proxy::handlePost(Client * client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> &request) {
     try {
         string hostname;
-        string port;
-        string requestTarget = string(request.target().data(),request.target().length());
-        parseHostnameAndPort(requestTarget, hostname, port, "Post");
+        string port = "80";
+        auto host = request[http::field::host];
+        hostname = host.to_string();
+
         tcp::resolver resolver(client->getClientSocket().get_executor());
         tcp::resolver::query query(hostname, port);
         tcp::resolver::results_type endpoints = resolver.resolve(query);

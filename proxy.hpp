@@ -2,6 +2,7 @@
 #include <boost/asio.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/beast.hpp>
+#include <boost/lexical_cast.hpp>
 #include <cstring>
 #include <fstream>
 #include <iostream>
