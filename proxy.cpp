@@ -94,7 +94,7 @@ void Proxy::handleRequest(Client *client) {
             handleConnect(client, clientBuffer, requestTarget);
         } else if (method == "GET") {
             logger.logClientRequest(client, request);
-            handleGet(client, clientBuffer, request);
+            getgetget(client, request);
         } else if (method == "POST") {
             logger.logClientRequest(client, request);
             handlePost(client, clientBuffer, request);
@@ -278,28 +278,7 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                         http::write(client->getClientSocket(), target->second);  // 直接转发旧response
                         logger.logProxyResponseToClient(target->second);
                     } else if (newRes.getStatusCode() == 200) {  // return with new full response
-                        if (newRes.noStore || newRes.pri) {      // if response has no-store/private, send to browser directly without storing in cache
-                            http::write(client->getClientSocket(), newResponse);
-                            logger.logProxyResponseToClient(newResponse);
-                            if (newRes.noStore) {
-                                message = "not cacheable because no-store";
-                            } else if (newRes.pri) {
-                                message = "not cacheable because private";
-                            }
-                            logger.logGETCondition(client, message);
-                        } else {  // if no-store/private, store in cache and send to browser
-                            pair<string, http::response<http::dynamic_body>> newRsc = make_pair(key, newResponse);
-                            cache.put(key, newRsc);
-                            storeTime(key);
-                            http::write(client->getClientSocket(), newResponse);
-                            logger.logProxyResponseToClient(newResponse);
-                            if (newRes.noCache || (newRes.max_age == 0)) {
-                                message = "cached, but requires revalidation";
-                            } else {
-                                message = "cached, expires at " + validTime.find(key)->second + newRes.max_age;
-                            }
-                            logger.logGETCondition(client, message);
-                        }
+                        handleRemote200Ok(client, newResponse, request, key);
                     }
                     //**********************end of revalidation*****************
                 }
@@ -399,21 +378,17 @@ void Proxy::handleConnect(Client *client, boost::beast::flat_buffer &clientBuffe
     string hostname;
     string port;
     parseHostnameAndPort(requestTarget, hostname, port, "Connect");
-
     // Resolve the hostname to an endpoint
     tcp::resolver resolver(client->getClientSocket().get_executor());
     tcp::resolver::query query(hostname, port);
     tcp::resolver::results_type endpoints = resolver.resolve(query);
-
     // Build a socket to the target server and connect to the target server
     tcp::socket remoteSocket(client->getClientSocket().get_executor());
     boost::asio::connect(remoteSocket, endpoints);
-
     // Send 200 OK response to the client
     http::response<http::dynamic_body> response{boost::beast::http::status::ok, 11};
     http::write(client->getClientSocket(), response);
     logger.logProxyResponseToClient(response);
-
     // Forward data between the client and the remote server
     try {
         boost::beast::flat_buffer remoteBuffer;
@@ -428,13 +403,10 @@ void Proxy::handleConnect(Client *client, boost::beast::flat_buffer &clientBuffe
                 // An error occurred
                 throw boost::system::system_error(error);
             }
-
             // Forward the client data to the remote server
             boost::asio::write(remoteSocket, clientBuffer.data(), error);
-
             // Read data from the remote server
             size_t remoteLength = boost::asio::read(remoteSocket, remoteBuffer, boost::asio::transfer_at_least(1), error);
-
             if (error == boost::asio::error::eof) {
                 // The remote server has closed the connection
                 break;
@@ -442,7 +414,6 @@ void Proxy::handleConnect(Client *client, boost::beast::flat_buffer &clientBuffe
                 // An error occurred
                 throw boost::system::system_error(error);
             }
-
             // Forward the remote server data to the client
             http::response<http::vector_body<char>> remoteResponse;
             remoteResponse.body().resize(remoteLength);
@@ -462,6 +433,7 @@ void Proxy::handleConnect(Client *client, boost::beast::flat_buffer &clientBuffe
         client->getClientSocket().close();
         remoteSocket.shutdown(tcp::socket::shutdown_both, error);
         remoteSocket.close();
+        client->getClientSocket().close();
     }
 }
 
@@ -487,7 +459,7 @@ void Proxy::storeTime(string request) {
     validTime.insert({request, responseTime});
 }
 
-http::request<http::string_body> Proxy::revalidateReq(Response resInfo, http::request<http::string_body> request) {
+void Proxy::revalidateReq(Response &resInfo, http::request<http::string_body> &request) {
     // Add headers
     if (resInfo.getETAG() != "") {
         request.set(http::field::if_none_match, resInfo.getETAG());
@@ -495,7 +467,6 @@ http::request<http::string_body> Proxy::revalidateReq(Response resInfo, http::re
     if (resInfo.getLastModify() != "") {
         request.set(http::field::if_modified_since, resInfo.getLastModify());
     }
-    return request;
 }
 
 
@@ -527,7 +498,166 @@ void Proxy::handleChunked(http::response<http::dynamic_body> &newResponse, boost
     }
 }
 
-string checkValidation(http::response<http::dynamic_body> &response, http::request<http::string_body> &request) {
-    Response cachedResponse(response);
+//当在cache中找到response后，检查这个response是否过期
+string Proxy::checkValidation(http::response<http::dynamic_body> &cachedResponse, http::request<http::string_body> &clientRequest, string &key) {
+    Response response(cachedResponse);
+    Request request(clientRequest);
+    time_t currTime = time(0);
+    time_t t0 = validTime[key];
+    if (response.noCache) return "revalidate";
+    if (request.has_min_fresh && response.max_age != 0) {
+        if (currTime < t0 + response.max_age - request.min_fresh) return "valid";
+        else if (currTime < t0 + response.max_age) return "revalidate";
+        else return "expire";
+    }
+    if (response.mustRevalidate && response.max_age != 0) {
+        if (currTime < t0 + response.max_age) return "valid";
+        else return "revalidate";
+    }
+    if (request.has_max_stale && response.max_age != 0) {
+        if (currTime < t0 + response.max_age + request.max_stale) return "valid";
+        else return "expire";
+    }
+    return "expire";
+}
+
+bool Proxy::checkNeedCache(http::response<http::dynamic_body> &serverResponse) {
+    Response response(serverResponse);
+    if (response.pri || response.noStore) return false;
+    return true;
+}
+
+//revalidate 的时候用
+void Proxy::handleRemote200Ok(Client * client, http::response<http::dynamic_body> &remoteResponse, http::request<http::string_body>&clientRequest,string &key) {
+    Response newRes(remoteResponse);
+    Request request(clientRequest);
+    bool needCache = checkNeedCache(remoteResponse);
+    if (needCache == false) {  // if response has no-store/private, send to browser directly without storing in cache
+        if (newRes.noStore) { logger.logNotCacheable(client, "no-store");} 
+        else if (newRes.pri) { logger.logNotCacheable(client, "private");}
+    } 
+    else {  // if no no-store/private, store in cache and send to browser
+        cacheResponse(client, clientRequest, remoteResponse, key);
+    }
+    http::write(client->getClientSocket(), remoteResponse);
+    logger.logProxyResponseToClient(remoteResponse);
+}
+
+
+void Proxy::getgetget(Client * client, http::request<http::string_body> &clientRequest) {
     
+    boost::beast::error_code error;
+    string hostname;
+    string port = "80";
+    string requestTarget = string(clientRequest.target().data(), clientRequest.target().length());
+    auto host = clientRequest[http::field::host];
+    hostname = host.to_string();
+    string key = requestTarget + " " + hostname;
+    
+    // Resolve the hostname to an endpoint
+    tcp::resolver resolver(client->getClientSocket().get_executor());
+    tcp::resolver::query query(hostname, port);
+    tcp::resolver::results_type endpoints = resolver.resolve(query);
+
+    // Build a socket to the target server and connect to the target server
+    tcp::socket remoteSocket(client->getClientSocket().get_executor());
+    boost::asio::connect(remoteSocket, endpoints);
+    string message = "";
+
+    boost::beast::flat_buffer remoteBuffer;
+    http::response<http::dynamic_body> newResponse;
+    bool needCache = false;
+    try{
+        if (cache.get(key) != nullptr) {  // find in cache
+            std::shared_ptr<pair<string, http::response<http::dynamic_body>>> target = cache.get(key);
+            http::response<http::dynamic_body> &cachedResponse = cache.get(key)->second;
+            Response cachedRespObj(cachedResponse);
+            string validation = checkValidation(cachedResponse,clientRequest, key);
+            if (validation == "valid") {
+                http::write(client->getClientSocket(), cachedResponse);
+            }
+            else if (validation == "revalidate") {
+                revalidateReq(cachedRespObj, clientRequest);
+                http::write(remoteSocket, clientRequest);  // send request to target server
+                logger.logProxyRequestToRemote(clientRequest, hostname);
+                // receive new response
+                http::read(remoteSocket, remoteBuffer, newResponse);
+                logger.logRemoteResponseToProxy(newResponse, hostname);
+    
+                //check newResponse status code
+                Response newRespObj(newResponse);
+                needCache = checkNeedCache(newResponse);
+                if (newRespObj.status_code == 304) {
+                    http::write(client->getClientSocket(), cachedResponse);
+                    logger.logProxyResponseToClient(cachedResponse);
+                }
+                else if (newRespObj.status_code == 200) {
+                    handleRemote200Ok(client, newResponse, clientRequest, key);
+                }
+                else {//得处理remote server返回既不是304 也不是200的情况
+                    http::write(client->getClientSocket(), newResponse);
+                    logger.logProxyResponseToClient(newResponse);
+                    //检查是否需要cache，但不想写了
+                } 
+            }
+            else {//"expire"
+                http::write(remoteSocket, clientRequest);
+                logger.logProxyRequestToRemote(clientRequest, hostname);
+                http::read(remoteSocket, remoteBuffer, newResponse);
+                logger.logRemoteResponseToProxy(newResponse, hostname);
+                needCache = checkNeedCache(newResponse);
+                Response newRes(newResponse);
+                if (needCache) {//cache it
+                    cache.remove(key);
+                    cacheResponse(client, clientRequest, newResponse, key);
+                }
+                http::write(client->getClientSocket(), newResponse);
+                logger.logProxyResponseToClient(newResponse);
+            }
+        }
+        else {//cache没存过此request对应的response
+            //redirect the request
+            http::write(remoteSocket, clientRequest);
+            logger.logProxyRequestToRemote(clientRequest, hostname);
+            http::read(remoteSocket, remoteBuffer, newResponse);
+            logger.logRemoteResponseToProxy(newResponse, hostname);
+            needCache = checkNeedCache(newResponse);
+            if (needCache) {
+                cacheResponse(client, clientRequest, newResponse, key);
+            }
+            http::write(client->getClientSocket(), newResponse);
+            logger.logProxyResponseToClient(newResponse);
+        }
+        remoteSocket.shutdown(tcp::socket::shutdown_both, error);
+        remoteSocket.close();
+        client->getClientSocket().shutdown(tcp::socket::shutdown_both, error);
+        client->getClientSocket().close();
+    }
+    catch (exception &e) {
+        cerr << "GET request error: " << e.what() << endl;
+        boost::system::error_code error;
+        client->getClientSocket().shutdown(tcp::socket::shutdown_both, error);
+        client->getClientSocket().close();
+        remoteSocket.shutdown(tcp::socket::shutdown_both, error);
+        remoteSocket.close();
+    }
+}
+
+void Proxy::cacheResponse(Client * client, http::request<http::string_body> &clientRequest, http::response<http::dynamic_body> &remoteResponse, string &key) {
+    time_t currTime = time(0);
+    pair<string, http::response<http::dynamic_body>> newRsc = make_pair(key, remoteResponse);
+    cache.put(key, newRsc);
+    storeTime(key);
+    logger.logProxyResponseToClient(remoteResponse);
+    Response newRes(remoteResponse);
+    Request request(clientRequest);
+    if (newRes.noCache || (newRes.max_age == 0)) {
+        logger.logCacheRequireValidation(client);
+    } 
+    else if (request.has_min_fresh && newRes.max_age!=0){
+        logger.logCacheExpireAt(client, currTime + newRes.max_age);
+    }
+    else if (request.has_max_stale && newRes.max_age != 0) {
+        logger.logCacheExpireAt(client, currTime + newRes.max_age + request.max_stale);
+    }
 }

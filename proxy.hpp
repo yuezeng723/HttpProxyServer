@@ -26,6 +26,7 @@
 #include "response.hpp"
 #include "filelogger.hpp"
 #include "cache.hpp"
+#include "request.hpp"
 
 using namespace std;
 namespace http = boost::beast::http;
@@ -88,9 +89,14 @@ private:
     
     void parseHostnameAndPort(const std::string& requestTarget, string &hostname, string &port, string method);
     void storeTime(string request);
-    http::request<http::string_body> revalidateReq(Response resInfo, http::request<http::string_body> request);
+    void revalidateReq(Response &resInfo, http::request<http::string_body> &request);
     //void Proxy::revalidation(Response oldResInfo,http::request<http::string_body> request, tcp::socket remoteSocket, Client *client,http::response<http::dynamic_body> oldResponse, string requestTarget);
     void handleChunked(http::response<http::dynamic_body> &newResponse, boost::beast::flat_buffer &serverBuffer, tcp::socket &remoteSocket); 
+    string checkValidation(http::response<http::dynamic_body> &cachedResponse, http::request<http::string_body> &clientRequest, string &key); 
+    bool checkNeedCache(http::response<http::dynamic_body> &serverResponse);
+    void handleRemote200Ok(Client * client, http::response<http::dynamic_body> &remoteResponse, http::request<http::string_body>&clientRequest, string &key);
+    void getgetget(Client * client, http::request<http::string_body> &request);
+    void cacheResponse(Client * client, http::request<http::string_body> &clientRequest, http::response<http::dynamic_body> &remoteResponse, string &key);
 public:
     void start();
 };

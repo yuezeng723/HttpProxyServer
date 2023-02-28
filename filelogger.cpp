@@ -53,3 +53,33 @@ void Filelogger::logGETCondition(Client * client, string message) {
     lock_guard<mutex> lock(logLock);
     file << client->getId() << ": " << message << endl;
 }
+
+void Filelogger::logCacheRequireValidation(Client * client){
+    lock_guard<mutex> lock(logLock);
+    file << client->getId()<< ": " <<" cached, but requires revalidation" << endl;
+}
+
+void Filelogger::logCacheExpireAt(Client * client, time_t expireTime){
+    lock_guard<mutex> lock(logLock);
+    file << client->getId()<< ": " << "cached, expires at " << expireTime << endl;
+
+}
+
+void Filelogger::logNotCacheable(Client * client, string reason){
+    lock_guard<mutex> lock(logLock);
+    file << client->getId()<< ": " << "not cacheable because " << reason << endl;
+}
+
+void Filelogger::logNotInCache(Client * client){
+    lock_guard<mutex> lock(logLock);
+    file << client->getId()<< ": " << "not in cache" << endl;
+}
+void Filelogger::logInCacheExpire(Client * client, time_t expire) {
+    lock_guard<mutex> lock(logLock);
+    file << client->getId()<< ": " << "in cache, but expired at " <<expire << endl;
+}
+
+void Filelogger::logInCacheValid(Client * client) {
+    lock_guard<mutex> lock(logLock);
+    file << client->getId()<< ": " << "in cache, valid" << endl;
+}

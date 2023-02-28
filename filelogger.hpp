@@ -52,4 +52,11 @@ public:
 
     void logProxyResponseToClient(http::response<boost::beast::http::dynamic_body> &response);
     void logGETCondition(Client * client, string message);
+    void logCacheRequireValidation(Client * client);
+    void logCacheExpireAt(Client * client, time_t expireTime);
+    void logNotCacheable(Client * client, string reason); 
+
+    void logNotInCache(Client * client);
+    void logInCacheExpire(Client * client, time_t expire);
+    void logInCacheValid(Client * client);
 };

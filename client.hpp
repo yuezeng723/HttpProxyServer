@@ -23,10 +23,7 @@ public:
     Client(string ip, int clientId, int client_socket): ip(ip), clientId(clientId), clientSocket(io_context) {
         clientSocket.assign(boost::asio::ip::tcp::v4(), client_socket);
     }
-    ~Client() {
-        clientSocket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-        clientSocket.close();
-    }
+    
     void logConnectMessage();
     boost::asio::ip::tcp::socket& getClientSocket();
     const string getIp() {return ip;}
