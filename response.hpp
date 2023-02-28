@@ -18,8 +18,7 @@ public:
     bool pri;//private 
     bool mustRevalidate;
     int max_age;
-    int max_stale;//删除这个字段
-    Response():noCache(0),noStore(0),pri(0),mustRevalidate(0),max_age(0),max_stale(0){}
+    Response():noCache(0),noStore(0),pri(0),mustRevalidate(0),max_age(0){}
     Response(http::response<http::dynamic_body> res):response(res){
         parseHeader();
         status_code = response.result_int();
