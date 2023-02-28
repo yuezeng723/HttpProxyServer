@@ -49,10 +49,10 @@ public:
     void test(std::shared_ptr<Client> client, http::request<http::empty_body> &request);
     void logTunnelClose(std::shared_ptr<Client> client);
 
-    void logProxyRequestToRemote(http::request<http::string_body> &request, string &host);
-    void logRemoteResponseToProxy(http::response<boost::beast::http::dynamic_body> &response, string &host);
+    void logProxyRequestToRemote(std::shared_ptr<Client> client,http::request<http::string_body> &request, string &host);
+    void logRemoteResponseToProxy(std::shared_ptr<Client> client, http::response<boost::beast::http::dynamic_body> &response, string &host);
 
-    void logProxyResponseToClient(http::response<boost::beast::http::dynamic_body> &response);
+    void logProxyResponseToClient(std::shared_ptr<Client> client, http::response<boost::beast::http::dynamic_body> &response);
     void logGETCondition(std::shared_ptr<Client> client, string message);
     void logCacheRequireValidation(std::shared_ptr<Client> client);
     void logCacheExpireAt(std::shared_ptr<Client> client, time_t expireTime);
