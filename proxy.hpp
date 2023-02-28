@@ -90,6 +90,7 @@ private:
     void storeTime(string request);
     http::request<http::string_body> revalidateReq(Response resInfo, http::request<http::string_body> request);
     //void Proxy::revalidation(Response oldResInfo,http::request<http::string_body> request, tcp::socket remoteSocket, Client *client,http::response<http::dynamic_body> oldResponse, string requestTarget);
+    void handleChunked(http::response<http::dynamic_body> &newResponse, boost::beast::flat_buffer &serverBuffer, tcp::socket &remoteSocket); 
 public:
     void start();
 };

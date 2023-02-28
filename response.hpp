@@ -13,12 +13,12 @@ private:
     std::string last_modify_string;
 public:
     int status_code; 
-    bool noCache;
-    bool noStore;
-    bool pri;//private
+    bool noCache;//1 有 存，但要revalidation
+    bool noStore;//1 有 如果可以直接判断 cache_control_string 是空的，那么就把noStore存成1
+    bool pri;//private 
     bool mustRevalidate;
     int max_age;
-    int max_stale;
+    int max_stale;//删除这个字段
     Response():noCache(0),noStore(0),pri(0),mustRevalidate(0),max_age(0),max_stale(0){}
     Response(http::response<http::dynamic_body> res):response(res){
         parseHeader();
