@@ -129,12 +129,8 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
         string requestTarget = string(request.target().data(), request.target().length());
         auto host = request[http::field::host];
         hostname = host.to_string();
-        // cout <<request<<endl;
         string key = requestTarget + " " + hostname;
-        // cout << "key: " << key << endl;
-        // cout << "hostname: " << hostname << endl;
-        // cout << "port: " << port << endl;
-
+        
         // Resolve the hostname to an endpoint
         tcp::resolver resolver(client->getClientSocket().get_executor());
         tcp::resolver::query query(hostname, port);
@@ -154,7 +150,6 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                 message = "in cache, requires validation";
                 logger.logGETCondition(client, message);
 
-                // revalidation(response, request, remoteSocket, client, target->second, key)
                 // ！！！！！revalidation可以封装！！！！！！但remotesocket会报错，如何解决？
                 //***********revalidation***********************
                 http::request<http::string_body> newReq = revalidateReq(response, request);
@@ -165,7 +160,11 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                 boost::beast::flat_buffer serverBuffer;
                 http::read(remoteSocket, serverBuffer, newResponse);
                 logger.logRemoteResponseToProxy(newResponse, hostname);
-
+                //************* 拼接chunked response *************
+                if (newResponse.chunked()) {
+                    handleChunked(newResponse, serverBuffer, remoteSocket);
+                }
+                
                 Response newRes(newResponse);
                 if (newRes.getStatusCode() == 304) {                         // not modified
                     http::write(client->getClientSocket(), target->second);  // 直接转发旧response
@@ -221,6 +220,12 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
                         boost::beast::flat_buffer serverBuffer;
                         http::read(remoteSocket, serverBuffer, newResponse);
                         logger.logRemoteResponseToProxy(newResponse, hostname);
+
+                        //************* 拼接chunked response *************
+                        if (newResponse.chunked()) {
+                            handleChunked(newResponse, serverBuffer, remoteSocket);
+                        }
+
                         Response newRes(newResponse);
                         if (newRes.getStatusCode() == 304) {                         // not modified
                             http::write(client->getClientSocket(), target->second);  // 直接转发旧response
@@ -354,9 +359,10 @@ void Proxy::handleGet(Client *client, boost::beast::flat_buffer &clientBuffer, h
 void Proxy::handlePost(Client *client, boost::beast::flat_buffer &clientBuffer, http::request<http::string_body> &request) {
     try {
         string hostname;
-        string port;
-        string requestTarget = string(request.target().data(), request.target().length());
-        parseHostnameAndPort(requestTarget, hostname, port, "Post");
+        string port = "80";
+        auto host = request[http::field::host];
+        hostname = host.to_string();
+
         tcp::resolver resolver(client->getClientSocket().get_executor());
         tcp::resolver::query query(hostname, port);
         tcp::resolver::results_type endpoints = resolver.resolve(query);
@@ -492,25 +498,36 @@ http::request<http::string_body> Proxy::revalidateReq(Response resInfo, http::re
     return request;
 }
 
-/*
-void Proxy::revalidation(Response oldResInfo, http::request<http::string_body> request, tcp::socket remoteSocket, Client *client, http::response<http::dynamic_body> oldResponse, string requestTarget) {
-    http::request<http::string_body> newReq = revalidateReq(oldResInfo, request);
-    http::write(remoteSocket, newReq);               // send request to target server
-    http::response<http::dynamic_body> newResponse;  // receive new response
-    boost::beast::flat_buffer serverBuffer;
-    http::read(remoteSocket, serverBuffer, newResponse);
-    Response newRes(newResponse);
-    if (newRes.getStatusCode() == 304) {                      // not modified
-        http::write(client->getClientSocket(), oldResponse);  // 直接转发旧response
-    } else if (newRes.getStatusCode() == 200) {               // return with new full response
-        if (newRes.noStore || newRes.pri) {                   // if response has no-store/private, send to browser directly without storing in cache
-            http::write(client->getClientSocket(), newResponse);
-        } else {  // if no-store/private, store in cache and send to browser
-            pair<string, http::response<http::dynamic_body>> newRsc = make_pair(requestTarget, newResponse);
-            cache.put(requestTarget, newRsc);
-            storeTime(requestTarget);
-            http::write(client->getClientSocket(), newResponse);
+
+void Proxy::handleChunked(http::response<http::dynamic_body> &newResponse, boost::beast::flat_buffer &serverBuffer, tcp::socket &remoteSocket) {
+    http::response_parser<boost::beast::http::dynamic_body> parser(newResponse);
+    cout << "chunked data" << endl;
+    if (newResponse.chunked()) {
+        cout << "chunked data" << endl;
+        while (true) {
+        // Check if we have reached the end of the message
+            auto transfer_encoding = newResponse.find(boost::beast::http::field::transfer_encoding);
+            auto content_length = newResponse.find(boost::beast::http::field::content_length);
+            if (transfer_encoding != newResponse.end() && transfer_encoding->value() == "chunked") {
+                if (content_length == newResponse.end() || boost::lexical_cast<std::size_t>(content_length->value()) == serverBuffer.size()) {
+                    break;
+                }
+            }
+            http::read(remoteSocket, serverBuffer, parser);
         }
+        http::response_parser<http::dynamic_body> parsedParser;
+        http::response<http::dynamic_body> parsedResponse;
+        parsedParser.skip(true);
+        boost::beast::error_code error;
+        http::read(remoteSocket, serverBuffer, parsedParser, error);
+        if (!error) {
+            parsedResponse = std::move(parsedParser.get());
+        }
+        newResponse = std::move(parsedResponse);
     }
 }
-*/
+
+string checkValidation(http::response<http::dynamic_body> &response, http::request<http::string_body> &request) {
+    Response cachedResponse(response);
+    
+}

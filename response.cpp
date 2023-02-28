@@ -45,7 +45,7 @@ void Response::searchCacheControl() {  // If there is no-cache, return true
         {
             std::string maxStale_str = cache_control_string.substr(maxStale_pos + 10, comma_pos - maxStale_pos - 10);
             max_stale = std::stoi(maxStale_str);
-            //std::cout << "max-stale value: " << max_stale_value << std::endl;
+            //std::cout << "max-stale value: " << max_stale_value << std::endl; // 3600ms / 10
         }
         else{
             std::string maxStale_str = cache_control_string.substr(maxStale_pos + 10, cache_control_string.length() - maxStale_pos - 10);
