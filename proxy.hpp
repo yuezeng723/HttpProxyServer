@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <shared_mutex>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/fcntl.h>
@@ -45,7 +46,7 @@ private:
    LRUCache<string, pair<string, http::response<http::dynamic_body>>> cache;
 
    unordered_map<string, time_t> validTime;
-   mutex logMutexLock;//a read-write lock to protect proxy.log file.
+   mutex mutexLock;//a read-write lock to protect proxy.log file.
 public:
     Proxy():logger("./proxy.log"), cache(10){
         memset(&host_info, 0, sizeof(host_info));
@@ -81,22 +82,27 @@ private:
     void initializeServerSocket();
     void serverListen();
     string parseClientIp(int client_socket);
-    void handler(Client* client);
-    void handleRequest(Client * client);
-    void handleConnect(Client * client, boost::beast::flat_buffer& clientBuffer, string requestTarget);
-    void handleGet(Client * client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> &request);
-    void handlePost(Client * client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> &request);
+    void handler(std::shared_ptr<Client> client);
+    void handleRequest(std::shared_ptr<Client> client);
+    void handleConnect(std::shared_ptr<Client> client, boost::beast::flat_buffer& clientBuffer, string requestTarget);
+    void handleGet(std::shared_ptr<Client> client, http::request<http::string_body> &request);
+    void handlePost(std::shared_ptr<Client> client, boost::beast::flat_buffer& clientBuffer, http::request<http::string_body> &request);
     
     void parseHostnameAndPort(const std::string& requestTarget, string &hostname, string &port, string method);
+
     void storeTime(string request);
+    void removeTime(string &key);
+    time_t getTime(string &key);
+
     void revalidateReq(Response &resInfo, http::request<http::string_body> &request);
-    //void Proxy::revalidation(Response oldResInfo,http::request<http::string_body> request, tcp::socket remoteSocket, Client *client,http::response<http::dynamic_body> oldResponse, string requestTarget);
+    
     void handleChunked(http::response<http::dynamic_body> &newResponse, boost::beast::flat_buffer &serverBuffer, tcp::socket &remoteSocket); 
     string checkValidation(http::response<http::dynamic_body> &cachedResponse, http::request<http::string_body> &clientRequest, string &key); 
     bool checkNeedCache(http::response<http::dynamic_body> &serverResponse);
-    void handleRemote200Ok(Client * client, http::response<http::dynamic_body> &remoteResponse, http::request<http::string_body>&clientRequest, string &key);
-    void getgetget(Client * client, http::request<http::string_body> &request);
-    void cacheResponse(Client * client, http::request<http::string_body> &clientRequest, http::response<http::dynamic_body> &remoteResponse, string &key);
+    void handleRemote200Ok(std::shared_ptr<Client> client, http::response<http::dynamic_body> &remoteResponse, http::request<http::string_body>&clientRequest, string &key);
+    
+    void cacheResponse(std::shared_ptr<Client> client, http::request<http::string_body> &clientRequest, http::response<http::dynamic_body> &remoteResponse, string &key);
+    void parsePort(http::request<http::string_body> &request, string &port);
 public:
     void start();
 };
