@@ -24,7 +24,6 @@ public:
         clientSocket.assign(boost::asio::ip::tcp::v4(), client_socket);
     }
     ~Client() {
-        clientSocket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
         clientSocket.close();
     }
     void logConnectMessage();

@@ -2,9 +2,10 @@
 #include <list>
 #include <mutex>
 #include <unordered_map>
+#include <cstdlib>
+#include <iostream>
 
-
-
+using namespace std;
 
 template <typename K, typename V>
 class LRUCache {
@@ -20,7 +21,6 @@ public:
     
     void put(const K& key, const V& value) {
         std::lock_guard<std::mutex> lock(mutex);
-
         // If key already exists, remove it first
         auto it = map.find(key);
         if (it != map.end()) {
@@ -54,7 +54,6 @@ public:
     
     void remove(const K& key) {
         std::lock_guard<std::mutex> lock(mutex);
-
         // If key is found in the cache, remove it
         auto it = map.find(key);
         if (it != map.end()) {
