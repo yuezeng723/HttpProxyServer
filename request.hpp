@@ -9,6 +9,9 @@ using boost::asio::ip::tcp;
 
 
 class Request {
+private:
+    http::request<http::string_body> request;
+    std::string cache_control_string;
 public:
     int max_stale;//确定成合适的时间类型，可以做运算的那种
     int min_fresh;//确定成合适的时间类型，可以做运算的那种
@@ -22,5 +25,8 @@ public:
 
         //如果不存在max_stale, has_max_stale 存成 0; max_stale 存成 0 或者其他
         //如果不存在min_fresh, has_min_fresh 存成 0; min_fresh 存成 0 或者其他
+        parseHeader();
     }
+    void parseHeader();
+    void searchCacheControl();
 };
