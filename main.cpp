@@ -3,8 +3,9 @@
 int main() {
   try {
     std::cout << "Boost version: " << BOOST_LIB_VERSION << std::endl;
-    daemonize();
+    
     Proxy * proxy = new Proxy();
+    daemonize();
     proxy->start();
   } 
   catch (std::exception &e) {
