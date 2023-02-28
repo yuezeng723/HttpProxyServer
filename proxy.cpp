@@ -58,12 +58,6 @@ void Proxy::serverListen() {
         }
         string clientIp = parseClientIp(client_socket);
         int newClientId = clientId;
-        // if (ipToIdMap.find(clientIp) != ipToIdMap.end()) {
-        //     newClientId = ipToIdMap[clientIp];
-        // } else {
-        //     ipToIdMap[clientIp] = newClientId;
-        //     clientId++;
-        // }
         clientId++;
         std::shared_ptr<Client> client( new Client(clientIp, newClientId, client_socket));
         thread clientHandleThread([this, client]() {
@@ -117,7 +111,6 @@ void Proxy::handleRequest(std::shared_ptr<Client>client) {
  * A handler for multi-threading. New thread does the thing in handler
  */
 void Proxy::handler(std::shared_ptr<Client>client) {
-    // logger.logClientConnection(client);
     handleRequest(client);
 }
 
@@ -283,30 +276,29 @@ void Proxy::revalidateReq(Response &resInfo, http::request<http::string_body> &r
 
 
 void Proxy::handleChunked(http::response<http::dynamic_body> &newResponse, boost::beast::flat_buffer &serverBuffer, tcp::socket &remoteSocket) {
-    http::response_parser<boost::beast::http::dynamic_body> parser(newResponse);
-    if (newResponse.chunked()) {
-        while (true) {
-        // Check if we have reached the end of the message
-            auto transfer_encoding = newResponse.find(boost::beast::http::field::transfer_encoding);
-            auto content_length = newResponse.find(boost::beast::http::field::content_length);
-            if (transfer_encoding != newResponse.end() && transfer_encoding->value() == "chunked") {
-                if (content_length == newResponse.end() || boost::lexical_cast<std::size_t>(content_length->value()) == serverBuffer.size()) {
-                    break;
-                }
-            }
-            http::read(remoteSocket, serverBuffer, parser);
-        }
-        http::response_parser<http::dynamic_body> parsedParser;
-        http::response<http::dynamic_body> parsedResponse;
-        parsedParser.skip(true);
-        boost::beast::error_code error;
-        http::read(remoteSocket, serverBuffer, parsedParser, error);
-        if (!error) {
-            parsedResponse = std::move(parsedParser.get());
-        }
-        newResponse = std::move(parsedResponse);
+    boost::beast::error_code error;
+    http::response_parser<http::dynamic_body> parser;
+    string chunk;
+    size_t size = 0;
+    auto body_cb =
+[&](std::uint64_t remain,   // The number of bytes left in this chunk
+    boost::beast::string_view body,       // A buffer holding chunk body data
+    boost::beast::error_code& ec)         // We can set this to indicate an error
+    {
+        if(remain == body.size()) ec = http::error::end_of_chunk;
+        chunk.append(body.data(), body.size());
+        size += body.size();
+        return body.size();
+    };
+    parser.on_chunk_body(body_cb);
+    while (!parser.is_done()) {
+        http::read(remoteSocket, serverBuffer, parser, error);
+        if( !error) continue;
+        else if ( error!=http::error::end_of_chunk) break;
+        else error = {};
     }
 }
+
 
 //当在cache中找到response后，检查这个response是否过期
 string Proxy::checkValidation(http::response<http::dynamic_body> &cachedResponse, http::request<http::string_body> &clientRequest, string &key) {
@@ -345,11 +337,10 @@ void Proxy::handleRemote200Ok(std::shared_ptr<Client> client, http::response<htt
         Response newRes(remoteResponse);
         Request request(clientRequest);
         bool needCache = checkNeedCache(remoteResponse);
-        if (needCache == false) {  // if response has no-store/private, send to browser directly without storing in cache
-            if (newRes.noStore) { logger.logNotCacheable(client, "no-store");} 
-            else if (newRes.pri) { logger.logNotCacheable(client, "private");}
+        if (needCache == false) {  
+            logger.logNotCacheable(client, newRes);
         } 
-        else {  // if no no-store/private, store in cache and send to browser
+        else {  
             cacheResponse(client, clientRequest, remoteResponse, key);
         }
         http::write(client->getClientSocket(), remoteResponse, error);
@@ -380,28 +371,31 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
     tcp::socket remoteSocket(client->getClientSocket().get_executor());
     boost::asio::connect(remoteSocket, endpoints);
     string message = "";
-
-    boost::beast::flat_buffer remoteBuffer;
-    http::response<http::dynamic_body> newResponse;
-    bool needCache = false;
-    std::shared_ptr<pair<string, http::response<http::dynamic_body>>> target = cache.get(key);
     try{
+        boost::beast::flat_buffer remoteBuffer;
+        http::response<http::dynamic_body> newResponse;
+        bool needCache = false;
+        std::shared_ptr<pair<string, http::response<http::dynamic_body>>> target = cache.get(key);
+        http::response<http::dynamic_body> &cachedResponse = target->second;
+        Request requestObj(clientRequest);
+    
         if (target != nullptr) {  // find in cache
-            http::response<http::dynamic_body> &cachedResponse = target->second;
             Response cachedRespObj(cachedResponse);
             string validation = checkValidation(cachedResponse,clientRequest, key);
             if (validation == "valid") {
-                logger.logProxyResponseToClient(cachedResponse);
+                logger.logInCacheValid(client);
                 http::write(client->getClientSocket(), cachedResponse, error);
+                logger.logProxyResponseToClient(cachedResponse);
             }
             else if (validation == "revalidate") {
+                logger.logInCacheRevalidation(client);
                 revalidateReq(cachedRespObj, clientRequest);
                 http::write(remoteSocket, clientRequest, error);  // send request to target server
                 logger.logProxyRequestToRemote(clientRequest, hostname);
                 // receive new response
                 http::read(remoteSocket, remoteBuffer, newResponse);
+                //if(newResponse.chunked())handleChunked(newResponse, remoteBuffer, remoteSocket);/****************************/
                 logger.logRemoteResponseToProxy(newResponse, hostname);
-    
                 //check newResponse status code
                 Response newRespObj(newResponse);
                 needCache = checkNeedCache(newResponse);
@@ -415,18 +409,23 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
                 else {//得处理remote server返回既不是304 也不是200的情况
                     http::write(client->getClientSocket(), newResponse, error);
                     logger.logProxyResponseToClient(newResponse);
-                    needCache = checkNeedCache(newResponse);
                     if (needCache) {
                         cache.remove(key);
                         removeTime(key);
                         cacheResponse(client, clientRequest, newResponse, key);
+                    } else {
+                        Response newRespObj(newResponse);
+                        logger.logNotCacheable(client, newRespObj);
                     }
                 } 
             }
             else {//"expire"
+                time_t t0 = getTime(key);
+                logger.logInCacheExpire(client, cachedRespObj, requestObj, t0);
                 http::write(remoteSocket, clientRequest, error);
                 logger.logProxyRequestToRemote(clientRequest, hostname);
                 http::read(remoteSocket, remoteBuffer, newResponse);
+                //if(newResponse.chunked())handleChunked(newResponse, remoteBuffer, remoteSocket);/**********************/
                 logger.logRemoteResponseToProxy(newResponse, hostname);
                 needCache = checkNeedCache(newResponse);
                 Response newRes(newResponse);
@@ -434,6 +433,9 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
                     cache.remove(key);
                     removeTime(key);
                     cacheResponse(client, clientRequest, newResponse, key);
+                } else {
+                    Response newRespObj(newResponse);
+                    logger.logNotCacheable(client, newRespObj);
                 }
                 http::write(client->getClientSocket(), newResponse, error);
                 logger.logProxyResponseToClient(newResponse);
@@ -444,10 +446,14 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
             http::write(remoteSocket, clientRequest, error);
             logger.logProxyRequestToRemote(clientRequest, hostname);
             http::read(remoteSocket, remoteBuffer, newResponse);
+            //if(newResponse.chunked())handleChunked(newResponse, remoteBuffer, remoteSocket);/**************/
             logger.logRemoteResponseToProxy(newResponse, hostname);
             needCache = checkNeedCache(newResponse);
             if (needCache) {
                 cacheResponse(client, clientRequest, newResponse, key);
+            } else {
+                Response newRespObj(newResponse);
+                logger.logNotCacheable(client, newRespObj);
             }
             http::write(client->getClientSocket(), newResponse, error);
             logger.logProxyResponseToClient(newResponse);

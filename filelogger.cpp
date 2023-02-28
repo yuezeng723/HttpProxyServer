@@ -61,12 +61,15 @@ void Filelogger::logCacheRequireValidation(std::shared_ptr<Client> client){
 
 void Filelogger::logCacheExpireAt(std::shared_ptr<Client> client, time_t expireTime){
     lock_guard<mutex> lock(logLock);
-    file << client->getId()<< ": " << "cached, expires at " << expireTime << endl;
+    file << client->getId()<< ": " << "cached, expires at " << ctime(&expireTime);
 
 }
 
-void Filelogger::logNotCacheable(std::shared_ptr<Client> client, string reason){
+void Filelogger::logNotCacheable(std::shared_ptr<Client> client, Response &response){
     lock_guard<mutex> lock(logLock);
+    string reason ="";
+    if (response.noStore) reason = "no-store";
+    if (response.pri) reason = "private";
     file << client->getId()<< ": " << "not cacheable because " << reason << endl;
 }
 
@@ -74,12 +77,21 @@ void Filelogger::logNotInCache(std::shared_ptr<Client> client){
     lock_guard<mutex> lock(logLock);
     file << client->getId()<< ": " << "not in cache" << endl;
 }
-void Filelogger::logInCacheExpire(std::shared_ptr<Client> client, time_t expire) {
+void Filelogger::logInCacheExpire(std::shared_ptr<Client> client, Response &cachedResponse, Request &request, time_t t0) {
     lock_guard<mutex> lock(logLock);
-    file << client->getId()<< ": " << "in cache, but expired at " <<expire << endl;
+    time_t expire;
+    if (cachedResponse.max_age!=0 && request.has_min_fresh) expire = t0+cachedResponse.max_age;
+    if (cachedResponse.max_age!=0 && request.has_max_stale) expire = t0+cachedResponse.max_age+request.max_stale;
+    expire = t0+cachedResponse.max_age;
+    file << client->getId()<< ": " << "in cache, but expired at " << ctime(&expire);
 }
 
 void Filelogger::logInCacheValid(std::shared_ptr<Client> client) {
     lock_guard<mutex> lock(logLock);
     file << client->getId()<< ": " << "in cache, valid" << endl;
+}
+
+void Filelogger::logInCacheRevalidation(std::shared_ptr<Client> client) {
+    lock_guard<mutex> lock(logLock);
+    file << client->getId()<< ": " << "in cache, requires validation" << endl;
 }
