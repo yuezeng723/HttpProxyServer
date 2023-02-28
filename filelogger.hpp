@@ -11,6 +11,8 @@
 #include <mutex>
 
 #include "client.hpp"
+#include "response.hpp"
+#include "request.hpp"
 
 using namespace std;
 namespace http = boost::beast::http;
@@ -54,9 +56,10 @@ public:
     void logGETCondition(std::shared_ptr<Client> client, string message);
     void logCacheRequireValidation(std::shared_ptr<Client> client);
     void logCacheExpireAt(std::shared_ptr<Client> client, time_t expireTime);
-    void logNotCacheable(std::shared_ptr<Client> client, string reason); 
+    void logNotCacheable(std::shared_ptr<Client> client, Response &response); 
 
     void logNotInCache(std::shared_ptr<Client> client);
-    void logInCacheExpire(std::shared_ptr<Client> client, time_t expire);
+    void logInCacheExpire(std::shared_ptr<Client> client, Response &cachedResponse, Request &request, time_t t0);
     void logInCacheValid(std::shared_ptr<Client> client);
+    void logInCacheRevalidation(std::shared_ptr<Client> client);
 };
