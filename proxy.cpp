@@ -143,17 +143,17 @@ void Proxy::handlePost(std::shared_ptr<Client>client, boost::beast::flat_buffer 
     try {
         // Send the new request to the destination server
         http::write(remoteSocket, request, error);
-        logger.logProxyRequestToRemote(request, hostname);
+        logger.logProxyRequestToRemote(client, request, hostname);
 
         // Read the response from the destination server
         boost::beast::flat_buffer remoteBuffer;
         http::response<boost::beast::http::dynamic_body> response;
         http::read(remoteSocket, remoteBuffer, response);
-        logger.logRemoteResponseToProxy(response, hostname);
+        logger.logRemoteResponseToProxy(client, response, hostname);
 
         // Send the response back to the client
         http::write(client->getClientSocket(), response, error);
-        logger.logProxyResponseToClient(response);
+        logger.logProxyResponseToClient(client, response);
 
         // close both sockets
         remoteSocket.shutdown(tcp::socket::shutdown_both, error);
@@ -182,7 +182,7 @@ void Proxy::handleConnect(std::shared_ptr<Client>client, boost::beast::flat_buff
         // Send 200 OK response to the client
         http::response<http::dynamic_body> response{boost::beast::http::status::ok, 11};
         http::write(client->getClientSocket(), response, error);
-        logger.logProxyResponseToClient(response);
+        logger.logProxyResponseToClient(client, response);
         // Forward data between the client and the remote server
     
         boost::beast::flat_buffer remoteBuffer;
@@ -344,7 +344,7 @@ void Proxy::handleRemote200Ok(std::shared_ptr<Client> client, http::response<htt
             cacheResponse(client, clientRequest, remoteResponse, key);
         }
         http::write(client->getClientSocket(), remoteResponse, error);
-        logger.logProxyResponseToClient(remoteResponse);
+        logger.logProxyResponseToClient(client, remoteResponse);
     }
     catch (exception &e){
         cerr << "Error in handleRemote200Ok: " << e.what() << endl;
@@ -385,30 +385,30 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
             if (validation == "valid") {
                 logger.logInCacheValid(client);
                 http::write(client->getClientSocket(), cachedResponse, error);
-                logger.logProxyResponseToClient(cachedResponse);
+                logger.logProxyResponseToClient(client, cachedResponse);
             }
             else if (validation == "revalidate") {
                 logger.logInCacheRevalidation(client);
                 revalidateReq(cachedRespObj, clientRequest);
                 http::write(remoteSocket, clientRequest, error);  // send request to target server
-                logger.logProxyRequestToRemote(clientRequest, hostname);
+                logger.logProxyRequestToRemote(client, clientRequest, hostname);
                 // receive new response
                 http::read(remoteSocket, remoteBuffer, newResponse);
                 //if(newResponse.chunked())handleChunked(newResponse, remoteBuffer, remoteSocket);/****************************/
-                logger.logRemoteResponseToProxy(newResponse, hostname);
+                logger.logRemoteResponseToProxy(client, newResponse, hostname);
                 //check newResponse status code
                 Response newRespObj(newResponse);
                 needCache = checkNeedCache(newResponse);
                 if (newRespObj.status_code == 304) {
                     http::write(client->getClientSocket(), cachedResponse, error);
-                    logger.logProxyResponseToClient(cachedResponse);
+                    logger.logProxyResponseToClient(client, cachedResponse);
                 }
                 else if (newRespObj.status_code == 200) {
                     handleRemote200Ok(client, newResponse, clientRequest, key);
                 }
                 else {//得处理remote server返回既不是304 也不是200的情况
                     http::write(client->getClientSocket(), newResponse, error);
-                    logger.logProxyResponseToClient(newResponse);
+                    logger.logProxyResponseToClient(client, newResponse);
                     if (needCache) {
                         cache.remove(key);
                         removeTime(key);
@@ -423,10 +423,10 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
                 time_t t0 = getTime(key);
                 logger.logInCacheExpire(client, cachedRespObj, requestObj, t0);
                 http::write(remoteSocket, clientRequest, error);
-                logger.logProxyRequestToRemote(clientRequest, hostname);
+                logger.logProxyRequestToRemote(client, clientRequest, hostname);
                 http::read(remoteSocket, remoteBuffer, newResponse);
                 //if(newResponse.chunked())handleChunked(newResponse, remoteBuffer, remoteSocket);/**********************/
-                logger.logRemoteResponseToProxy(newResponse, hostname);
+                logger.logRemoteResponseToProxy(client, newResponse, hostname);
                 needCache = checkNeedCache(newResponse);
                 Response newRes(newResponse);
                 if (needCache) {//cache it
@@ -438,16 +438,16 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
                     logger.logNotCacheable(client, newRespObj);
                 }
                 http::write(client->getClientSocket(), newResponse, error);
-                logger.logProxyResponseToClient(newResponse);
+                logger.logProxyResponseToClient(client, newResponse);
             }
         }
         else {//cache没存过此request对应的response
             //redirect the request
             http::write(remoteSocket, clientRequest, error);
-            logger.logProxyRequestToRemote(clientRequest, hostname);
+            logger.logProxyRequestToRemote(client, clientRequest, hostname);
             http::read(remoteSocket, remoteBuffer, newResponse);
             //if(newResponse.chunked())handleChunked(newResponse, remoteBuffer, remoteSocket);/**************/
-            logger.logRemoteResponseToProxy(newResponse, hostname);
+            logger.logRemoteResponseToProxy(client, newResponse, hostname);
             needCache = checkNeedCache(newResponse);
             if (needCache) {
                 cacheResponse(client, clientRequest, newResponse, key);
@@ -456,7 +456,7 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
                 logger.logNotCacheable(client, newRespObj);
             }
             http::write(client->getClientSocket(), newResponse, error);
-            logger.logProxyResponseToClient(newResponse);
+            logger.logProxyResponseToClient(client, newResponse);
         }
         remoteSocket.shutdown(tcp::socket::shutdown_both, error);
         remoteSocket.close();
@@ -478,7 +478,7 @@ void Proxy::cacheResponse(std::shared_ptr<Client> client, http::request<http::st
     pair<string, http::response<http::dynamic_body>> newRsc = make_pair(key, remoteResponse);
     cache.put(key, newRsc);
     storeTime(key);
-    logger.logProxyResponseToClient(remoteResponse);
+    logger.logProxyResponseToClient(client, remoteResponse);
     Response newRes(remoteResponse);
     Request request(clientRequest);
     if (newRes.noCache || (newRes.max_age == 0)) {
