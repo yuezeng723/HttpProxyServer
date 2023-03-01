@@ -51,7 +51,7 @@ void Filelogger::logProxyResponseToClient(std::shared_ptr<Client> client,http::r
     int minor = response.version() % 10;
     version +=  (major + "." + minor);
     int status_code = response.result_int();
-    if (status_code == 304 || status_code == 200) {
+    if (status_code == 304 || status_code == 200 || status_code == 400 || status_code == 502) {
         file << client->getId() << ": " << "Responding " << "\"" << "HTTP/1.1 " <<  status_code << " " << response.reason().to_string()  << "\"" << endl;
     } 
     else {
