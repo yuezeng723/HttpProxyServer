@@ -1,60 +1,1712 @@
-0: "GET http://httpbin.org/" from 174.109.109.181 @ Tue Feb 28 03:21:45 2023
-Requesting "GET http://httpbin.org/" from httpbin.org
-Received "HTTP/1.1 200 OK" from httpbin.org
-Responding "HTTP/1.1 200 OK"
-0:  cached, but requires revalidation
-Responding "HTTP/1.1 200 OK"
-1: "GET http://httpbin.org/spec.json" from 174.109.109.181 @ Tue Feb 28 03:21:46 2023
-Requesting "GET http://httpbin.org/spec.json" from httpbin.org
-Received "HTTP/1.1 200 OK" from httpbin.org
-Responding "HTTP/1.1 200 OK"
-1:  cached, but requires revalidation
-Responding "HTTP/1.1 200 OK"
-2: "GET http://httpbin.org/" from 174.109.109.181 @ Tue Feb 28 03:21:51 2023
-Requesting "GET http://httpbin.org/" from httpbin.org
-Received "HTTP/1.1 200 OK" from httpbin.org
-Responding "HTTP/1.1 200 OK"
-2:  cached, but requires revalidation
-Responding "HTTP/1.1 200 OK"
-3: "GET http://httpbin.org/spec.json" from 174.109.109.181 @ Tue Feb 28 03:21:52 2023
-Requesting "GET http://httpbin.org/spec.json" from httpbin.org
-Received "HTTP/1.1 200 OK" from httpbin.org
-Responding "HTTP/1.1 200 OK"
-3:  cached, but requires revalidation
-Responding "HTTP/1.1 200 OK"
-4: "GET http://httpbin.org/" from 174.109.109.181 @ Tue Feb 28 03:21:53 2023
-Requesting "GET http://httpbin.org/" from httpbin.org
-Received "HTTP/1.1 200 OK" from httpbin.org
-Responding "HTTP/1.1 200 OK"
-4:  cached, but requires revalidation
-Responding "HTTP/1.1 200 OK"
-5: "GET http://httpbin.org/spec.json" from 174.109.109.181 @ Tue Feb 28 03:21:54 2023
-Requesting "GET http://httpbin.org/spec.json" from httpbin.org
-Received "HTTP/1.1 200 OK" from httpbin.org
-Responding "HTTP/1.1 200 OK"
-5:  cached, but requires revalidation
-Responding "HTTP/1.1 200 OK"
-6: "GET http://httpbin.org/" from 174.109.109.181 @ Tue Feb 28 03:21:56 2023
-Requesting "GET http://httpbin.org/" from httpbin.org
-Received "HTTP/1.1 200 OK" from httpbin.org
-Responding "HTTP/1.1 200 OK"
-6:  cached, but requires revalidation
-Responding "HTTP/1.1 200 OK"
-7: "GET http://httpbin.org/spec.json" from 174.109.109.181 @ Tue Feb 28 03:21:56 2023
-Requesting "GET http://httpbin.org/spec.json" from httpbin.org
-Received "HTTP/1.1 200 OK" from httpbin.org
-Responding "HTTP/1.1 200 OK"
-7:  cached, but requires revalidation
-Responding "HTTP/1.1 200 OK"
-9: "GET http://httpbin.org/" from 174.109.109.181 @ Tue Feb 28 03:21:58 2023
-Requesting "GET http://httpbin.org/" from httpbin.org
-Received "HTTP/1.1 200 OK" from httpbin.org
-Responding "HTTP/1.1 200 OK"
-9:  cached, but requires revalidation
-Responding "HTTP/1.1 200 OK"
-8: "GET http://httpbin.org/spec.json" from 174.109.109.181 @ Tue Feb 28 03:21:58 2023
-Requesting "GET http://httpbin.org/spec.json" from httpbin.org
-Received "HTTP/1.1 200 OK" from httpbin.org
-Responding "HTTP/1.1 200 OK"
-8:  cached, but requires revalidation
-Responding "HTTP/1.1 200 OK"
+
+13: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:02:19 2023
+13: Responding "HTTP/1.1 200 OK"
+9: Tunnel closed
+10: Tunnel closed
+0: Tunnel closed
+14: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:02:25 2023
+14: Responding "HTTP/1.1 200 OK"
+15: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:02:25 2023
+15: Responding "HTTP/1.1 200 OK"
+16: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:02:33 2023
+16: Responding "HTTP/1.1 200 OK"
+17: "CONNECT msgstore.www.notion.so:443" from 10.198.57.66 @ Tue Feb 28 22:02:37 2023
+17: Responding "HTTP/1.1 200 OK"
+18: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:02:38 2023
+18: Responding "HTTP/1.1 200 OK"
+14: Tunnel closed
+15: Tunnel closed
+19: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:02:42 2023
+20: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:02:42 2023
+19: Responding "HTTP/1.1 200 OK"
+20: Responding "HTTP/1.1 200 OK"
+21: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:02:42 2023
+21: Responding "HTTP/1.1 200 OK"
+3: Tunnel closed
+17: Tunnel closed
+22: "CONNECT msgstore.www.notion.so:443" from 10.198.57.66 @ Tue Feb 28 22:02:53 2023
+22: Responding "HTTP/1.1 200 OK"
+23: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx" from 10.198.57.66 @ Tue Feb 28 22:02:56 2023
+23: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx" from www.httpwatch.com
+19: Tunnel closed
+20: Tunnel closed
+25: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:02:59 2023
+25: Responding "HTTP/1.1 200 OK"
+26: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:02:59 2023
+26: Responding "HTTP/1.1 200 OK"
+23: Received "HTTP/Received  200 OK" from www.httpwatch.com
+23: not cacheable because no-store
+23: Responding "HTTP/1.1 200 OK"
+27: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:03:08 2023
+28: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:03:08 2023
+27: Responding "HTTP/1.1 200 OK"
+28: Responding "HTTP/1.1 200 OK"
+22: Tunnel closed
+30: "GET http://httpbin.org/forms/post" from 10.198.57.66 @ Tue Feb 28 22:03:10 2023
+30: Requesting "GET http://httpbin.org/forms/post" from httpbin.org
+30: Received "HTTP/Received  200 OK" from httpbin.org
+30: Responding "HTTP/1.1 200 OK"
+30: cached, but requires revalidation
+30: Responding "HTTP/1.1 200 OK"
+31: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:03:12 2023
+31: Responding "HTTP/1.1 200 OK"
+11: Tunnel closed
+29: "POST http://httpbin.org/post" from 10.198.57.66 @ Tue Feb 28 22:03:13 2023
+29: Requesting "POST http://httpbin.org/post" from httpbin.org
+29: Received "HTTP/Received  200 OK" from httpbin.org
+29: Responding "HTTP/1.1 200 OK"
+29: Tunnel closed
+33: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:03:16 2023
+33: Responding "HTTP/1.1 200 OK"
+13: Tunnel closed
+36: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:03:21 2023
+36: Responding "HTTP/1.1 200 OK"
+27: Tunnel closed
+28: Tunnel closed
+37: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:03:25 2023
+38: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:03:25 2023
+37: Responding "HTTP/1.1 200 OK"
+38: Responding "HTTP/1.1 200 OK"
+39: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:03:26 2023
+39: Responding "HTTP/1.1 200 OK"
+40: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:03:28 2023
+40: Responding "HTTP/1.1 200 OK"
+41: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:03:29 2023
+41: Responding "HTTP/1.1 200 OK"
+42: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:03:34 2023
+42: Responding "HTTP/1.1 200 OK"
+43: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:03:37 2023
+43: Responding "HTTP/1.1 200 OK"
+18: Tunnel closed
+1: Tunnel closed
+38: Tunnel closed
+37: Tunnel closed
+21: Tunnel closed
+2: Tunnel closed
+4: Tunnel closed
+44: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:03:49 2023
+44: Responding "HTTP/1.1 200 OK"
+7: Tunnel closed
+45: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:03:55 2023
+46: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:03:55 2023
+45: Responding "HTTP/1.1 200 OK"
+46: Responding "HTTP/1.1 200 OK"
+25: Tunnel closed
+26: Tunnel closed
+8: Tunnel closed
+47: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:04:07 2023
+47: Responding "HTTP/1.1 200 OK"
+45: Tunnel closed
+46: Tunnel closed
+48: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:04:13 2023
+50: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:04:13 2023
+49: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:04:13 2023
+48: Responding "HTTP/1.1 200 OK"
+49: Responding "HTTP/1.1 200 OK"
+50: Responding "HTTP/1.1 200 OK"
+12: Tunnel closed
+52: "GET http://httpbin.org/forms/post" from 10.198.57.66 @ Tue Feb 28 22:04:15 2023
+52: in cache, but expired at Tue Feb 28 22:03:10 2023
+52: Requesting "GET http://httpbin.org/forms/post" from httpbin.org
+52: Received "HTTP/Received  200 OK" from httpbin.org
+52: Responding "HTTP/1.1 200 OK"
+52: cached, but requires revalidation
+52: Responding "HTTP/1.1 200 OK"
+53: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:04:17 2023
+53: Responding "HTTP/1.1 200 OK"
+39: Tunnel closed
+48: Tunnel closed
+49: Tunnel closed
+41: Tunnel closed
+42: Tunnel closed
+54: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:04:34 2023
+54: Responding "HTTP/1.1 200 OK"
+16: Tunnel closed
+55: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:04:45 2023
+56: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:04:45 2023
+55: Responding "HTTP/1.1 200 OK"
+56: Responding "HTTP/1.1 200 OK"
+57: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:04:48 2023
+57: Responding "HTTP/1.1 200 OK"
+58: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:04:52 2023
+58: Responding "HTTP/1.1 200 OK"
+59: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:04:57 2023
+59: Responding "HTTP/1.1 200 OK"
+55: Tunnel closed
+56: Tunnel closed
+60: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:05:02 2023
+61: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:05:02 2023
+62: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:05:02 2023
+60: Responding "HTTP/1.1 200 OK"
+61: Responding "HTTP/1.1 200 OK"
+62: Responding "HTTP/1.1 200 OK"
+63: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:05:03 2023
+63: Responding "HTTP/1.1 200 OK"
+47: Tunnel closed
+64: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:05:11 2023
+64: Responding "HTTP/1.1 200 OK"
+31: Tunnel closed
+33: Tunnel closed
+53: Tunnel closed
+60: Tunnel closed
+61: Tunnel closed
+36: Tunnel closed
+65: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:05:25 2023
+65: Responding "HTTP/1.1 200 OK"
+66: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:05:28 2023
+66: Responding "HTTP/1.1 200 OK"
+40: Tunnel closed
+67: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:05:32 2023
+67: Responding "HTTP/1.1 200 OK"
+54: Tunnel closed
+68: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:05:35 2023
+68: Responding "HTTP/1.1 200 OK"
+43: Tunnel closed
+70: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:05:45 2023
+69: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:05:45 2023
+70: Responding "HTTP/1.1 200 OK"
+69: Responding "HTTP/1.1 200 OK"
+71: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:05:48 2023
+71: Responding "HTTP/1.1 200 OK"
+44: Tunnel closed
+72: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:05:53 2023
+72: Responding "HTTP/1.1 200 OK"
+70: Tunnel closed
+69: Tunnel closed
+62: Tunnel closed
+73: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:02 2023
+74: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:02 2023
+75: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:06:02 2023
+73: Responding "HTTP/1.1 200 OK"
+74: Responding "HTTP/1.1 200 OK"
+75: Responding "HTTP/1.1 200 OK"
+50: Tunnel closed
+76: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:06:16 2023
+76: Responding "HTTP/1.1 200 OK"
+77: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:17 2023
+77: Responding "HTTP/1.1 200 OK"
+78: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:17 2023
+78: Responding "HTTP/1.1 200 OK"
+74: Tunnel closed
+73: Tunnel closed
+79: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:24 2023
+80: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:24 2023
+79: Responding "HTTP/1.1 200 OK"
+80: Responding "HTTP/1.1 200 OK"
+81: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:06:25 2023
+81: Responding "HTTP/1.1 200 OK"
+66: Tunnel closed
+82: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:06:30 2023
+82: Responding "HTTP/1.1 200 OK"
+83: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:06:30 2023
+83: Responding "HTTP/1.1 200 OK"
+77: Tunnel closed
+78: Tunnel closed
+67: Tunnel closed
+84: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:34 2023
+84: Responding "HTTP/1.1 200 OK"
+85: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:34 2023
+85: Responding "HTTP/1.1 200 OK"
+68: Tunnel closed
+86: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:06:36 2023
+86: Responding "HTTP/1.1 200 OK"
+87: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:06:38 2023
+87: Responding "HTTP/1.1 200 OK"
+79: Tunnel closed
+80: Tunnel closed
+88: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:41 2023
+88: Responding "HTTP/1.1 200 OK"
+89: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:41 2023
+89: Responding "HTTP/1.1 200 OK"
+90: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:06:46 2023
+90: Responding "HTTP/1.1 200 OK"
+57: Tunnel closed
+84: Tunnel closed
+85: Tunnel closed
+58: Tunnel closed
+72: Tunnel closed
+91: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:54 2023
+91: Responding "HTTP/1.1 200 OK"
+92: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:54 2023
+92: Responding "HTTP/1.1 200 OK"
+88: Tunnel closed
+89: Tunnel closed
+59: Tunnel closed
+93: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:06:58 2023
+93: Responding "HTTP/1.1 200 OK"
+94: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:06:59 2023
+94: Responding "HTTP/1.1 200 OK"
+95: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:06:59 2023
+95: Responding "HTTP/1.1 200 OK"
+75: Tunnel closed
+63: Tunnel closed
+91: Tunnel closed
+92: Tunnel closed
+96: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:07:11 2023
+96: Responding "HTTP/1.1 200 OK"
+97: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:07:11 2023
+97: Responding "HTTP/1.1 200 OK"
+64: Tunnel closed
+76: Tunnel closed
+98: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:07:20 2023
+98: Responding "HTTP/1.1 200 OK"
+99: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:07:25 2023
+99: Responding "HTTP/1.1 200 OK"
+65: Tunnel closed
+96: Tunnel closed
+97: Tunnel closed
+100: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:07:29 2023
+100: Responding "HTTP/1.1 200 OK"
+101: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:07:30 2023
+101: Responding "HTTP/1.1 200 OK"
+83: Tunnel closed
+71: Tunnel closed
+102: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:07:57 2023
+102: Responding "HTTP/1.1 200 OK"
+93: Tunnel closed
+94: Tunnel closed
+103: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:08:00 2023
+103: Responding "HTTP/1.1 200 OK"
+104: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:08:05 2023
+104: Responding "HTTP/1.1 200 OK"
+105: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:08:06 2023
+105: Responding "HTTP/1.1 200 OK"
+106: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:08:07 2023
+106: Responding "HTTP/1.1 200 OK"
+107: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:08:07 2023
+107: Responding "HTTP/1.1 200 OK"
+108: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:08:12 2023
+108: Responding "HTTP/1.1 200 OK"
+109: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:08:15 2023
+109: Responding "HTTP/1.1 200 OK"
+106: Tunnel closed
+107: Tunnel closed
+110: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:08:24 2023
+111: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:08:24 2023
+112: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:08:24 2023
+112: Responding "HTTP/1.1 200 OK"
+111: Responding "HTTP/1.1 200 OK"
+110: Responding "HTTP/1.1 200 OK"
+99: Tunnel closed
+81: Tunnel closed
+100: Tunnel closed
+101: Tunnel closed
+82: Tunnel closed
+113: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:08:33 2023
+113: Responding "HTTP/1.1 200 OK"
+86: Tunnel closed
+111: Tunnel closed
+110: Tunnel closed
+87: Tunnel closed
+114: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:08:44 2023
+114: Responding "HTTP/1.1 200 OK"
+115: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:08:45 2023
+115: Responding "HTTP/1.1 200 OK"
+116: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:08:46 2023
+116: Responding "HTTP/1.1 200 OK"
+90: Tunnel closed
+117: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:08:53 2023
+117: Responding "HTTP/1.1 200 OK"
+114: Tunnel closed
+115: Tunnel closed
+95: Tunnel closed
+118: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:09:01 2023
+119: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:09:01 2023
+118: Responding "HTTP/1.1 200 OK"
+119: Responding "HTTP/1.1 200 OK"
+104: Tunnel closed
+108: Tunnel closed
+118: Tunnel closed
+119: Tunnel closed
+120: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:09:20 2023
+120: Responding "HTTP/1.1 200 OK"
+98: Tunnel closed
+121: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:09:24 2023
+121: Responding "HTTP/1.1 200 OK"
+124: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:09:26 2023
+124: Responding "HTTP/1.1 200 OK"
+125: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:09:32 2023
+125: Responding "HTTP/1.1 200 OK"
+126: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:09:38 2023
+126: Responding "HTTP/1.1 200 OK"
+121: Tunnel closed
+127: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:09:40 2023
+127: Responding "HTTP/1.1 200 OK"
+124: Tunnel closed
+128: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:09:42 2023
+128: Responding "HTTP/1.1 200 OK"
+129: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:09:43 2023
+129: Responding "HTTP/1.1 200 OK"
+116: Tunnel closed
+130: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:09:50 2023
+130: Responding "HTTP/1.1 200 OK"
+131: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:09:50 2023
+131: Responding "HTTP/1.1 200 OK"
+132: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:09:51 2023
+132: Responding "HTTP/1.1 200 OK"
+127: Tunnel closed
+128: Tunnel closed
+102: Tunnel closed
+133: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:09:59 2023
+133: Responding "HTTP/1.1 200 OK"
+103: Tunnel closed
+134: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:10:05 2023
+134: Responding "HTTP/1.1 200 OK"
+105: Tunnel closed
+135: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:10:09 2023
+135: Responding "HTTP/1.1 200 OK"
+136: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:10:10 2023
+136: Responding "HTTP/1.1 200 OK"
+137: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:10:13 2023
+137: Responding "HTTP/1.1 200 OK"
+109: Tunnel closed
+120: Tunnel closed
+138: "GET http://httpbin.org/" from 10.198.57.66 @ Tue Feb 28 22:10:21 2023
+138: Requesting "GET http://httpbin.org/" from httpbin.org
+138: Received "HTTP/Received  200 OK" from httpbin.org
+138: Responding "HTTP/1.1 200 OK"
+138: cached, but requires revalidation
+138: Responding "HTTP/1.1 200 OK"
+139: "GET http://httpbin.org/flasgger_static/swagger-ui-bundle.js" from 10.198.57.66 @ Tue Feb 28 22:10:21 2023
+139: Requesting "GET http://httpbin.org/flasgger_static/swagger-ui-bundle.js" from httpbin.org
+140: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:10:21 2023
+140: Responding "HTTP/1.1 200 OK"
+139: Received "HTTP/Received  200 OK" from httpbin.org
+139: Responding "HTTP/1.1 200 OK"
+139: Responding "HTTP/1.1 200 OK"
+141: "GET http://httpbin.org/spec.json" from 10.198.57.66 @ Tue Feb 28 22:10:21 2023
+141: Requesting "GET http://httpbin.org/spec.json" from httpbin.org
+141: Received "HTTP/Received  200 OK" from httpbin.org
+141: Responding "HTTP/1.1 200 OK"
+141: cached, but requires revalidation
+141: Responding "HTTP/1.1 200 OK"
+135: Tunnel closed
+112: Tunnel closed
+142: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:10:25 2023
+142: Responding "HTTP/1.1 200 OK"
+137: Tunnel closed
+143: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:10:29 2023
+143: Responding "HTTP/1.1 200 OK"
+144: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:10:30 2023
+144: Responding "HTTP/1.1 200 OK"
+145: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:10:30 2023
+145: Responding "HTTP/1.1 200 OK"
+147: "GET http://httpbin.org/connect" from 10.198.57.66 @ Tue Feb 28 22:10:32 2023
+147: Requesting "GET http://httpbin.org/connect" from httpbin.org
+147: Received "HTTP/Received  404 NOT FOUND" from httpbin.org
+147: Responding "HTTP/Received  404 NOT FOUND"
+147: cached, but requires revalidation
+147: Responding "HTTP/Received  404 NOT FOUND"
+113: Tunnel closed
+146: "GET http://httpbin.org/get" from 10.198.57.66 @ Tue Feb 28 22:10:38 2023
+146: Requesting "GET http://httpbin.org/get" from httpbin.org
+146: Received "HTTP/Received  200 OK" from httpbin.org
+146: Responding "HTTP/1.1 200 OK"
+146: cached, but requires revalidation
+146: Responding "HTTP/1.1 200 OK"
+142: Tunnel closed
+149: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:10:43 2023
+149: Responding "HTTP/1.1 200 OK"
+143: Tunnel closed
+131: Tunnel closed
+132: Tunnel closed
+117: Tunnel closed
+148: "GET http://httpbin.org/" from 10.198.57.66 @ Tue Feb 28 22:10:57 2023
+148: in cache, but expired at Tue Feb 28 22:10:21 2023
+148: Requesting "GET http://httpbin.org/" from httpbin.org
+148: Received "HTTP/Received  200 OK" from httpbin.org
+148: Responding "HTTP/1.1 200 OK"
+148: cached, but requires revalidation
+148: Responding "HTTP/1.1 200 OK"
+150: "GET http://httpbin.org/spec.json" from 10.198.57.66 @ Tue Feb 28 22:10:57 2023
+150: in cache, but expired at Tue Feb 28 22:10:22 2023
+150: Requesting "GET http://httpbin.org/spec.json" from httpbin.org
+150: Received "HTTP/Received  200 OK" from httpbin.org
+150: Responding "HTTP/1.1 200 OK"
+150: cached, but requires revalidation
+150: Responding "HTTP/1.1 200 OK"
+151: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:11:04 2023
+151: Responding "HTTP/1.1 200 OK"
+152: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:11:04 2023
+152: Responding "HTTP/1.1 200 OK"
+134: Tunnel closed
+153: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:11:06 2023
+153: Responding "HTTP/1.1 200 OK"
+154: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:11:08 2023
+154: Responding "HTTP/1.1 200 OK"
+155: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:11:14 2023
+155: Responding "HTTP/1.1 200 OK"
+156: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:11:14 2023
+156: Responding "HTTP/1.1 200 OK"
+157: "GET http://httpbin.org/status/403" from 10.198.57.66 @ Tue Feb 28 22:11:19 2023
+157: Requesting "GET http://httpbin.org/status/403" from httpbin.org
+157: Received "HTTP/Received  403 FORBIDDEN" from httpbin.org
+157: Responding "HTTP/Received  403 FORBIDDEN"
+157: cached, but requires revalidation
+157: Responding "HTTP/Received  403 FORBIDDEN"
+152: Tunnel closed
+158: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:11:21 2023
+158: Responding "HTTP/1.1 200 OK"
+159: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:11:21 2023
+159: Responding "HTTP/1.1 200 OK"
+140: Tunnel closed
+153: Tunnel closed
+160: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:11:22 2023
+160: Responding "HTTP/1.1 200 OK"
+162: "GET http://httpbin.org/status/403" from 10.198.57.66 @ Tue Feb 28 22:11:29 2023
+162: in cache, but expired at Tue Feb 28 22:11:19 2023
+162: Requesting "GET http://httpbin.org/status/403" from httpbin.org
+162: Received "HTTP/Received  403 FORBIDDEN" from httpbin.org
+162: Responding "HTTP/Received  403 FORBIDDEN"
+162: cached, but requires revalidation
+162: Responding "HTTP/Received  403 FORBIDDEN"
+144: Tunnel closed
+163: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:11:30 2023
+163: Responding "HTTP/1.1 200 OK"
+164: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:11:31 2023
+164: Responding "HTTP/1.1 200 OK"
+125: Tunnel closed
+158: Tunnel closed
+160: Tunnel closed
+126: Tunnel closed
+165: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:11:43 2023
+165: Responding "HTTP/1.1 200 OK"
+149: Tunnel closed
+129: Tunnel closed
+130: Tunnel closed
+133: Tunnel closed
+166: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:12:04 2023
+166: Responding "HTTP/1.1 200 OK"
+136: Tunnel closed
+156: Tunnel closed
+167: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:12:15 2023
+167: Responding "HTTP/1.1 200 OK"
+168: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:12:16 2023
+169: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:12:16 2023
+168: Responding "HTTP/1.1 200 OK"
+169: Responding "HTTP/1.1 200 OK"
+163: Tunnel closed
+168: Tunnel closed
+169: Tunnel closed
+145: Tunnel closed
+171: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:12:33 2023
+170: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:12:33 2023
+171: Responding "HTTP/1.1 200 OK"
+170: Responding "HTTP/1.1 200 OK"
+172: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:12:36 2023
+172: Responding "HTTP/1.1 200 OK"
+173: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:12:36 2023
+173: Responding "HTTP/1.1 200 OK"
+174: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:12:40 2023
+174: Responding "HTTP/1.1 200 OK"
+175: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:12:41 2023
+175: Responding "HTTP/1.1 200 OK"
+176: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:12:45 2023
+176: Responding "HTTP/1.1 200 OK"
+171: Tunnel closed
+170: Tunnel closed
+177: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:12:52 2023
+177: Responding "HTTP/1.1 200 OK"
+178: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:13:01 2023
+178: Responding "HTTP/1.1 200 OK"
+151: Tunnel closed
+154: Tunnel closed
+179: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:13:11 2023
+179: Responding "HTTP/1.1 200 OK"
+180: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:13:14 2023
+180: Responding "HTTP/1.1 200 OK"
+155: Tunnel closed
+167: Tunnel closed
+159: Tunnel closed
+164: Tunnel closed
+181: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:13:36 2023
+181: Responding "HTTP/1.1 200 OK"
+172: Tunnel closed
+175: Tunnel closed
+165: Tunnel closed
+182: "CONNECT logfiles.zoom.us:443" from 10.198.57.66 @ Tue Feb 28 22:13:44 2023
+182: Responding "HTTP/1.1 200 OK"
+183: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:13:49 2023
+183: Responding "HTTP/1.1 200 OK"
+184: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:14:01 2023
+184: Responding "HTTP/1.1 200 OK"
+166: Tunnel closed
+185: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:14:06 2023
+185: Responding "HTTP/1.1 200 OK"
+179: Tunnel closed
+186: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:14:19 2023
+186: Responding "HTTP/1.1 200 OK"
+187: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:14:24 2023
+187: Responding "HTTP/1.1 200 OK"
+188: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:14:28 2023
+188: Responding "HTTP/1.1 200 OK"
+189: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:14:31 2023
+189: Responding "HTTP/1.1 200 OK"
+190: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:14:36 2023
+190: Responding "HTTP/1.1 200 OK"
+191: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:14:37 2023
+191: Responding "HTTP/1.1 200 OK"
+173: Tunnel closed
+174: Tunnel closed
+182: Tunnel closed
+176: Tunnel closed
+183: Tunnel closed
+177: Tunnel closed
+184: Tunnel closed
+178: Tunnel closed
+185: Tunnel closed
+192: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:15:09 2023
+192: Responding "HTTP/1.1 200 OK"
+180: Tunnel closed
+193: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:15:27 2023
+193: Responding "HTTP/1.1 200 OK"
+188: Tunnel closed
+194: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:15:34 2023
+195: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:15:34 2023
+194: Responding "HTTP/1.1 200 OK"
+195: Responding "HTTP/1.1 200 OK"
+196: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:15:36 2023
+196: Responding "HTTP/1.1 200 OK"
+191: Tunnel closed
+181: Tunnel closed
+197: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:16:04 2023
+197: Responding "HTTP/1.1 200 OK"
+198: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:16:06 2023
+198: Responding "HTTP/1.1 200 OK"
+186: Tunnel closed
+187: Tunnel closed
+193: Tunnel closed
+189: Tunnel closed
+194: Tunnel closed
+196: Tunnel closed
+190: Tunnel closed
+199: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:16:38 2023
+199: Responding "HTTP/1.1 200 OK"
+200: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:16:43 2023
+200: Responding "HTTP/1.1 200 OK"
+201: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:16:49 2023
+201: Responding "HTTP/1.1 200 OK"
+197: Tunnel closed
+192: Tunnel closed
+202: "GET http://captive.apple.com/hotspot-detect.html" from 10.198.57.66 @ Tue Feb 28 22:17:15 2023
+202: Requesting "GET http://captive.apple.com/hotspot-detect.html" from captive.apple.com
+202: Received "HTTP/ 200 OK" from captive.apple.com
+202: Responding "HTTP/1.1 200 OK"
+202: Responding "HTTP/1.1 200 OK"
+205: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:17:16 2023
+208: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:17:16 2023
+204: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:17:16 2023
+207: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:17:16 2023
+203: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:17:16 2023
+206: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:17:16 2023
+210: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:17:16 2023
+209: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:17:16 2023
+205: Responding "HTTP/1.1 200 OK"
+207: Responding "HTTP/1.1 200 OK"
+206: Responding "HTTP/1.1 200 OK"
+204: Responding "HTTP/1.1 200 OK"
+203: Responding "HTTP/1.1 200 OK"
+208: Responding "HTTP/1.1 200 OK"
+209: Responding "HTTP/1.1 200 OK"
+210: Responding "HTTP/1.1 200 OK"
+211: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:17:19 2023
+211: Responding "HTTP/1.1 200 OK"
+212: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:17:24 2023
+212: Responding "HTTP/1.1 200 OK"
+213: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:17:29 2023
+213: Responding "HTTP/1.1 200 OK"
+206: Tunnel closed
+208: Tunnel closed
+209: Tunnel closed
+210: Tunnel closed
+214: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:17:35 2023
+215: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:17:35 2023
+216: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:17:35 2023
+217: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:17:35 2023
+214: Responding "HTTP/1.1 200 OK"
+216: Responding "HTTP/1.1 200 OK"
+217: Responding "HTTP/1.1 200 OK"
+215: Responding "HTTP/1.1 200 OK"
+195: Tunnel closed
+199: Tunnel closed
+218: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:17:39 2023
+218: Responding "HTTP/1.1 200 OK"
+200: Tunnel closed
+219: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:17:46 2023
+219: Responding "HTTP/1.1 200 OK"
+215: Tunnel closed
+216: Tunnel closed
+214: Tunnel closed
+217: Tunnel closed
+220: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:17:54 2023
+220: Responding "HTTP/1.1 200 OK"
+221: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:17:59 2023
+222: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:17:59 2023
+221: Responding "HTTP/1.1 200 OK"
+222: Responding "HTTP/1.1 200 OK"
+223: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:17:59 2023
+223: Responding "HTTP/1.1 200 OK"
+224: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:18:00 2023
+225: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:18:00 2023
+224: Responding "HTTP/1.1 200 OK"
+225: Responding "HTTP/1.1 200 OK"
+198: Tunnel closed
+226: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:18:09 2023
+226: Responding "HTTP/1.1 200 OK"
+221: Tunnel closed
+222: Tunnel closed
+225: Tunnel closed
+224: Tunnel closed
+207: Tunnel closed
+205: Tunnel closed
+203: Tunnel closed
+204: Tunnel closed
+227: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:18:16 2023
+227: Responding "HTTP/1.1 200 OK"
+229: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:18:18 2023
+228: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:18:18 2023
+230: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:18:18 2023
+228: Responding "HTTP/1.1 200 OK"
+229: Responding "HTTP/1.1 200 OK"
+230: Responding "HTTP/1.1 200 OK"
+227: Tunnel closed
+228: Tunnel closed
+229: Tunnel closed
+230: Tunnel closed
+231: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:18:39 2023
+231: Responding "HTTP/1.1 200 OK"
+232: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:18:45 2023
+232: Responding "HTTP/1.1 200 OK"
+219: Tunnel closed
+233: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:18:49 2023
+234: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:18:49 2023
+234: Responding "HTTP/1.1 200 OK"
+233: Responding "HTTP/1.1 200 OK"
+201: Tunnel closed
+235: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:18:51 2023
+235: Responding "HTTP/1.1 200 OK"
+231: Tunnel closed
+236: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:18:56 2023
+236: Responding "HTTP/1.1 200 OK"
+223: Tunnel closed
+232: Tunnel closed
+236: Tunnel closed
+211: Tunnel closed
+212: Tunnel closed
+237: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:19:28 2023
+237: Responding "HTTP/1.1 200 OK"
+238: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:19:29 2023
+238: Responding "HTTP/1.1 200 OK"
+239: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:19:29 2023
+239: Responding "HTTP/1.1 200 OK"
+213: Tunnel closed
+240: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:19:38 2023
+240: Responding "HTTP/1.1 200 OK"
+241: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:19:39 2023
+241: Responding "HTTP/1.1 200 OK"
+218: Tunnel closed
+239: Tunnel closed
+242: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:19:46 2023
+242: Responding "HTTP/1.1 200 OK"
+243: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:19:48 2023
+243: Responding "HTTP/1.1 200 OK"
+233: Tunnel closed
+235: Tunnel closed
+244: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:19:51 2023
+244: Responding "HTTP/1.1 200 OK"
+240: Tunnel closed
+245: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:19:55 2023
+245: Responding "HTTP/1.1 200 OK"
+220: Tunnel closed
+242: Tunnel closed
+246: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:20:09 2023
+246: Responding "HTTP/1.1 200 OK"
+226: Tunnel closed
+245: Tunnel closed
+247: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:20:19 2023
+247: Responding "HTTP/1.1 200 OK"
+237: Tunnel closed
+248: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:20:36 2023
+248: Responding "HTTP/1.1 200 OK"
+241: Tunnel closed
+249: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:20:43 2023
+249: Responding "HTTP/1.1 200 OK"
+250: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:20:44 2023
+250: Responding "HTTP/1.1 200 OK"
+243: Tunnel closed
+251: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:20:50 2023
+251: Responding "HTTP/1.1 200 OK"
+252: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:20:50 2023
+253: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:20:50 2023
+252: Responding "HTTP/1.1 200 OK"
+253: Responding "HTTP/1.1 200 OK"
+234: Tunnel closed
+254: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:20:50 2023
+254: Responding "HTTP/1.1 200 OK"
+255: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:20:51 2023
+255: Responding "HTTP/1.1 200 OK"
+256: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:20:52 2023
+256: Responding "HTTP/1.1 200 OK"
+253: Tunnel closed
+252: Tunnel closed
+254: Tunnel closed
+255: Tunnel closed
+257: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:21:07 2023
+257: Responding "HTTP/1.1 200 OK"
+248: Tunnel closed
+246: Tunnel closed
+259: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:21:10 2023
+259: Responding "HTTP/1.1 200 OK"
+247: Tunnel closed
+238: Tunnel closed
+260: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:21:44 2023
+262: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:21:44 2023
+261: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:21:44 2023
+260: Responding "HTTP/1.1 200 OK"
+262: Responding "HTTP/1.1 200 OK"
+261: Responding "HTTP/1.1 200 OK"
+264: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:21:49 2023
+263: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:21:49 2023
+264: Responding "HTTP/1.1 200 OK"
+263: Responding "HTTP/1.1 200 OK"
+265: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:21:51 2023
+265: Responding "HTTP/1.1 200 OK"
+266: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:21:51 2023
+266: Responding "HTTP/1.1 200 OK"
+267: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:21:51 2023
+267: Responding "HTTP/1.1 200 OK"
+268: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:21:51 2023
+268: Responding "HTTP/1.1 200 OK"
+244: Tunnel closed
+269: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:21:57 2023
+269: Responding "HTTP/1.1 200 OK"
+263: Tunnel closed
+264: Tunnel closed
+265: Tunnel closed
+266: Tunnel closed
+262: Tunnel closed
+260: Tunnel closed
+261: Tunnel closed
+249: Tunnel closed
+250: Tunnel closed
+251: Tunnel closed
+256: Tunnel closed
+257: Tunnel closed
+259: Tunnel closed
+271: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:23:24 2023
+270: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:23:24 2023
+272: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:23:24 2023
+273: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:23:24 2023
+275: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:23:24 2023
+274: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:23:24 2023
+272: Responding "HTTP/1.1 200 OK"
+275: Responding "HTTP/1.1 200 OK"
+270: Responding "HTTP/1.1 200 OK"
+273: Responding "HTTP/1.1 200 OK"
+274: Responding "HTTP/1.1 200 OK"
+271: Responding "HTTP/1.1 200 OK"
+276: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:23:27 2023
+276: Responding "HTTP/1.1 200 OK"
+277: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:23:33 2023
+277: Responding "HTTP/1.1 200 OK"
+272: Tunnel closed
+274: Tunnel closed
+278: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:23:41 2023
+279: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:23:41 2023
+278: Responding "HTTP/1.1 200 OK"
+279: Responding "HTTP/1.1 200 OK"
+280: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:23:43 2023
+280: Responding "HTTP/1.1 200 OK"
+267: Tunnel closed
+268: Tunnel closed
+278: Tunnel closed
+279: Tunnel closed
+273: Tunnel closed
+270: Tunnel closed
+275: Tunnel closed
+281: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:24:28 2023
+284: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:24:28 2023
+283: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:24:28 2023
+282: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:24:28 2023
+286: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:24:28 2023
+284: Responding "HTTP/1.1 200 OK"
+283: Responding "HTTP/1.1 200 OK"
+285: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:24:28 2023
+285: Responding "HTTP/1.1 200 OK"
+286: Responding "HTTP/1.1 200 OK"
+281: Responding "HTTP/1.1 200 OK"
+282: Responding "HTTP/1.1 200 OK"
+287: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:24:30 2023
+287: Responding "HTTP/1.1 200 OK"
+288: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:24:40 2023
+291: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:24:40 2023
+289: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:24:40 2023
+292: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:24:40 2023
+293: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:24:40 2023
+290: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:24:40 2023
+288: Responding "HTTP/1.1 200 OK"
+293: Responding "HTTP/1.1 200 OK"
+291: Responding "HTTP/1.1 200 OK"
+289: Responding "HTTP/1.1 200 OK"
+290: Responding "HTTP/1.1 200 OK"
+292: Responding "HTTP/1.1 200 OK"
+284: Tunnel closed
+283: Tunnel closed
+285: Tunnel closed
+294: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:24:44 2023
+294: Responding "HTTP/1.1 200 OK"
+295: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:24:51 2023
+295: Responding "HTTP/1.1 200 OK"
+288: Tunnel closed
+293: Tunnel closed
+296: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:24:57 2023
+297: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:24:57 2023
+296: Responding "HTTP/1.1 200 OK"
+297: Responding "HTTP/1.1 200 OK"
+298: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:25:00 2023
+298: Responding "HTTP/1.1 200 OK"
+296: Tunnel closed
+297: Tunnel closed
+271: Tunnel closed
+281: Tunnel closed
+282: Tunnel closed
+286: Tunnel closed
+276: Tunnel closed
+277: Tunnel closed
+289: Tunnel closed
+290: Tunnel closed
+291: Tunnel closed
+280: Tunnel closed
+299: "CONNECT zpns.zoom.us:443" from 10.198.57.66 @ Tue Feb 28 22:26:24 2023
+299: Responding "HTTP/1.1 200 OK"
+300: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:26:28 2023
+300: Responding "HTTP/1.1 200 OK"
+287: Tunnel closed
+301: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:26:32 2023
+301: Responding "HTTP/1.1 200 OK"
+302: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:26:37 2023
+302: Responding "HTTP/1.1 200 OK"
+292: Tunnel closed
+303: "CONNECT zpns.zoom.us:443" from 10.198.57.66 @ Tue Feb 28 22:26:44 2023
+303: Responding "HTTP/1.1 200 OK"
+294: Tunnel closed
+295: Tunnel closed
+304: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:26:52 2023
+305: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:26:52 2023
+304: Responding "HTTP/1.1 200 OK"
+305: Responding "HTTP/1.1 200 OK"
+306: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:26:55 2023
+306: Responding "HTTP/1.1 200 OK"
+298: Tunnel closed
+304: Tunnel closed
+305: Tunnel closed
+307: "CONNECT zpns.zoom.us:443" from 10.198.57.66 @ Tue Feb 28 22:27:09 2023
+307: Responding "HTTP/1.1 200 OK"
+299: Tunnel closed
+308: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:27:25 2023
+308: Responding "HTTP/1.1 200 OK"
+300: Tunnel closed
+302: Tunnel closed
+303: Tunnel closed
+309: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:27:47 2023
+310: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:27:47 2023
+311: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:27:47 2023
+310: Responding "HTTP/1.1 200 OK"
+309: Responding "HTTP/1.1 200 OK"
+311: Responding "HTTP/1.1 200 OK"
+312: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:27:47 2023
+312: Responding "HTTP/1.1 200 OK"
+313: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:27:47 2023
+313: Responding "HTTP/1.1 200 OK"
+314: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:27:47 2023
+314: Responding "HTTP/1.1 200 OK"
+315: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:27:49 2023
+315: Responding "HTTP/1.1 200 OK"
+316: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:27:49 2023
+316: Responding "HTTP/1.1 200 OK"
+311: Tunnel closed
+312: Tunnel closed
+313: Tunnel closed
+314: Tunnel closed
+307: Tunnel closed
+317: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:28:09 2023
+317: Responding "HTTP/1.1 200 OK"
+318: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:28:21 2023
+318: Responding "HTTP/1.1 200 OK"
+308: Tunnel closed
+319: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:28:26 2023
+319: Responding "HTTP/1.1 200 OK"
+320: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:28:28 2023
+320: Responding "HTTP/1.1 200 OK"
+321: "CONNECT zpns.zoom.us:443" from 10.198.57.66 @ Tue Feb 28 22:28:28 2023
+321: Responding "HTTP/1.1 200 OK"
+322: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:28:29 2023
+322: Responding "HTTP/1.1 200 OK"
+323: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:28:30 2023
+323: Responding "HTTP/1.1 200 OK"
+301: Tunnel closed
+324: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:28:39 2023
+324: Responding "HTTP/1.1 200 OK"
+316: Tunnel closed
+306: Tunnel closed
+325: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:28:59 2023
+325: Responding "HTTP/1.1 200 OK"
+326: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:29:01 2023
+326: Responding "HTTP/1.1 200 OK"
+327: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:29:02 2023
+327: Responding "HTTP/1.1 200 OK"
+325: Tunnel closed
+327: Tunnel closed
+330: "CONNECT zpns.zoom.us:443" from 10.198.57.66 @ Tue Feb 28 22:29:23 2023
+330: Responding "HTTP/1.1 200 OK"
+320: Tunnel closed
+321: Tunnel closed
+322: Tunnel closed
+323: Tunnel closed
+310: Tunnel closed
+309: Tunnel closed
+315: Tunnel closed
+317: Tunnel closed
+318: Tunnel closed
+330: Tunnel closed
+319: Tunnel closed
+324: Tunnel closed
+326: Tunnel closed
+331: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:33:12 2023
+332: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:33:12 2023
+335: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:33:12 2023
+336: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:33:12 2023
+333: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:33:12 2023
+334: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:33:12 2023
+333: Responding "HTTP/1.1 200 OK"
+331: Responding "HTTP/1.1 200 OK"
+334: Responding "HTTP/1.1 200 OK"
+332: Responding "HTTP/1.1 200 OK"
+336: Responding "HTTP/1.1 200 OK"
+335: Responding "HTTP/1.1 200 OK"
+337: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:33:17 2023
+337: Responding "HTTP/1.1 200 OK"
+338: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:33:23 2023
+338: Responding "HTTP/1.1 200 OK"
+333: Tunnel closed
+335: Tunnel closed
+339: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:33:29 2023
+340: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:33:29 2023
+339: Responding "HTTP/1.1 200 OK"
+340: Responding "HTTP/1.1 200 OK"
+341: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:33:32 2023
+341: Responding "HTTP/1.1 200 OK"
+329: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:33:34 2023
+329: Responding "HTTP/1.1 200 OK"
+329: Tunnel closed
+328: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:33:41 2023
+328: Responding "HTTP/1.1 200 OK"
+328: Tunnel closed
+339: Tunnel closed
+340: Tunnel closed
+343: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:33:44 2023
+342: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:33:44 2023
+344: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:33:44 2023
+342: Responding "HTTP/1.1 200 OK"
+343: Responding "HTTP/1.1 200 OK"
+344: Responding "HTTP/1.1 200 OK"
+345: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:33:46 2023
+345: Responding "HTTP/1.1 200 OK"
+346: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:33:54 2023
+347: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:33:54 2023
+348: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:33:54 2023
+349: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:33:54 2023
+347: Responding "HTTP/1.1 200 OK"
+348: Responding "HTTP/1.1 200 OK"
+349: Responding "HTTP/1.1 200 OK"
+346: Responding "HTTP/1.1 200 OK"
+350: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:33:54 2023
+350: Responding "HTTP/1.1 200 OK"
+351: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:33:58 2023
+351: Responding "HTTP/1.1 200 OK"
+352: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:34:06 2023
+352: Responding "HTTP/1.1 200 OK"
+347: Tunnel closed
+349: Tunnel closed
+348: Tunnel closed
+350: Tunnel closed
+334: Tunnel closed
+331: Tunnel closed
+332: Tunnel closed
+353: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:34:13 2023
+354: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:34:13 2023
+355: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:34:13 2023
+356: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:34:13 2023
+353: Responding "HTTP/1.1 200 OK"
+354: Responding "HTTP/1.1 200 OK"
+355: Responding "HTTP/1.1 200 OK"
+356: Responding "HTTP/1.1 200 OK"
+357: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:34:25 2023
+357: Responding "HTTP/1.1 200 OK"
+353: Tunnel closed
+354: Tunnel closed
+355: Tunnel closed
+356: Tunnel closed
+358: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:34:35 2023
+358: Responding "HTTP/1.1 200 OK"
+359: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:34:40 2023
+360: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:34:40 2023
+359: Responding "HTTP/1.1 200 OK"
+360: Responding "HTTP/1.1 200 OK"
+361: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:34:44 2023
+361: Responding "HTTP/1.1 200 OK"
+342: Tunnel closed
+344: Tunnel closed
+343: Tunnel closed
+362: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:34:45 2023
+362: Responding "HTTP/1.1 200 OK"
+363: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:34:49 2023
+363: Responding "HTTP/1.1 200 OK"
+364: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:34:52 2023
+364: Responding "HTTP/1.1 200 OK"
+346: Tunnel closed
+365: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:34:55 2023
+365: Responding "HTTP/1.1 200 OK"
+359: Tunnel closed
+360: Tunnel closed
+351: Tunnel closed
+366: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:35:10 2023
+366: Responding "HTTP/1.1 200 OK"
+336: Tunnel closed
+337: Tunnel closed
+367: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:35:19 2023
+368: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:35:19 2023
+369: "CONNECT nexus-websocket-a.intercom.io:443" from 10.198.57.66 @ Tue Feb 28 22:35:19 2023
+371: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:35:19 2023
+370: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:35:19 2023
+371: Responding "HTTP/1.1 200 OK"
+370: Responding "HTTP/1.1 200 OK"
+369: Responding "HTTP/1.1 200 OK"
+368: Responding "HTTP/1.1 200 OK"
+367: Responding "HTTP/1.1 200 OK"
+372: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:35:19 2023
+372: Responding "HTTP/1.1 200 OK"
+373: "POST http://clientservices.googleapis.com/uma/v2" from 10.198.57.66 @ Tue Feb 28 22:35:20 2023
+373: Requesting "POST http://clientservices.googleapis.com/uma/v2" from clientservices.googleapis.com
+373: Received "HTTP/Received  200 OK" from clientservices.googleapis.com
+373: Responding "HTTP/1.1 200 OK"
+373: Tunnel closed
+338: Tunnel closed
+374: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:35:25 2023
+374: Responding "HTTP/1.1 200 OK"
+357: Tunnel closed
+341: Tunnel closed
+371: Tunnel closed
+370: Tunnel closed
+358: Tunnel closed
+361: Tunnel closed
+345: Tunnel closed
+364: Tunnel closed
+375: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:35:53 2023
+375: Responding "HTTP/1.1 200 OK"
+377: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:35:54 2023
+376: "CONNECT notes.us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:35:54 2023
+377: Responding "HTTP/1.1 200 OK"
+376: Responding "HTTP/1.1 200 OK"
+378: "CONNECT alive.github.com:443" from 10.198.57.66 @ Tue Feb 28 22:35:55 2023
+378: Responding "HTTP/1.1 200 OK"
+352: Tunnel closed
+377: Tunnel closed
+376: Tunnel closed
+367: Tunnel closed
+368: Tunnel closed
+369: Tunnel closed
+362: Tunnel closed
+363: Tunnel closed
+365: Tunnel closed
+366: Tunnel closed
+372: Tunnel closed
+374: Tunnel closed
+375: Tunnel closed
+378: Tunnel closed
+380: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:45:51 2023
+379: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:45:51 2023
+381: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:45:51 2023
+384: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:45:51 2023
+382: "CONNECT notes.us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:45:51 2023
+383: "CONNECT us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:45:51 2023
+380: Responding "HTTP/1.1 200 OK"
+379: Responding "HTTP/1.1 200 OK"
+384: Responding "HTTP/1.1 200 OK"
+382: Responding "HTTP/1.1 200 OK"
+383: Responding "HTTP/1.1 200 OK"
+381: Responding "HTTP/1.1 200 OK"
+385: "CONNECT zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:45:52 2023
+387: "CONNECT zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:45:52 2023
+386: "CONNECT zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:45:52 2023
+385: Responding "HTTP/1.1 200 OK"
+387: Responding "HTTP/1.1 200 OK"
+386: Responding "HTTP/1.1 200 OK"
+388: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:45:56 2023
+388: Responding "HTTP/1.1 200 OK"
+382: Tunnel closed
+383: Tunnel closed
+389: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:46:07 2023
+389: Responding "HTTP/1.1 200 OK"
+385: Tunnel closed
+387: Tunnel closed
+386: Tunnel closed
+390: "CONNECT notes.us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:46:09 2023
+390: Responding "HTTP/1.1 200 OK"
+391: "CONNECT us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:46:09 2023
+391: Responding "HTTP/1.1 200 OK"
+392: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:46:14 2023
+392: Responding "HTTP/1.1 200 OK"
+390: Tunnel closed
+391: Tunnel closed
+379: Tunnel closed
+380: Tunnel closed
+384: Tunnel closed
+393: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:47:09 2023
+393: Responding "HTTP/1.1 200 OK"
+394: "CONNECT zpns.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:47:13 2023
+394: Responding "HTTP/1.1 200 OK"
+395: "CONNECT us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:47:13 2023
+396: "CONNECT notes.us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:47:13 2023
+395: Responding "HTTP/1.1 200 OK"
+396: Responding "HTTP/1.1 200 OK"
+397: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:47:22 2023
+397: Responding "HTTP/1.1 200 OK"
+398: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:47:25 2023
+398: Responding "HTTP/1.1 200 OK"
+396: Tunnel closed
+395: Tunnel closed
+399: "CONNECT notes.us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:47:40 2023
+400: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:47:40 2023
+401: "CONNECT us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:47:40 2023
+399: Responding "HTTP/1.1 200 OK"
+401: Responding "HTTP/1.1 200 OK"
+400: Responding "HTTP/1.1 200 OK"
+402: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:47:41 2023
+402: Responding "HTTP/1.1 200 OK"
+381: Tunnel closed
+399: Tunnel closed
+401: Tunnel closed
+388: Tunnel closed
+389: Tunnel closed
+394: Tunnel closed
+392: Tunnel closed
+397: Tunnel closed
+398: Tunnel closed
+403: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:48:26 2023
+403: Responding "HTTP/1.1 200 OK"
+404: "CONNECT notes.us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:48:28 2023
+405: "CONNECT us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:48:28 2023
+404: Responding "HTTP/1.1 200 OK"
+405: Responding "HTTP/1.1 200 OK"
+400: Tunnel closed
+404: Tunnel closed
+405: Tunnel closed
+393: Tunnel closed
+403: Tunnel closed
+402: Tunnel closed
+406: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:49:56 2023
+406: Responding "HTTP/1.1 200 OK"
+407: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:50:02 2023
+407: Responding "HTTP/1.1 200 OK"
+408: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:50:30 2023
+408: Responding "HTTP/1.1 200 OK"
+406: Tunnel closed
+408: Tunnel closed
+409: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:54:29 2023
+409: Responding "HTTP/1.1 200 OK"
+410: "CONNECT xmpp001.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:54:46 2023
+410: Responding "HTTP/1.1 200 OK"
+411: "CONNECT us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:54:47 2023
+411: Responding "HTTP/1.1 200 OK"
+412: "CONNECT notes.us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:54:48 2023
+412: Responding "HTTP/1.1 200 OK"
+413: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:54:50 2023
+413: Responding "HTTP/1.1 200 OK"
+415: "CONNECT logfiles.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:54:56 2023
+414: "CONNECT logfiles.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:54:56 2023
+415: Responding "HTTP/1.1 200 OK"
+414: Responding "HTTP/1.1 200 OK"
+417: "CONNECT contactservice.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:54:58 2023
+416: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:54:58 2023
+418: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:54:58 2023
+416: Responding "HTTP/1.1 200 OK"
+418: Responding "HTTP/1.1 200 OK"
+420: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:54:58 2023
+420: Responding "HTTP/1.1 200 OK"
+421: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:54:58 2023
+419: "CONNECT zpns.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:54:58 2023
+421: Responding "HTTP/1.1 200 OK"
+419: Responding "HTTP/1.1 200 OK"
+417: Responding "HTTP/1.1 200 OK"
+407: Tunnel closed
+422: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:55:01 2023
+423: "CONNECT zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:55:01 2023
+422: Responding "HTTP/1.1 200 OK"
+423: Responding "HTTP/1.1 200 OK"
+411: Tunnel closed
+424: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:55:02 2023
+424: Responding "HTTP/1.1 200 OK"
+425: "CONNECT us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:55:03 2023
+426: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:55:03 2023
+425: Responding "HTTP/1.1 200 OK"
+426: Responding "HTTP/1.1 200 OK"
+412: Tunnel closed
+427: "CONNECT notes.us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:55:04 2023
+427: Responding "HTTP/1.1 200 OK"
+428: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:55:09 2023
+428: Responding "HTTP/1.1 200 OK"
+423: Tunnel closed
+410: Tunnel closed
+425: Tunnel closed
+427: Tunnel closed
+429: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:55:23 2023
+429: Responding "HTTP/1.1 200 OK"
+430: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:55:28 2023
+430: Responding "HTTP/1.1 200 OK"
+431: "CONNECT us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:55:42 2023
+431: Responding "HTTP/1.1 200 OK"
+432: "CONNECT notes.us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:55:42 2023
+432: Responding "HTTP/1.1 200 OK"
+415: Tunnel closed
+414: Tunnel closed
+431: Tunnel closed
+432: Tunnel closed
+416: Tunnel closed
+418: Tunnel closed
+420: Tunnel closed
+421: Tunnel closed
+419: Tunnel closed
+417: Tunnel closed
+433: "CONNECT us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:55:59 2023
+433: Responding "HTTP/1.1 200 OK"
+434: "CONNECT notes.us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:55:59 2023
+434: Responding "HTTP/1.1 200 OK"
+422: Tunnel closed
+435: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:56:01 2023
+435: Responding "HTTP/1.1 200 OK"
+424: Tunnel closed
+437: "CONNECT zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:56:03 2023
+436: "CONNECT www3.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:56:03 2023
+438: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:56:03 2023
+437: Responding "HTTP/1.1 200 OK"
+436: Responding "HTTP/1.1 200 OK"
+438: Responding "HTTP/1.1 200 OK"
+428: Tunnel closed
+439: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:56:09 2023
+439: Responding "HTTP/1.1 200 OK"
+433: Tunnel closed
+434: Tunnel closed
+440: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:56:17 2023
+440: Responding "HTTP/1.1 200 OK"
+437: Tunnel closed
+436: Tunnel closed
+441: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:56:20 2023
+441: Responding "HTTP/1.1 200 OK"
+442: "CONNECT zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:56:21 2023
+442: Responding "HTTP/1.1 200 OK"
+443: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:56:27 2023
+443: Responding "HTTP/1.1 200 OK"
+430: Tunnel closed
+444: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:56:29 2023
+444: Responding "HTTP/1.1 200 OK"
+445: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:56:30 2023
+445: Responding "HTTP/1.1 200 OK"
+409: Tunnel closed
+442: Tunnel closed
+446: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:56:40 2023
+446: Responding "HTTP/1.1 200 OK"
+447: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:56:51 2023
+447: Responding "HTTP/1.1 200 OK"
+413: Tunnel closed
+448: "CONNECT us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:56:57 2023
+449: "CONNECT notes.us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:56:57 2023
+448: Responding "HTTP/1.1 200 OK"
+449: Responding "HTTP/1.1 200 OK"
+450: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:56:58 2023
+450: Responding "HTTP/1.1 200 OK"
+451: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:56:58 2023
+451: Responding "HTTP/1.1 200 OK"
+452: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:57:00 2023
+452: Responding "HTTP/1.1 200 OK"
+453: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:57:02 2023
+453: Responding "HTTP/1.1 200 OK"
+438: Tunnel closed
+426: Tunnel closed
+454: "CONNECT zpns.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:57:09 2023
+454: Responding "HTTP/1.1 200 OK"
+448: Tunnel closed
+449: Tunnel closed
+455: "CONNECT us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:57:14 2023
+455: Responding "HTTP/1.1 200 OK"
+456: "CONNECT notes.us.edstem.org:443" from 174.99.34.141 @ Tue Feb 28 22:57:14 2023
+456: Responding "HTTP/1.1 200 OK"
+457: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:57:21 2023
+457: Responding "HTTP/1.1 200 OK"
+429: Tunnel closed
+458: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:57:28 2023
+458: Responding "HTTP/1.1 200 OK"
+459: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:57:28 2023
+459: Responding "HTTP/1.1 200 OK"
+455: Tunnel closed
+456: Tunnel closed
+444: Tunnel closed
+445: Tunnel closed
+460: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:57:31 2023
+460: Responding "HTTP/1.1 200 OK"
+461: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:57:36 2023
+461: Responding "HTTP/1.1 200 OK"
+462: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:57:42 2023
+462: Responding "HTTP/1.1 200 OK"
+463: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:57:45 2023
+463: Responding "HTTP/1.1 200 OK"
+464: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:57:46 2023
+464: Responding "HTTP/1.1 200 OK"
+447: Tunnel closed
+465: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:57:52 2023
+465: Responding "HTTP/1.1 200 OK"
+451: Tunnel closed
+466: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:58:00 2023
+466: Responding "HTTP/1.1 200 OK"
+452: Tunnel closed
+467: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:58:01 2023
+467: Responding "HTTP/1.1 200 OK"
+453: Tunnel closed
+435: Tunnel closed
+468: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:58:06 2023
+468: Responding "HTTP/1.1 200 OK"
+469: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:58:08 2023
+469: Responding "HTTP/1.1 200 OK"
+454: Tunnel closed
+439: Tunnel closed
+470: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:58:11 2023
+470: Responding "HTTP/1.1 200 OK"
+440: Tunnel closed
+471: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:58:21 2023
+471: Responding "HTTP/1.1 200 OK"
+457: Tunnel closed
+441: Tunnel closed
+458: Tunnel closed
+443: Tunnel closed
+459: Tunnel closed
+472: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:58:30 2023
+472: Responding "HTTP/1.1 200 OK"
+460: Tunnel closed
+473: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:58:34 2023
+473: Responding "HTTP/1.1 200 OK"
+446: Tunnel closed
+463: Tunnel closed
+474: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:58:50 2023
+474: Responding "HTTP/1.1 200 OK"
+475: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:58:59 2023
+475: Responding "HTTP/1.1 200 OK"
+450: Tunnel closed
+466: Tunnel closed
+476: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:59:01 2023
+476: Responding "HTTP/1.1 200 OK"
+468: Tunnel closed
+469: Tunnel closed
+477: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:59:08 2023
+477: Responding "HTTP/1.1 200 OK"
+478: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:59:13 2023
+478: Responding "HTTP/1.1 200 OK"
+479: "CONNECT zpns.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:59:13 2023
+479: Responding "HTTP/1.1 200 OK"
+480: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:59:18 2023
+480: Responding "HTTP/1.1 200 OK"
+481: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:59:20 2023
+481: Responding "HTTP/1.1 200 OK"
+471: Tunnel closed
+482: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:59:24 2023
+482: Responding "HTTP/1.1 200 OK"
+483: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:59:29 2023
+483: Responding "HTTP/1.1 200 OK"
+472: Tunnel closed
+484: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:59:32 2023
+484: Responding "HTTP/1.1 200 OK"
+485: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:59:34 2023
+485: Responding "HTTP/1.1 200 OK"
+461: Tunnel closed
+462: Tunnel closed
+486: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 22:59:47 2023
+486: Responding "HTTP/1.1 200 OK"
+464: Tunnel closed
+474: Tunnel closed
+487: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 22:59:50 2023
+487: Responding "HTTP/1.1 200 OK"
+465: Tunnel closed
+488: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 22:59:59 2023
+475: Tunnel closed
+488: Responding "HTTP/1.1 200 OK"
+476: Tunnel closed
+467: Tunnel closed
+489: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:00:09 2023
+489: Responding "HTTP/1.1 200 OK"
+470: Tunnel closed
+490: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:00:13 2023
+490: Responding "HTTP/1.1 200 OK"
+479: Tunnel closed
+491: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:00:15 2023
+491: Responding "HTTP/1.1 200 OK"
+481: Tunnel closed
+483: Tunnel closed
+492: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:00:29 2023
+492: Responding "HTTP/1.1 200 OK"
+484: Tunnel closed
+473: Tunnel closed
+493: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:00:45 2023
+493: Responding "HTTP/1.1 200 OK"
+494: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:00:46 2023
+494: Responding "HTTP/1.1 200 OK"
+487: Tunnel closed
+495: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:00:50 2023
+495: Responding "HTTP/1.1 200 OK"
+496: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:00:52 2023
+496: Responding "HTTP/1.1 200 OK"
+497: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:00:58 2023
+497: Responding "HTTP/1.1 200 OK"
+488: Tunnel closed
+498: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:01:00 2023
+498: Responding "HTTP/1.1 200 OK"
+499: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:01:07 2023
+499: Responding "HTTP/1.1 200 OK"
+477: Tunnel closed
+490: Tunnel closed
+478: Tunnel closed
+491: Tunnel closed
+480: Tunnel closed
+500: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:01:20 2023
+500: Responding "HTTP/1.1 200 OK"
+482: Tunnel closed
+501: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:01:27 2023
+501: Responding "HTTP/1.1 200 OK"
+502: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:01:29 2023
+502: Responding "HTTP/1.1 200 OK"
+492: Tunnel closed
+503: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:01:30 2023
+503: Responding "HTTP/1.1 200 OK"
+504: "CONNECT zpns.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:01:32 2023
+504: Responding "HTTP/1.1 200 OK"
+505: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:01:35 2023
+505: Responding "HTTP/1.1 200 OK"
+485: Tunnel closed
+506: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:01:42 2023
+506: Responding "HTTP/1.1 200 OK"
+493: Tunnel closed
+486: Tunnel closed
+507: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:01:57 2023
+507: Responding "HTTP/1.1 200 OK"
+508: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:01:59 2023
+508: Responding "HTTP/1.1 200 OK"
+509: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:01:59 2023
+509: Responding "HTTP/1.1 200 OK"
+498: Tunnel closed
+489: Tunnel closed
+510: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:02:21 2023
+510: Responding "HTTP/1.1 200 OK"
+511: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:02:25 2023
+511: Responding "HTTP/1.1 200 OK"
+501: Tunnel closed
+502: Tunnel closed
+512: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:02:29 2023
+512: Responding "HTTP/1.1 200 OK"
+513: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:02:29 2023
+513: Responding "HTTP/1.1 200 OK"
+503: Tunnel closed
+504: Tunnel closed
+514: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:02:33 2023
+514: Responding "HTTP/1.1 200 OK"
+515: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:02:35 2023
+516: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:02:35 2023
+515: Responding "HTTP/1.1 200 OK"
+516: Responding "HTTP/1.1 200 OK"
+505: Tunnel closed
+517: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:02:43 2023
+517: Responding "HTTP/1.1 200 OK"
+494: Tunnel closed
+495: Tunnel closed
+518: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:02:53 2023
+518: Responding "HTTP/1.1 200 OK"
+496: Tunnel closed
+507: Tunnel closed
+519: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:02:58 2023
+519: Responding "HTTP/1.1 200 OK"
+508: Tunnel closed
+509: Tunnel closed
+497: Tunnel closed
+520: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:03:00 2023
+520: Responding "HTTP/1.1 200 OK"
+521: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:03:05 2023
+521: Responding "HTTP/1.1 200 OK"
+499: Tunnel closed
+522: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:03:14 2023
+522: Responding "HTTP/1.1 200 OK"
+500: Tunnel closed
+523: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:03:28 2023
+523: Responding "HTTP/1.1 200 OK"
+524: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:03:29 2023
+524: Responding "HTTP/1.1 200 OK"
+513: Tunnel closed
+525: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:03:29 2023
+525: Responding "HTTP/1.1 200 OK"
+515: Tunnel closed
+516: Tunnel closed
+526: "CONNECT zpns.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:03:36 2023
+526: Responding "HTTP/1.1 200 OK"
+527: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:03:39 2023
+527: Responding "HTTP/1.1 200 OK"
+506: Tunnel closed
+528: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:03:53 2023
+528: Responding "HTTP/1.1 200 OK"
+519: Tunnel closed
+529: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:03:59 2023
+529: Responding "HTTP/1.1 200 OK"
+530: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:04:00 2023
+530: Responding "HTTP/1.1 200 OK"
+520: Tunnel closed
+531: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:04:03 2023
+531: Responding "HTTP/1.1 200 OK"
+532: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:04:05 2023
+532: Responding "HTTP/1.1 200 OK"
+521: Tunnel closed
+533: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:04:11 2023
+533: Responding "HTTP/1.1 200 OK"
+534: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:04:12 2023
+534: Responding "HTTP/1.1 200 OK"
+535: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:04:16 2023
+535: Responding "HTTP/1.1 200 OK"
+510: Tunnel closed
+511: Tunnel closed
+523: Tunnel closed
+524: Tunnel closed
+525: Tunnel closed
+512: Tunnel closed
+536: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:04:30 2023
+536: Responding "HTTP/1.1 200 OK"
+537: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:04:31 2023
+537: Responding "HTTP/1.1 200 OK"
+514: Tunnel closed
+526: Tunnel closed
+527: Tunnel closed
+517: Tunnel closed
+538: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:04:47 2023
+538: Responding "HTTP/1.1 200 OK"
+539: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:04:52 2023
+539: Responding "HTTP/1.1 200 OK"
+518: Tunnel closed
+529: Tunnel closed
+540: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:05:00 2023
+540: Responding "HTTP/1.1 200 OK"
+532: Tunnel closed
+541: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:05:08 2023
+541: Responding "HTTP/1.1 200 OK"
+534: Tunnel closed
+542: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:05:13 2023
+542: Responding "HTTP/1.1 200 OK"
+522: Tunnel closed
+543: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:05:17 2023
+543: Responding "HTTP/1.1 200 OK"
+544: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:05:26 2023
+544: Responding "HTTP/1.1 200 OK"
+545: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:05:30 2023
+545: Responding "HTTP/1.1 200 OK"
+536: Tunnel closed
+546: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:05:33 2023
+546: Responding "HTTP/1.1 200 OK"
+547: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:05:39 2023
+547: Responding "HTTP/1.1 200 OK"
+548: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:05:43 2023
+548: Responding "HTTP/1.1 200 OK"
+538: Tunnel closed
+549: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:05:53 2023
+549: Responding "HTTP/1.1 200 OK"
+528: Tunnel closed
+550: "CONNECT zpns.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:05:55 2023
+550: Responding "HTTP/1.1 200 OK"
+551: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:05:57 2023
+551: Responding "HTTP/1.1 200 OK"
+552: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:06:00 2023
+552: Responding "HTTP/1.1 200 OK"
+540: Tunnel closed
+530: Tunnel closed
+553: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:06:04 2023
+553: Responding "HTTP/1.1 200 OK"
+531: Tunnel closed
+541: Tunnel closed
+533: Tunnel closed
+542: Tunnel closed
+543: Tunnel closed
+535: Tunnel closed
+554: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:06:21 2023
+554: Responding "HTTP/1.1 200 OK"
+555: "CONNECT alive.github.com:443" from 174.99.34.141 @ Tue Feb 28 23:06:24 2023
+555: Responding "HTTP/1.1 200 OK"
+556: "CONNECT nexus-websocket-a.intercom.io:443" from 174.99.34.141 @ Tue Feb 28 23:06:27 2023
+556: Responding "HTTP/1.1 200 OK"
+545: Tunnel closed
+557: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:06:31 2023
+557: Responding "HTTP/1.1 200 OK"
+537: Tunnel closed
+539: Tunnel closed
+550: Tunnel closed
+551: Tunnel closed
+552: Tunnel closed
+558: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:07:01 2023
+558: Responding "HTTP/1.1 200 OK"
+554: Tunnel closed
+556: Tunnel closed
+544: Tunnel closed
+559: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:07:30 2023
+559: Responding "HTTP/1.1 200 OK"
+557: Tunnel closed
+546: Tunnel closed
+547: Tunnel closed
+548: Tunnel closed
+549: Tunnel closed
+560: "CONNECT zpns.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:07:59 2023
+560: Responding "HTTP/1.1 200 OK"
+561: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:08:00 2023
+561: Responding "HTTP/1.1 200 OK"
+558: Tunnel closed
+553: Tunnel closed
+555: Tunnel closed
+559: Tunnel closed
+562: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:08:31 2023
+562: Responding "HTTP/1.1 200 OK"
+560: Tunnel closed
+561: Tunnel closed
+563: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:09:01 2023
+563: Responding "HTTP/1.1 200 OK"
+564: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:09:30 2023
+564: Responding "HTTP/1.1 200 OK"
+562: Tunnel closed
+565: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:10:00 2023
+565: Responding "HTTP/1.1 200 OK"
+563: Tunnel closed
+564: Tunnel closed
+566: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:10:30 2023
+566: Responding "HTTP/1.1 200 OK"
+567: "CONNECT zpns.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:10:49 2023
+567: Responding "HTTP/1.1 200 OK"
+568: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:11:00 2023
+568: Responding "HTTP/1.1 200 OK"
+565: Tunnel closed
+566: Tunnel closed
+569: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:11:31 2023
+569: Responding "HTTP/1.1 200 OK"
+567: Tunnel closed
+568: Tunnel closed
+570: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:12:02 2023
+570: Responding "HTTP/1.1 200 OK"
+571: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:12:31 2023
+571: Responding "HTTP/1.1 200 OK"
+569: Tunnel closed
+572: "CONNECT zpns.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:12:58 2023
+572: Responding "HTTP/1.1 200 OK"
+573: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:13:01 2023
+573: Responding "HTTP/1.1 200 OK"
+570: Tunnel closed
+571: Tunnel closed
+574: "CONNECT xmppapi.zoom.us:443" from 174.99.34.141 @ Tue Feb 28 23:13:32 2023
+574: Responding "HTTP/1.1 200 OK"
+572: Tunnel closed

@@ -1,10 +1,13 @@
 ********************************************
                 Method: CONNECT  
 ********************************************      
-
-
-
-
+-------------------------------------------
+Test case: 
+https://edstem.org/us/courses/32653/discussion/
+-------------------------------------------
+92: "CONNECT us.edstem.org:443" from 10.198.57.66 @ Tue Feb 28 22:06:54 2023
+92: Responding "HTTP/1.1 200 OK"
+92: Tunnel closed
 
 
 *******************************************
@@ -12,17 +15,30 @@
 *******************************************  
 -------------------------------------------
 Test case: no-cache
-https://run.mocky.io/v3/cfcc8fe1-962e-4334-a8a8-b44de2496276
+http://httpbin.org/forms/post
 -------------------------------------------
+30: "GET http://httpbin.org/forms/post" from 10.198.57.66 @ Tue Feb 28 22:03:10 2023
+30: Requesting "GET http://httpbin.org/forms/post" from httpbin.org
+30: Received "HTTP/Received  200 OK" from httpbin.org
+30: Responding "HTTP/1.1 200 OK"
+30: cached, but requires revalidation
+30: Responding "HTTP/1.1 200 OK"
 
 -------------------------------------------
-Test case: no-cache
-https://run.mocky.io/v3/cfcc8fe1-962e-4334-a8a8-b44de2496276
+Test case: no-cache, no modification done in cache 
+http://httpbin.org/status/403
 -------------------------------------------
+162: "GET http://httpbin.org/status/403" from 10.198.57.66 @ Tue Feb 28 22:11:29 2023
+162: in cache, but expired at Tue Feb 28 22:11:19 2023
+162: Requesting "GET http://httpbin.org/status/403" from httpbin.org
+162: Received "HTTP/Received  403 FORBIDDEN" from httpbin.org
+162: Responding "HTTP/Received  403 FORBIDDEN"
+162: cached, but requires revalidation
+162: Responding "HTTP/Received  403 FORBIDDEN"
 
 -------------------------------------------
-Test case: chunked trasfer encoding
-http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
+Test case: 
+
 -------------------------------------------
 
 
@@ -32,5 +48,10 @@ http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
 *******************************************  
 -------------------------------------------
 Test case: 
-http://httpbin.org/forms/post
+http://httpbin.org/post
 -------------------------------------------
+29: "POST http://httpbin.org/post" from 10.198.57.66 @ Tue Feb 28 22:03:13 2023
+29: Requesting "POST http://httpbin.org/post" from httpbin.org
+29: Received "HTTP/Received  200 OK" from httpbin.org
+29: Responding "HTTP/1.1 200 OK"
+29: Tunnel closed

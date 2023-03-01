@@ -11,6 +11,7 @@ void Filelogger::logClientRequest(std::shared_ptr<Client> client, http::request<
     //get current time
     time_t currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     file << client->getId() << ": " << "\"" << request.method() << " "<< firstLine <<  "\"" << " from " << client->getIp() << " @ " << ctime(&currentTime);
+    //file << request;
 }
 
 void Filelogger::test(std::shared_ptr<Client> client, http::request<http::empty_body> &request) {
@@ -23,30 +24,41 @@ void Filelogger::logTunnelClose(std::shared_ptr<Client> client) {
     file << client->getId() << ": " << "Tunnel closed" << endl;
 }
 
-void Filelogger::logProxyRequestToRemote( http::request<http::string_body> &request, string &host) {
+void Filelogger::logProxyRequestToRemote(std::shared_ptr<Client> client, http::request<http::string_body> &request, string &host) {
     lock_guard<mutex> lock(logLock);
-    boost::beast::string_view firstLine = request.target();
-    file << "Requesting " << "\"" << request.method() << " "<< firstLine <<  "\"" << " from " << host << endl;
+    string firstLine = request.target().to_string();
+    file << client->getId() << ": " << "Requesting " << "\"" << request.method_string() << " "<< firstLine <<  "\"" << " from " << host << endl;
 }
 
-void Filelogger::logRemoteResponseToProxy(http::response<boost::beast::http::dynamic_body> &response, string &host) {
+void Filelogger::logRemoteResponseToProxy(std::shared_ptr<Client> client, http::response<boost::beast::http::dynamic_body> &response, string &host) {
     lock_guard<mutex> lock(logLock);
-    std::stringstream ss;
+    string version;
     int major = response.version() / 10;
     int minor = response.version() % 10;
-    ss << major << "." << minor;
-    boost::beast::string_view firstLine = ss.str() + " " + std::to_string(response.result_int()) + " " + response.reason().to_string();
-    file << "Received " << "\"" << "HTTP/"  << firstLine << "\"" << " from " << host << endl;
+    version +=  (major + "." + minor);
+    int status_code = response.result_int();
+    if (status_code == 304) {
+        file << client->getId() << ": " << "Received " << "\"" << "HTTP/1.1 " << status_code << " " << response.reason().to_string()  << "\"" << " from " << host << endl;
+    } else {
+        string firstLine = version + " " + std::to_string(response.result_int()) + " " + response.reason().to_string();
+        file << client->getId() << ": " << "Received " << "\"" <<  "HTTP/" << firstLine << "\"" << " from " << host << endl;
+    }
 }
 
-void Filelogger::logProxyResponseToClient(http::response<boost::beast::http::dynamic_body> &response) {
+void Filelogger::logProxyResponseToClient(std::shared_ptr<Client> client,http::response<boost::beast::http::dynamic_body> &response) {
     lock_guard<mutex> lock(logLock);
-    std::stringstream ss;
+    string version;
     int major = response.version() / 10;
     int minor = response.version() % 10;
-    ss << major << "." << minor;
-    boost::beast::string_view firstLine = ss.str() + " " + std::to_string(response.result_int()) + " " + response.reason().to_string();
-    file << "Responding " << "\"" <<  "HTTP/" << firstLine << "\"" << endl;
+    version +=  (major + "." + minor);
+    int status_code = response.result_int();
+    if (status_code == 304 || status_code == 200) {
+        file << client->getId() << ": " << "Responding " << "\"" << "HTTP/1.1 " <<  status_code << " " << response.reason().to_string()  << "\"" << endl;
+    } 
+    else {
+        string firstLine = version + " " + std::to_string(response.result_int()) + " " + response.reason().to_string();
+        file << client->getId() << ": " << "Responding " << "\"" <<  "HTTP/" << firstLine << "\"" << endl;
+    }
 }
 
 void Filelogger::logGETCondition(std::shared_ptr<Client> client, string message) {
@@ -56,7 +68,7 @@ void Filelogger::logGETCondition(std::shared_ptr<Client> client, string message)
 
 void Filelogger::logCacheRequireValidation(std::shared_ptr<Client> client){
     lock_guard<mutex> lock(logLock);
-    file << client->getId()<< ": " <<" cached, but requires revalidation" << endl;
+    file << client->getId()<< ": " <<"cached, but requires revalidation" << endl;
 }
 
 void Filelogger::logCacheExpireAt(std::shared_ptr<Client> client, time_t expireTime){
