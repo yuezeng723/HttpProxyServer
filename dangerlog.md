@@ -12,3 +12,5 @@
 
 5. When we implement deamon for our program, we cannot succced if we call the "deamonize" function at the very beginning of main function. Then we found if we call it afer the instatiation of proxy, it works well.
 
+6. Exception guarantee we make: basic to strong exception safety
+
