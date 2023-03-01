@@ -76,11 +76,12 @@ void Proxy::start() {
 
 // feel free to modify this function
 void Proxy::handleRequest(std::shared_ptr<Client>client) {
-    try {
+    try{
+        boost::beast::error_code error;
         // Read the request line from the client
         boost::beast::flat_buffer clientBuffer;
         http::request<http::string_body> request;
-        http::read(client->getClientSocket(), clientBuffer, request);
+        http::read(client->getClientSocket(), clientBuffer, request, error);
         // Parse the request method
         string method = request.method_string().to_string();
         string requestTarget = string(request.target().data(), request.target().length());
@@ -102,9 +103,13 @@ void Proxy::handleRequest(std::shared_ptr<Client>client) {
             response.prepare_payload();
             http::write(client->getClientSocket(), response);
         }
-    } catch (exception &e) {
-        cerr << "Error in handleRequest: " << e.what() << endl;
     }
+    catch (exception &e) {
+        http::response<http::dynamic_body> response{http::status::bad_request, 11};
+        http::write(client->getClientSocket(), response);
+        logger.logProxyResponseToClient(client, response);
+        client->getClientSocket().close();
+    }  
 }
 
 /**
@@ -128,18 +133,27 @@ void Proxy::parsePort(http::request<http::string_body> &request, string &port){
 
 void Proxy::handlePost(std::shared_ptr<Client>client, boost::beast::flat_buffer &clientBuffer, http::request<http::string_body> &request) {
     
-        boost::system::error_code error;
-        string hostname;
-        string port = "80";
-        auto host = request[http::field::host];
-        hostname = host.to_string();
-        parsePort(request, port);
-        tcp::resolver resolver(client->getClientSocket().get_executor());
-        tcp::resolver::query query(hostname, port);
-        tcp::resolver::results_type endpoints = resolver.resolve(query);
-        // Connect to the destination server
-        tcp::socket remoteSocket(client->getClientSocket().get_executor());
-        boost::asio::connect(remoteSocket, endpoints);
+    boost::system::error_code error;
+    string hostname;
+    string port = "80";
+    auto host = request[http::field::host];
+    hostname = host.to_string();
+    parsePort(request, port);
+    tcp::resolver resolver(client->getClientSocket().get_executor());
+    tcp::resolver::query query(hostname, port);
+    tcp::resolver::results_type endpoints = resolver.resolve(query);
+    // Connect to the destination server
+    tcp::socket remoteSocket(client->getClientSocket().get_executor());
+    try{
+        boost::asio::connect(remoteSocket, endpoints, error);
+    }
+    catch (exception &e) {
+        http::response<http::dynamic_body> response(http::status::bad_gateway, 11);
+        http::write(client->getClientSocket(), response, error);
+        logger.logProxyResponseToClient(client, response);
+        remoteSocket.close();
+        return;
+    }
     try {
         // Send the new request to the destination server
         http::write(remoteSocket, request, error);
@@ -148,7 +162,7 @@ void Proxy::handlePost(std::shared_ptr<Client>client, boost::beast::flat_buffer 
         // Read the response from the destination server
         boost::beast::flat_buffer remoteBuffer;
         http::response<boost::beast::http::dynamic_body> response;
-        http::read(remoteSocket, remoteBuffer, response);
+        http::read(remoteSocket, remoteBuffer, response, error);
         logger.logRemoteResponseToProxy(client, response, hostname);
 
         // Send the response back to the client
@@ -160,7 +174,10 @@ void Proxy::handlePost(std::shared_ptr<Client>client, boost::beast::flat_buffer 
         remoteSocket.close();
         logger.logTunnelClose(client);
     } catch (std::exception const &e) {
-        std::cerr << "Error in handlePost: " << e.what() << std::endl;
+        http::response<http::dynamic_body> response(http::status::bad_request, 11);
+        http::write(client->getClientSocket(), response, error);
+        logger.logProxyResponseToClient(client, response);
+        remoteSocket.close();
     }
 }
 
@@ -177,7 +194,16 @@ void Proxy::handleConnect(std::shared_ptr<Client>client, boost::beast::flat_buff
     tcp::resolver::results_type endpoints = resolver.resolve(query);
     // Build a socket to the target server and connect to the target server
     tcp::socket remoteSocket(client->getClientSocket().get_executor());
-    boost::asio::connect(remoteSocket, endpoints);
+    try{
+        boost::asio::connect(remoteSocket, endpoints, error);
+    }
+    catch (exception &e){
+        http::response<http::dynamic_body> response(http::status::bad_gateway, 11);
+        http::write(client->getClientSocket(), response, error);
+        logger.logProxyResponseToClient(client, response);
+        remoteSocket.close();
+        return;
+    }
     try{
         // Send 200 OK response to the client
         http::response<http::dynamic_body> response{boost::beast::http::status::ok, 11};
@@ -220,13 +246,10 @@ void Proxy::handleConnect(std::shared_ptr<Client>client, boost::beast::flat_buff
         remoteSocket.close();
         logger.logTunnelClose(client);
     } catch (exception &e) {
-        cerr << "CONNECT request error: " << e.what() << endl;
-        boost::system::error_code error;
-        client->getClientSocket().shutdown(tcp::socket::shutdown_both, error);
-        client->getClientSocket().close();
-        remoteSocket.shutdown(tcp::socket::shutdown_both, error);
+        http::response<http::dynamic_body> response(http::status::bad_request, 11);
+        http::write(client->getClientSocket(), response, error);
+        logger.logProxyResponseToClient(client, response);
         remoteSocket.close();
-        client->getClientSocket().close();
     }
 }
 
@@ -369,7 +392,16 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
 
     // Build a socket to the target server and connect to the target server
     tcp::socket remoteSocket(client->getClientSocket().get_executor());
-    boost::asio::connect(remoteSocket, endpoints);
+    try {
+        boost::asio::connect(remoteSocket, endpoints);
+    }
+    catch (exception &e) {
+        http::response<http::dynamic_body> response(http::status::bad_gateway, 11);
+        http::write(client->getClientSocket(), response, error);
+        logger.logProxyResponseToClient(client, response);
+        remoteSocket.close();
+        return;
+    }
     string message = "";
     try{
         boost::beast::flat_buffer remoteBuffer;
@@ -393,7 +425,7 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
                 http::write(remoteSocket, clientRequest, error);  // send request to target server
                 logger.logProxyRequestToRemote(client, clientRequest, hostname);
                 // receive new response
-                http::read(remoteSocket, remoteBuffer, newResponse);
+                http::read(remoteSocket, remoteBuffer, newResponse, error);
                 //if(newResponse.chunked())handleChunked(newResponse, remoteBuffer, remoteSocket);/****************************/
                 logger.logRemoteResponseToProxy(client, newResponse, hostname);
                 //check newResponse status code
@@ -424,7 +456,7 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
                 logger.logInCacheExpire(client, cachedRespObj, requestObj, t0);
                 http::write(remoteSocket, clientRequest, error);
                 logger.logProxyRequestToRemote(client, clientRequest, hostname);
-                http::read(remoteSocket, remoteBuffer, newResponse);
+                http::read(remoteSocket, remoteBuffer, newResponse, error);
                 //if(newResponse.chunked())handleChunked(newResponse, remoteBuffer, remoteSocket);/**********************/
                 logger.logRemoteResponseToProxy(client, newResponse, hostname);
                 needCache = checkNeedCache(newResponse);
@@ -445,7 +477,7 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
             //redirect the request
             http::write(remoteSocket, clientRequest, error);
             logger.logProxyRequestToRemote(client, clientRequest, hostname);
-            http::read(remoteSocket, remoteBuffer, newResponse);
+            http::read(remoteSocket, remoteBuffer, newResponse, error);
             //if(newResponse.chunked())handleChunked(newResponse, remoteBuffer, remoteSocket);/**************/
             logger.logRemoteResponseToProxy(client, newResponse, hostname);
             needCache = checkNeedCache(newResponse);
@@ -464,11 +496,9 @@ void Proxy::handleGet(std::shared_ptr<Client> client, http::request<http::string
         client->getClientSocket().close();
     }
     catch (exception &e) {
-        cerr << "GET request error: " << e.what() << endl;
-        boost::system::error_code error;
-        client->getClientSocket().shutdown(tcp::socket::shutdown_both, error);
-        client->getClientSocket().close();
-        remoteSocket.shutdown(tcp::socket::shutdown_both, error);
+        http::response<http::dynamic_body> response(http::status::bad_request, 11);
+        http::write(client->getClientSocket(), response, error);
+        logger.logProxyResponseToClient(client, response);
         remoteSocket.close();
     }
 }

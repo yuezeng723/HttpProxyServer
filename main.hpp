@@ -12,6 +12,7 @@ void daemonize() {
     if (pid > 0) {
         exit(EXIT_SUCCESS);
     }
+    if (pid == 0) cout << "Daemon PID: " << getpid() << endl; 
 
     // Change the file mode mask
     umask(0);
